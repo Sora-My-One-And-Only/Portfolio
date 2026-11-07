@@ -1,0 +1,201 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-display: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif SC', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', 'Noto Sans JP', 'Noto Sans SC', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Light Mode: Official Game Artbook / Archival Print Edition (昼間印刷版) */
+    --bg-canvas: #f7f6f2;
+    --bg-header: rgba(247, 246, 242, 0.92);
+    --bg-surface: #ffffff;
+    --bg-surface-hover: #fcfbf9;
+    --bg-inset: #efede6;
+    --text-primary: #181a1c;
+    --text-secondary: #555b61;
+    --text-muted: #888e94;
+    --border-subtle: #e2e0d8;
+    --border-strong: #181a1c;
+    --accent-editorial: #c84b31;
+    --accent-gold: #9a7b4f;
+    --accent-main: #c84b31;
+    --accent-main-bg: #181a1c;
+    --accent-main-text: #f7f6f2;
+  }
+
+  .dark {
+    /* Dark Mode: Warm Sumi-Ink & Gold-Leaf Archival Monograph Edition (黒檀・墨黒装丁版) */
+    --bg-canvas: #131210;
+    --bg-header: rgba(19, 18, 16, 0.90);
+    --bg-surface: #1b1916;
+    --bg-surface-hover: #24201c;
+    --bg-inset: #0d0c0a;
+    --text-primary: #f2efe9;
+    --text-secondary: #b0a89e;
+    --text-muted: #7d756b;
+    --border-subtle: #2e2924;
+    --border-strong: #dfd9ce;
+    --accent-editorial: #e57052;
+    --accent-gold: #d4af7a;
+    --accent-main: #e57052;
+    --accent-main-bg: #f2efe9;
+    --accent-main-text: #131210;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    scrollbar-gutter: stable;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-display, .font-editorial {
+    font-family: var(--font-display);
+    font-synthesis: none;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ============================================================================
+   Synchronized Top-to-Bottom Spatial & Typographic Theme Transition Engine
+   Every container, surface, border, and text node interpolates its colors
+   with a viewport-Y staggered delay (`--theme-delay: 0ms -> 420ms`) and
+   a 720ms cubic-bezier(0.33, 1, 0.67, 1) curve in lockstep with the canvas wave.
+   ============================================================================ */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow !important;
+  transition-duration: 720ms !important;
+  transition-timing-function: cubic-bezier(0.33, 1, 0.67, 1) !important;
+  transition-delay: var(--theme-delay, 0ms) !important;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.theme-surface {
+  color: var(--text-primary);
+}
+
+/* Archival Paper Canvas — Fixed viewport underlay that flows top-to-bottom on theme switch */
+.bg-console-canvas {
+  background-color: var(--bg-canvas);
+}
+
+.dark .bg-console-canvas {
+  background-image:
+    radial-gradient(ellipse 85% 45% at 50% 0%, rgba(212, 175, 122, 0.055), transparent 70%),
+    radial-gradient(ellipse 65% 40% at 85% 25%, rgba(229, 112, 82, 0.035), transparent 65%);
+}
+
+/* Editorial Callout & Leader Lines (图文混排注释引线) */
+.editorial-rule {
+  border-color: var(--border-subtle);
+}
+
+.editorial-callout-line {
+  position: relative;
+}
+.editorial-callout-line::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background-color: var(--accent-editorial);
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+/* Refined Editorial Press Buttons & Plates with Kinetic Expo-Out Curve */
+.btn-3d-primary {
+  background-color: var(--accent-main-bg);
+  color: var(--accent-main-text);
+  border: 1px solid var(--accent-main-bg);
+  transition:
+    transform 320ms cubic-bezier(0.19, 1, 0.22, 1),
+    background-color 240ms cubic-bezier(0.19, 1, 0.22, 1),
+    color 240ms ease,
+    border-color 240ms ease,
+    box-shadow 240ms ease;
+}
+.btn-3d-primary:hover {
+  transform: translateY(-2px);
+  background-color: var(--accent-editorial);
+  border-color: var(--accent-editorial);
+  color: #ffffff;
+}
+
+.btn-3d-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  transition:
+    transform 320ms cubic-bezier(0.19, 1, 0.22, 1),
+    border-color 240ms cubic-bezier(0.19, 1, 0.22, 1),
+    background-color 240ms cubic-bezier(0.19, 1, 0.22, 1),
+    color 240ms ease;
+}
+.btn-3d-secondary:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+  background-color: var(--bg-surface);
+}
+
+.card-3d-console {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  transition:
+    transform 380ms cubic-bezier(0.19, 1, 0.22, 1),
+    border-color 280ms cubic-bezier(0.19, 1, 0.22, 1),
+    background-color 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 380ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+.dark .card-3d-console {
+  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.55), inset 0 1px 0 0 rgba(242, 239, 233, 0.04);
+}
+.card-3d-console:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+}
+
+/* Curtain-Opening & Editorial Scanline Wipe Surfaces */
+.scanline-overlay-pattern {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(255, 255, 255, 0.04) 3px,
+    rgba(255, 255, 255, 0.04) 4px
+  );
+}
+
+.scanline-laser-beam {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(200, 75, 49, 0.35) 15%,
+    #e57052 40%,
+    #d4af7a 60%,
+    rgba(200, 75, 49, 0.35) 85%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
