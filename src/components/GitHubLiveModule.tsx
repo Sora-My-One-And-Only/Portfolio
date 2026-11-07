@@ -36,7 +36,7 @@ export const GitHubLiveModule: React.FC<GitHubLiveModuleProps> = ({
   const [inputUser, setInputUser] = useState<string>(githubUsername);
   const [loading, setLoading] = useState<boolean>(false);
   const [liveRepos, setLiveRepos] = useState<SimpleRepo[]>([]);
-  const [showDeployGuide, setShowDeployGuide] = useState<boolean>(true);
+  const [showDeployGuide, setShowDeployGuide] = useState<boolean>(false);
   const [copiedCmd, setCopiedCmd] = useState<boolean>(false);
 
   const fallbackRepos: SimpleRepo[] = useMemo(() => {
@@ -58,7 +58,7 @@ export const GitHubLiveModule: React.FC<GitHubLiveModuleProps> = ({
     onUsernameChange(clean);
     setInputUser(clean);
 
-    if (clean.toLowerCase() === 'kurogane-dev') {
+    if (clean.toLowerCase() === 'your-github-id') {
       setLiveRepos([]);
       setLoading(false);
       return;
@@ -94,17 +94,17 @@ export const GitHubLiveModule: React.FC<GitHubLiveModuleProps> = ({
   };
 
   useEffect(() => {
-    if (githubUsername && githubUsername !== 'kurogane-dev') {
+    if (githubUsername && githubUsername !== 'your-github-id') {
       fetchRepos(githubUsername);
     }
   }, []);
 
   const displayList = liveRepos.length > 0 ? liveRepos : fallbackRepos;
-  const targetRepoName = `${githubUsername || 'kurogane-dev'}.github.io`;
+  const targetRepoName = `${githubUsername || 'your-github-id'}.github.io`;
   const gitPushCommands = `git init -b main
 git add -A
-git commit -m "feat: publish Official Game Design Works portfolio (.github.io)"
-git remote add origin https://github.com/${githubUsername || 'kurogane-dev'}/${targetRepoName}.git
+git commit -m "feat: publish portfolio (.github.io)"
+git remote add origin https://github.com/${githubUsername || 'your-github-id'}/${targetRepoName}.git
 git push -u origin main`;
 
   const handleCopyCommands = () => {
@@ -121,14 +121,14 @@ git push -u origin main`;
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b border-[#181A1C] dark:border-[#F2EFE9]">
         <div className="min-w-0">
           <div className="text-xs font-mono tracking-[0.24em] text-[#C84B31] dark:text-[#E57052] mb-3 editorial-callout-line">
-            CHAPTER 05 // OPEN SOURCE CODE ARCHIVE & GITHUB.IO SYNC
+            CHAPTER 05A // [機能展示位置 / 功能展示位置：GitHub API 同期＆リポジトリ枠 (#github)]
           </div>
-          <h2 className="font-editorial text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.15] min-h-[1.15em]">
+          <h2 className="font-editorial text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.15] min-h-[1.15em]">
             {locale === 'ja'
-              ? 'GitHub 公開リポジトリ索引'
+              ? '[機能見出し：GitHub 公開リポジトリ自動取得＆表示枠]'
               : locale === 'zh'
-              ? 'GitHub 开源代码仓库索引'
-              : 'GitHub Repository Index'}
+              ? '[功能标题槽位：GitHub 开源仓库实时拉取与展示模块]'
+              : '[Heading Slot: Live GitHub Repository Sync & Showcase]'}
           </h2>
         </div>
 
@@ -171,10 +171,10 @@ git push -u origin main`;
             <Terminal className="w-3.5 h-3.5 text-[#C84B31] dark:text-[#E57052] shrink-0" />
             <span>
               {locale === 'ja'
-                ? '.github.io 同期・公開手順'
+                ? '[機能ボタン：.github.io 公開コマンド表示]'
                 : locale === 'zh'
-                ? '.github.io 仓库同步指南'
-                : '.github.io Sync Guide'}
+                ? '[功能按钮：展开 .github.io 部署指令]'
+                : '[Action Button: Toggle .github.io Deploy Commands]'}
             </span>
           </button>
         </div>
@@ -186,15 +186,8 @@ git push -u origin main`;
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E2E0D8] dark:border-[#2E2924]">
             <div>
               <div className="text-[11px] font-mono tracking-[0.2em] text-[#C84B31] dark:text-[#E57052]">
-                GITHUB PAGES READY // 静态站点与 GitHub Actions 已配置就绪
+                GITHUB PAGES DEPLOY PANEL // [機能展示枠：GitHub Pages 公開コマンド生成パネル]
               </div>
-              <h3 className="mt-1 font-editorial text-xl sm:text-2xl font-semibold">
-                {locale === 'ja'
-                  ? `『${targetRepoName}』として GitHub にアップロード・公開する`
-                  : locale === 'zh'
-                  ? `一键同步并发布为「${targetRepoName}」个人设定集网站`
-                  : `Sync & Publish as "${targetRepoName}" on GitHub Pages`}
-              </h3>
             </div>
 
             <a
@@ -204,68 +197,35 @@ git push -u origin main`;
               onClick={() => soundFX.playSelect()}
               className="inline-flex items-center gap-2 h-9 px-4 text-xs font-mono tracking-wider btn-3d-primary self-start sm:self-auto whitespace-nowrap"
             >
-              <span>
-                {locale === 'ja'
-                  ? 'GitHub で新規リポジトリ作成'
-                  : locale === 'zh'
-                  ? '前往 GitHub 新建 .github.io 仓库'
-                  : 'Create .github.io Repo on GitHub'}
-              </span>
+              <span>[GitHub New Repo ↗]</span>
               <ExternalLink className="w-3.5 h-3.5 shrink-0" />
             </a>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            <div className="lg:col-span-6 space-y-3 text-xs sm:text-sm text-[#555B61] dark:text-[#B0A89E] leading-relaxed">
-              <p>
-                <strong className="text-[#181A1C] dark:text-[#F2EFE9] font-mono">
-                  STEP 01 (AI Studio 顶部一键同步)：
-                </strong>{' '}
-                {locale === 'ja'
-                  ? `画面右上の「GitHub アイコン（Sync to GitHub）」をクリックし、リポジトリ名を「${targetRepoName}」に設定して同期します。`
-                  : locale === 'zh'
-                  ? `直接点击当前 AI Studio 界面右上角的「GitHub 图标（导出/同步到 GitHub）」，在弹窗中将仓库名填写为 ${targetRepoName} 即可直接上传到你的 GitHub 账号。`
-                  : `Click the GitHub icon in the top-right toolbar of AI Studio and name your repository "${targetRepoName}" to push directly to your GitHub account.`}
-              </p>
-              <p>
-                <strong className="text-[#181A1C] dark:text-[#F2EFE9] font-mono">
-                  STEP 02 (开启 GitHub Actions 自动部署)：
-                </strong>{' '}
-                {locale === 'ja'
-                  ? 'GitHub リポジトリの「Settings → Pages → Build and deployment → Source」で「GitHub Actions」を選択すると、内蔵の .github/workflows/deploy.yml が自動でビルド＆公開します。'
-                  : locale === 'zh'
-                  ? '上传后进入 GitHub 仓库的「Settings → Pages → Source」，选择「GitHub Actions」。仓库内置的 .github/workflows/deploy.yml 会自动构建并发布至 https://' +
-                    targetRepoName +
-                    '。'
-                  : 'In your GitHub repo, go to "Settings → Pages → Source" and select "GitHub Actions". The built-in workflow (.github/workflows/deploy.yml) will automatically build and publish your site.'}
-              </p>
+          <div>
+            <div className="flex items-center justify-between text-[11px] font-mono text-[#888E94] mb-2">
+              <span>CLI PUSH COMMANDS</span>
+              <button
+                type="button"
+                onClick={handleCopyCommands}
+                className="inline-flex items-center gap-1.5 text-[#C84B31] dark:text-[#E57052] hover:underline cursor-pointer"
+              >
+                {copiedCmd ? (
+                  <>
+                    <Check className="w-3.5 h-3.5" />
+                    <span>COPIED</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>COPY COMMANDS</span>
+                  </>
+                )}
+              </button>
             </div>
-
-            <div className="lg:col-span-6">
-              <div className="flex items-center justify-between text-[11px] font-mono text-[#888E94] mb-2">
-                <span>CLI PUSH COMMANDS (main branch initialized)</span>
-                <button
-                  type="button"
-                  onClick={handleCopyCommands}
-                  className="inline-flex items-center gap-1.5 text-[#C84B31] dark:text-[#E57052] hover:underline cursor-pointer"
-                >
-                  {copiedCmd ? (
-                    <>
-                      <Check className="w-3.5 h-3.5" />
-                      <span>COPIED</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>COPY COMMANDS</span>
-                    </>
-                  )}
-                </button>
-              </div>
-              <pre className="p-4 bg-[#EFEDE6] dark:bg-[#0D0C0A] border border-[#E2E0D8] dark:border-[#2E2924] text-[11px] font-mono text-[#181A1C] dark:text-[#F2EFE9] overflow-x-auto leading-relaxed">
-                <code>{gitPushCommands}</code>
-              </pre>
-            </div>
+            <pre className="p-4 bg-[#EFEDE6] dark:bg-[#0D0C0A] border border-[#E2E0D8] dark:border-[#2E2924] text-[11px] font-mono text-[#181A1C] dark:text-[#F2EFE9] overflow-x-auto leading-relaxed">
+              <code>{gitPushCommands}</code>
+            </pre>
           </div>
         </div>
       )}
@@ -283,7 +243,7 @@ git push -u origin main`;
             <div>
               <div className="flex items-center justify-between text-xs font-mono text-[#888E94] mb-4">
                 <span className="text-[#C84B31] dark:text-[#E57052]">
-                  REPO 0{idx + 1} // {repo.language}
+                  REPO SLOT 0{idx + 1} // {repo.language}
                 </span>
                 <div className="flex items-center gap-3 tabular-nums">
                   <span className="inline-flex items-center gap-1">
@@ -302,7 +262,7 @@ git push -u origin main`;
                 <ExternalLink className="w-3.5 h-3.5 opacity-40 shrink-0" />
               </h3>
 
-              <p className="mt-3 text-xs sm:text-sm text-[#555B61] dark:text-[#B0A89E] leading-relaxed min-h-[4.2rem]">
+              <p className="mt-3 text-xs font-mono text-[#555B61] dark:text-[#B0A89E] leading-relaxed min-h-[4.2rem]">
                 {repo.description}
               </p>
             </div>

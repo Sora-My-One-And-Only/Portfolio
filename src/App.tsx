@@ -41,6 +41,13 @@ import { GitHubLiveModule } from './components/GitHubLiveModule';
 import { ContactFormSection } from './components/ContactFormSection';
 import { WorkDetailSubPage } from './components/WorkDetailSubPage';
 import { GameResumeSubPage, GAMER_PLAY_LOGS } from './components/GameResumeSubPage';
+import {
+  QuickRecruiterGuideSection,
+  PlayGamesPortalSection,
+  WhatICanDoSection,
+  TimelineAndBlogSection,
+  EndingCreditsSection,
+} from './components/PortfolioExtendedSections';
 
 type ActivePageView = 'main' | 'spec-detail' | 'resume-detail';
 
@@ -176,279 +183,379 @@ function animateScrollTo(targetY: number, customDuration?: number) {
 
 const EDITORIAL_COPY = {
   ja: {
-    editionTag: 'OFFICIAL DESIGN WORKS · 公式設定資料集 VOL.01',
-    name: '林 海斗 (Kaito Lin)',
-    titleMain: 'KAITO LIN',
-    titleSubName: '林 海斗',
-    roleSubtitle: 'GAME PLANNER — BATTLE & LEVEL DESIGN ARCHIVE',
+    editionTag: '[機能展示枠：巻頭エディション・ヘッダータグ]',
+    name: '[機能展示枠：著者氏名・コピーライト表記]',
+    titleMain: '[HERO SUBTITLE / NAME SLOT]',
+    titleSubName: '[機能展示枠：氏名・屋号]',
+    roleSubtitle: '[機能展示枠：職種・肩書きサブタイトル]',
     tocHeading: 'CONTENTS',
-    tocSub: '目次・収録章一覧',
-    tocNote: '矢印キーまたはクリックで各章へ移動',
+    tocSub: '[機能展示枠：目次セクション見出し]',
+    tocNote: '/* 機能注釈：上下矢印キーまたはクリックで各セクションへスムーズスクロール移動 */',
     menuItems: [
-      { id: 'about', code: 'CH.01', cmd: 'DESIGNER PROFILE', sub: '人物設定・企画哲学', page: 'P.04' },
-      { id: 'works', code: 'CH.02', cmd: 'SELECTED WORKS', sub: '作品設定資料・仕様録', page: 'P.12' },
-      { id: 'skills', code: 'CH.03', cmd: 'SKILL PARAMETERS', sub: '技術・設計指標一覧', page: 'P.36' },
-      { id: 'resume', code: 'CH.04', cmd: 'PLAY ARCHIVE', sub: '実機研究・解析ノート', page: 'P.48' },
-      { id: 'contact', code: 'CH.05', cmd: 'CORRESPONDENCE', sub: 'GitHub・連絡窓口', page: 'P.60' },
+      { id: 'quick-guide', code: 'CH.00', cmd: '30s QUICK GUIDE', sub: '[機能展示枠：目的別選択＆30秒要約へ移動]', page: 'P.02' },
+      { id: 'about', code: 'CH.01', cmd: 'DESIGNER PROFILE', sub: '[機能展示枠：人物設定・基本情報へ移動]', page: 'P.04' },
+      { id: 'works', code: 'CH.02', cmd: 'SELECTED WORKS', sub: '[機能展示枠：代表作図版リストへ移動]', page: 'P.12' },
+      { id: 'play-games', code: 'CH.02B', cmd: 'PLAYABLE GAMES', sub: '[機能展示枠：外部配信サイト＆Web試遊へ移動]', page: 'P.28' },
+      { id: 'skills', code: 'CH.03', cmd: 'SKILL & CAPABILITIES', sub: '[機能展示枠：スキル指標＆できることへ移動]', page: 'P.36' },
+      { id: 'resume', code: 'CH.04', cmd: 'PLAY & TIMELINE', sub: '[機能展示枠：プレイ履歴・歩み・記事へ移動]', page: 'P.48' },
+      { id: 'contact', code: 'CH.05', cmd: 'CORRESPONDENCE', sub: '[機能展示枠：GitHub・連絡・巻末へ移動]', page: 'P.60' },
     ],
     nav: {
       menu: '目次',
-      about: '人物設定',
-      works: '作品資料',
-      skills: '設計指標',
-      resume: '実機解析',
-      contact: '連絡',
+      about: '人物枠',
+      works: '作品枠',
+      playGames: '試遊枠',
+      skills: '能力枠',
+      resume: '履歴枠',
+      contact: '連絡枠',
     },
-    aboutChapter: 'CHAPTER 01 // DESIGNER PROFILE & PHILOSOPHY',
-    aboutTitle: '手触りを数値化し、空間で視線を導く。',
+    aboutChapter: 'CHAPTER 01 // [機能展示位置：プロフィール＆基本情報セクション (#about)]',
+    aboutTitle: '[機能見出し：自己紹介キャッチコピー・メインステートメント枠]',
     aboutLead:
-      '感覚的な「面白さ」を1フレーム単位の判定データと立体箱庭のトポロジーへと分解し、自ら動くプロトタイプとして検証するゲームプランナー（戦闘企画・レベルデザイン専攻）。',
-    aboutMarginLabel: 'FIG. 00 — PROFILE DATA',
+      '/* 機能展示位置注釈：ここに人物紹介のリード文（2〜3行の自己紹介・強みの要約）を配置します。 */',
+    aboutMarginLabel: 'FIG. 00 — [機能展示枠：左カラム基本情報リスト]',
     profileFacts: [
-      { label: '専攻・学年', value: '情報工学専攻 B4 (2026新卒)' },
-      { label: '志望職種', value: '戦闘企画 / レベルデザイナー' },
-      { label: '語学・資格', value: 'JLPT N1 (172/180) · TOEIC 860' },
-      { label: '実装環境', value: 'Unity / UE5 / C# / TypeScript' },
+      { label: '[基本情報項目 01]', value: '[機能展示枠：所属・学歴・ステータス等]' },
+      { label: '[基本情報項目 02]', value: '[機能展示枠：志望職種・専門領域等]' },
+      { label: '[基本情報項目 03]', value: '[機能展示枠：語学・資格・受賞等]' },
+      { label: '[基本情報項目 04]', value: '[機能展示枠：主要ツール・開発環境等]' },
     ],
     aboutAnnotations: [
       {
         num: 'NOTE 01',
-        title: '戦闘企画 · 60FPS フレームと手触りの解剖',
-        desc: '予備動作・発生・持続・硬直と6Fジャストパリィ窓口、10Fヒットストップをフレーム表で厳密に定義し、リスクとリターンの駆け引きを構築。',
-        caption: 'REF: SEKIRO / STREET FIGHTER 6 FRAME ARCHITECTURE',
+        title: '[機能展示枠 01：設計ポリシー・アピール柱 01 見出し]',
+        desc: '/* 機能展示位置注釈：右カラムのアピールポイント 01 の説明テキスト枠です。 */',
+        caption: 'REF // [補足注釈・リファレンス枠 01]',
       },
       {
         num: 'NOTE 02',
-        title: 'レベル企画 · 視線誘導と立体箱庭の回遊性',
-        desc: 'ミニマップやUIマーカーに頼らず、高低差のあるランドマーク、照明コントラスト、一方向ショートカットの開通によって探索動線を設計。',
-        caption: 'REF: ELDEN RING / DARK SOULS TOPOLOGY LOOP',
+        title: '[機能展示枠 02：設計ポリシー・アピール柱 02 見出し]',
+        desc: '/* 機能展示位置注釈：右カラムのアピールポイント 02 の説明テキスト枠です。 */',
+        caption: 'REF // [補足注釈・リファレンス枠 02]',
       },
       {
         num: 'NOTE 03',
-        title: '検証主義 ·「動く仕様書」による即座の試遊検証',
-        desc: '静的なテキスト企画書にとどまらず、ブラウザや実機エンジン上で即座に触れる60FPSグレーボックス試作を自ら実装して検証。',
-        caption: 'REF: RAPID WEBGL & ENGINE WHITEBOXING',
+        title: '[機能展示枠 03：設計ポリシー・アピール柱 03 見出し]',
+        desc: '/* 機能展示位置注釈：右カラムのアピールポイント 03 の説明テキスト枠です。 */',
+        caption: 'REF // [補足注釈・リファレンス枠 03]',
       },
     ],
-    worksChapter: 'CHAPTER 02 // OFFICIAL DESIGN WORKS & PLATES',
-    worksTitle: '作品設定資料・仕様録',
+    worksChapter: 'CHAPTER 02 // [機能展示位置：代表作・設定資料図版セクション (#works)]',
+    worksTitle: '[機能見出し：代表作ピックアップ一覧（パララックス図版＋注釈枠）]',
     worksLead:
-      '戦闘フレーム設計、立体箱庭レベルデザイン、ポーズ（体幹）数値シミュレーションなどの代表4作品。各図版から詳細な仕様書・GIF映像・ブラウザ試遊ステージへ展開できます。',
-    openSpec: '設定資料・GIFを開く',
-    playNowBtn: 'Web試遊ステージ',
-    moreWorksBtn: '別冊：サブ作品アーカイブを見る',
-    platePrefix: 'PLATE',
-    annotationHeader: 'DESIGNER ANNOTATION // 企画注釈',
-    skillsChapter: 'CHAPTER 03 // TECHNICAL & DESIGN PARAMETERS',
-    skillsTitle: '設計能力・技術指標',
+      '/* 機能展示位置注釈：代表作4件を左右交互の雑誌見開きレイアウトで展示するセクションです。画像・タイトル・ボタンをクリックすると「作品詳細＆Web試遊サブページ」が開きます。 */',
+    openSpec: '[詳細サブページを開く]',
+    playNowBtn: '[試遊モードで開く]',
+    moreWorksBtn: '[機能ボタン：別冊・サブ作品一覧サブページへ]',
+    platePrefix: 'PLATE SLOT',
+    annotationHeader: 'WORK SLOT ANNOTATION // [作品注釈枠]',
+    skillsChapter: 'CHAPTER 03 // [機能展示位置：スキルパラメータ＆習熟度バー (#skills)]',
+    skillsTitle: '[機能見出し：コアスキル・技術指標一覧枠]',
     skillsMarginNote:
-      '企画書執筆だけでなく、エンジン上での白箱構築・パラメータ調整・判定ツール作成まで一貫して遂行可能。',
-    gamesChapter: 'CHAPTER 04 // ANALYTICAL PLAY ARCHIVE',
-    gamesTitle: '実機やり込み・システム解析録',
-    gamesMoreBtn: '全解析ノート・別冊アーカイブへ',
+      '/* 機能展示位置注釈：左カラムの補足説明枠。右カラムにはプログレスバー付きのスキル項目リストが表示されます。 */',
+    gamesChapter: 'CHAPTER 04 // [機能展示位置：ゲームプレイ履歴・研究ログ (#resume)]',
+    gamesTitle: '[機能見出し：やり込みタイトル＆システム解析リスト枠]',
+    gamesMoreBtn: '[機能ボタン：全解析ノート・別冊サブページへ]',
   },
   zh: {
-    editionTag: 'OFFICIAL DESIGN WORKS · 游戏设定资料集 VOL.01',
-    name: '林 海斗 (Kaito Lin)',
-    titleMain: 'KAITO LIN',
-    titleSubName: '林 海斗',
-    roleSubtitle: 'GAME PLANNER — 战斗策划 · 关卡策划设定集',
+    editionTag: '[功能展示位：卷首版本标识与页眉标签]',
+    name: '[功能展示位：作者署名与版权标识]',
+    titleMain: '[HERO SUBTITLE / NAME SLOT]',
+    titleSubName: '[功能展示位：姓名/个人标识]',
+    roleSubtitle: '[功能展示位：求职岗位与副标题槽位]',
     tocHeading: 'CONTENTS',
-    tocSub: '设定集目录 · 章节索引',
-    tocNote: '支持键盘上下方向键或点击直接翻阅对应章节',
+    tocSub: '[功能展示位：目录章节索引副标题]',
+    tocNote: '/* 功能注释：支持使用键盘上下方向键或鼠标点击直接平滑跳转至对应章节 */',
     menuItems: [
-      { id: 'about', code: 'CH.01', cmd: 'DESIGNER PROFILE', sub: '人物设定与企划哲学', page: 'P.04' },
-      { id: 'works', code: 'CH.02', cmd: 'SELECTED WORKS', sub: '作品设定资料与图版', page: 'P.12' },
-      { id: 'skills', code: 'CH.03', cmd: 'SKILL PARAMETERS', sub: '核心策划与技术指标', page: 'P.36' },
-      { id: 'resume', code: 'CH.04', cmd: 'PLAY ARCHIVE', sub: '深度游戏履历与拆解', page: 'P.48' },
-      { id: 'contact', code: 'CH.05', cmd: 'CORRESPONDENCE', sub: 'GitHub 与联系窗口', page: 'P.60' },
+      { id: 'quick-guide', code: 'CH.00', cmd: '30s QUICK GUIDE', sub: '[功能展示位：目的分流与30秒速览跳转]', page: 'P.02' },
+      { id: 'about', code: 'CH.01', cmd: 'DESIGNER PROFILE', sub: '[功能展示位：个人档案与理念章节跳转]', page: 'P.04' },
+      { id: 'works', code: 'CH.02', cmd: 'SELECTED WORKS', sub: '[功能展示位：核心代表作图版章节跳转]', page: 'P.12' },
+      { id: 'play-games', code: 'CH.02B', cmd: 'PLAYABLE GAMES', sub: '[功能展示位：外部试玩平台与网页实验室跳转]', page: 'P.28' },
+      { id: 'skills', code: 'CH.03', cmd: 'SKILL & CAPABILITIES', sub: '[功能展示位：技能进度条与可胜任工作跳转]', page: 'P.36' },
+      { id: 'resume', code: 'CH.04', cmd: 'PLAY & TIMELINE', sub: '[功能展示位：游戏拆解、制作时间轴与专栏跳转]', page: 'P.48' },
+      { id: 'contact', code: 'CH.05', cmd: 'CORRESPONDENCE', sub: '[功能展示位：GitHub、联系表单与通关谢幕跳转]', page: 'P.60' },
     ],
     nav: {
-      menu: '目录',
-      about: '人物设定',
-      works: '作品设定集',
-      skills: '策划指标',
-      resume: '拆解履历',
-      contact: '联系',
+      menu: '目录位',
+      about: '档案位',
+      works: '作品位',
+      playGames: '试玩位',
+      skills: '能力位',
+      resume: '履历位',
+      contact: '联系位',
     },
-    aboutChapter: 'CHAPTER 01 // DESIGNER PROFILE & PHILOSOPHY',
-    aboutTitle: '将打击手感量化为帧数，用空间拓扑引导视线。',
+    aboutChapter: 'CHAPTER 01 // [功能展示位置：个人档案与核心理念展示区 (#about)]',
+    aboutTitle: '[功能标题槽位：个人核心标语 / 一句话自我介绍主标题]',
     aboutLead:
-      '拒绝空洞的概念堆砌——将动作游戏的博弈拆解为精确到 1/60 秒的判定帧表，将关卡探索凝练为无 UI 引导的立体箱庭回路，并亲手编写可实时试玩的原型加以验证。',
-    aboutMarginLabel: 'FIG. 00 — 开发者档案注记',
+      '/* 功能展示位置注释：此处用于放置个人简介导语（2~3行文字概括您的求职定位、专业背景与核心优势）。 */',
+    aboutMarginLabel: 'FIG. 00 — [功能展示位：左栏个人基础属性列表]',
     profileFacts: [
-      { label: '院校专业', value: '计算机科学 大四 (2026应届)' },
-      { label: '求职方向', value: '战斗策划 / 关卡策划' },
-      { label: '语言能力', value: '日语 JLPT N1 (172/180) · 英语流利' },
-      { label: '实现工具', value: 'Unity / UE5 / C# / TypeScript' },
+      { label: '[基础属性标签 01]', value: '[功能展示位：院校专业 / 毕业届别槽位]' },
+      { label: '[基础属性标签 02]', value: '[功能展示位：求职意向岗位槽位]' },
+      { label: '[基础属性标签 03]', value: '[功能展示位：外语水平 / 资格证书槽位]' },
+      { label: '[基础属性标签 04]', value: '[功能展示位：常用引擎与工具链槽位]' },
     ],
     aboutAnnotations: [
       {
         num: 'NOTE 01',
-        title: '战斗策划 · 60FPS 帧数架构与博弈手感',
-        desc: '以 1 帧（16.6ms）为单位量化前摇、持续、后摇与 6F 完美弹反窗口、10F 卡肉停顿（Hitstop），用严谨的帧差建立高风险高回报的攻防节奏。',
-        caption: 'REF: 动作帧表设计 / 受击框与攻击框 (Hitbox/Hurtbox) 标定',
+        title: '[功能展示位 01：个人核心优势 / 设计理念支柱 01 标题]',
+        desc: '/* 功能展示位置注释：右栏第 1 条核心理念或专业优势的详细阐述文本槽位。 */',
+        caption: 'REF // [底部参考来源或补充注释槽位 01]',
       },
       {
         num: 'NOTE 02',
-        title: '关卡策划 · 立体箱庭拓扑与自然视线引导',
-        desc: '摒弃满屏寻路箭头，依靠高低差视觉地标（Landmark）、明暗冷暖对比与单向捷径门（Shortcut Loop）构建回环相扣的立体探索动线。',
-        caption: 'REF: 立体箱庭动线 / 遭遇战配比 / 迷途率控制',
+        title: '[功能展示位 02：个人核心优势 / 设计理念支柱 02 标题]',
+        desc: '/* 功能展示位置注释：右栏第 2 条核心理念或专业优势的详细阐述文本槽位。 */',
+        caption: 'REF // [底部参考来源或补充注释槽位 02]',
       },
       {
         num: 'NOTE 03',
-        title: '原型实现 · “可玩企划书”与灰盒快速迭代',
-        desc: '不止步于静态文档，直接通过 Unity / UE5 与 WebGL 前端将战斗机制和关卡动线制作成可即点即玩的 60FPS 交互白盒。',
-        caption: 'REF: 在线可玩原型 / 状态机与数值平衡验证',
+        title: '[功能展示位 03：个人核心优势 / 设计理念支柱 03 标题]',
+        desc: '/* 功能展示位置注释：右栏第 3 条核心理念或专业优势的详细阐述文本槽位。 */',
+        caption: 'REF // [底部参考来源或补充注释槽位 03]',
       },
     ],
-    worksChapter: 'CHAPTER 02 // OFFICIAL DESIGN WORKS & PLATES',
-    worksTitle: '代表作品设定资料集',
+    worksChapter: 'CHAPTER 02 // [功能展示位置：代表作品大图图版与旁注展示区 (#works)]',
+    worksTitle: '[功能标题槽位：核心代表作展示列表（视差大图 + 参数旁注 + 开发日志）]',
     worksLead:
-      '收录动作战斗帧数企划、3D 立体箱庭关卡白盒、体干崩溃数值模型与环境叙事解谜四部核心作品。点击任意大图图版即可翻阅完整设定仕样书、实机 GIF 演示与在线试玩关卡。',
-    openSpec: '翻阅设定详页 & GIF',
-    playNowBtn: '立即在线试玩',
-    moreWorksBtn: '翻阅别册：更多作品档案',
-    platePrefix: '图版 PLATE',
-    annotationHeader: 'DESIGNER ANNOTATION // 策划图版注释',
-    skillsChapter: 'CHAPTER 03 // TECHNICAL & DESIGN PARAMETERS',
-    skillsTitle: '核心策划与工程实现指标',
+      '/* 功能展示位置注释：采用左右交替画集跨页布局展示 4 部核心代表作。点击任意大图、标题或下方按钮，均可进入该作品的「企划详页 & 60FPS 在线试玩」子页面。 */',
+    openSpec: '[功能按钮：打开作品详页]',
+    playNowBtn: '[功能按钮：进入试玩模式]',
+    moreWorksBtn: '[功能按钮：打开别册/更多作品子页面]',
+    platePrefix: 'PLATE SLOT',
+    annotationHeader: 'WORK SLOT ANNOTATION // [作品图版旁注槽位]',
+    skillsChapter: 'CHAPTER 03 // [功能展示位置：核心技能参数与熟练度进度条 (#skills)]',
+    skillsTitle: '[功能标题槽位：技能矩阵与量化进度条展示区]',
     skillsMarginNote:
-      '兼具系统数值/关卡策划能力与代码原型实现能力，可直接与程序、美术及动作团队无缝对接。',
-    gamesChapter: 'CHAPTER 04 // ANALYTICAL PLAY ARCHIVE',
-    gamesTitle: '深度游戏履历与机制拆解笔记',
-    gamesMoreBtn: '翻阅完整拆解笔记别册',
+      '/* 功能展示位置注释：左栏为技能章节整体说明槽位；右栏为带滚动动画进度条的技能条目列表。 */',
+    gamesChapter: 'CHAPTER 04 // [功能展示位置：深度游戏履历与机制拆解列表 (#resume)]',
+    gamesTitle: '[功能标题槽位：核心游玩履历与系统逆向拆解笔记]',
+    gamesMoreBtn: '[功能按钮：打开完整拆解笔记别册子页面]',
   },
   en: {
-    editionTag: 'OFFICIAL DESIGN WORKS · ARCHIVE EDITION VOL.01',
-    name: 'Kaito Lin',
-    titleMain: 'KAITO LIN',
-    titleSubName: '林 海斗',
-    roleSubtitle: 'GAME PLANNER — BATTLE & LEVEL DESIGN ARCHIVE',
+    editionTag: '[Functional Slot: Edition & Header Tag]',
+    name: '[Functional Slot: Author Name & Copyright]',
+    titleMain: '[HERO SUBTITLE / NAME SLOT]',
+    titleSubName: '[Functional Slot: Author Name]',
+    roleSubtitle: '[Functional Slot: Target Role & Specialty Subtitle]',
     tocHeading: 'CONTENTS',
-    tocSub: 'Table of Contents & Chapter Index',
-    tocNote: 'Use Up/Down arrow keys or click any chapter to navigate',
+    tocSub: '[Functional Slot: Table of Contents Subheading]',
+    tocNote: '/* Functional Annotation: Use Up/Down arrow keys or click any row to smooth-scroll to that chapter */',
     menuItems: [
-      { id: 'about', code: 'CH.01', cmd: 'DESIGNER PROFILE', sub: 'Profile & Design Philosophy', page: 'P.04' },
-      { id: 'works', code: 'CH.02', cmd: 'SELECTED WORKS', sub: 'Design Plates & Specifications', page: 'P.12' },
-      { id: 'skills', code: 'CH.03', cmd: 'SKILL PARAMETERS', sub: 'Design & Engineering Matrix', page: 'P.36' },
-      { id: 'resume', code: 'CH.04', cmd: 'PLAY ARCHIVE', sub: 'Mastery & System Deconstructions', page: 'P.48' },
-      { id: 'contact', code: 'CH.05', cmd: 'CORRESPONDENCE', sub: 'GitHub & Direct Inquiry', page: 'P.60' },
+      { id: 'quick-guide', code: 'CH.00', cmd: '30s QUICK GUIDE', sub: '[Slot: Jump to Mode Select & 30s Summary]', page: 'P.02' },
+      { id: 'about', code: 'CH.01', cmd: 'DESIGNER PROFILE', sub: '[Slot: Jump to Profile & Philosophy]', page: 'P.04' },
+      { id: 'works', code: 'CH.02', cmd: 'SELECTED WORKS', sub: '[Slot: Jump to Flagship Works Plates]', page: 'P.12' },
+      { id: 'play-games', code: 'CH.02B', cmd: 'PLAYABLE GAMES', sub: '[Slot: Jump to Game Portals & Web Lab]', page: 'P.28' },
+      { id: 'skills', code: 'CH.03', cmd: 'SKILL & CAPABILITIES', sub: '[Slot: Jump to Skills & What I Can Do]', page: 'P.36' },
+      { id: 'resume', code: 'CH.04', cmd: 'PLAY & TIMELINE', sub: '[Slot: Jump to Play Log, Timeline & Blog]', page: 'P.48' },
+      { id: 'contact', code: 'CH.05', cmd: 'CORRESPONDENCE', sub: '[Slot: Jump to GitHub, Contact & Credits]', page: 'P.60' },
     ],
     nav: {
       menu: 'Contents',
       about: 'Profile',
-      works: 'Design Works',
-      skills: 'Parameters',
-      resume: 'Play Archive',
+      works: 'Works',
+      playGames: 'Playable',
+      skills: 'Skills',
+      resume: 'Archive',
       contact: 'Contact',
     },
-    aboutChapter: 'CHAPTER 01 // DESIGNER PROFILE & PHILOSOPHY',
-    aboutTitle: 'Quantifying Game Feel in Frames; Guiding Sightlines in Space.',
+    aboutChapter: 'CHAPTER 01 // [Functional Slot: Profile & Philosophy Section (#about)]',
+    aboutTitle: '[Heading Slot: Personal Tagline & Headline Statement]',
     aboutLead:
-      'Translating abstract "game feel" into 1/60s combat frame data and interconnected 3D box-garden topologies—validated directly through self-built playable prototypes.',
-    aboutMarginLabel: 'FIG. 00 — ARCHIVAL DOSSIER',
+      '/* Functional Slot Annotation: Place a 2-3 line introductory lead paragraph summarizing your background and focus here. */',
+    aboutMarginLabel: 'FIG. 00 — [Functional Slot: Left-Column Profile Dossier]',
     profileFacts: [
-      { label: 'Education', value: 'B.S. Computer Science (Senior)' },
-      { label: 'Target Role', value: 'Battle Planner / Level Designer' },
-      { label: 'Languages', value: 'JLPT N1 (172/180) · Fluent EN / ZH' },
-      { label: 'Environment', value: 'Unity / UE5 / C# / TypeScript' },
+      { label: '[Fact Label 01]', value: '[Functional Slot: Education / Graduation Status]' },
+      { label: '[Fact Label 02]', value: '[Functional Slot: Target Role / Position]' },
+      { label: '[Fact Label 03]', value: '[Functional Slot: Languages / Certifications]' },
+      { label: '[Fact Label 04]', value: '[Functional Slot: Engines & Tooling Stack]' },
     ],
     aboutAnnotations: [
       {
         num: 'NOTE 01',
-        title: 'Battle Planning · 60FPS Frame Data & Risk/Reward',
-        desc: 'Defining startup, active, and recovery frames alongside 6F just-parry windows and 10F hitstop freeze to craft responsive combat encounters.',
-        caption: 'REF: FRAME TIMELINE & HITBOX/HURTBOX SPECIFICATION',
+        title: '[Functional Slot 01: Core Pillar / Design Philosophy Heading 01]',
+        desc: '/* Functional Slot Annotation: Right-column description slot for Core Pillar 01. */',
+        caption: 'REF // [Reference / Footnote Slot 01]',
       },
       {
         num: 'NOTE 02',
-        title: 'Level Design · Sightline Landmarks & Box-Garden Loops',
-        desc: 'Guiding players naturally without HUD compasses using vertical landmarks, lighting contrast, and one-way shortcut gates.',
-        caption: 'REF: SPATIAL TOPOLOGY & PACING CURVE',
+        title: '[Functional Slot 02: Core Pillar / Design Philosophy Heading 02]',
+        desc: '/* Functional Slot Annotation: Right-column description slot for Core Pillar 02. */',
+        caption: 'REF // [Reference / Footnote Slot 02]',
       },
       {
         num: 'NOTE 03',
-        title: 'Playable Specs · Rapid Whitebox Prototyping',
-        desc: 'Turning static design documents into interactive 60FPS browser and engine prototypes that teams can test immediately.',
-        caption: 'REF: WEBGL & ENGINE GREYBOX VERIFICATION',
+        title: '[Functional Slot 03: Core Pillar / Design Philosophy Heading 03]',
+        desc: '/* Functional Slot Annotation: Right-column description slot for Core Pillar 03. */',
+        caption: 'REF // [Reference / Footnote Slot 03]',
       },
     ],
-    worksChapter: 'CHAPTER 02 // OFFICIAL DESIGN WORKS & PLATES',
-    worksTitle: 'Selected Design Works & Annotated Plates',
+    worksChapter: 'CHAPTER 02 // [Functional Slot: Flagship Works Plates Section (#works)]',
+    worksTitle: '[Heading Slot: Selected Works & Annotated Spreads]',
     worksLead:
-      'Four flagship design specifications covering 60FPS combat frame architecture, 3D box-garden level greyboxing, posture balance telemetry, and environmental puzzle loops.',
-    openSpec: 'Open Annotated Spec & GIF',
-    playNowBtn: 'Launch Playable Stage',
-    moreWorksBtn: 'Appendix: Additional Works Archive',
-    platePrefix: 'PLATE',
-    annotationHeader: 'DESIGNER ANNOTATION // MARGIN NOTES',
-    skillsChapter: 'CHAPTER 03 // TECHNICAL & DESIGN PARAMETERS',
-    skillsTitle: 'Core Design & Prototyping Matrix',
+      '/* Functional Slot Annotation: Alternating 12-column magazine spreads for 4 flagship works. Clicking any plate or action button opens the Work Detail & Playable Stage subpage. */',
+    openSpec: '[Button: Open Spec Subpage]',
+    playNowBtn: '[Button: Launch Playable Stage]',
+    moreWorksBtn: '[Button: Open Appendix Sub-Works Subpage]',
+    platePrefix: 'PLATE SLOT',
+    annotationHeader: 'WORK SLOT ANNOTATION // [Margin Note]',
+    skillsChapter: 'CHAPTER 03 // [Functional Slot: Skill Parameters & Progress Bars (#skills)]',
+    skillsTitle: '[Heading Slot: Core Skill & Tooling Matrix]',
     skillsMarginNote:
-      'Bridging analytical combat/level documentation with hands-on greybox scripting and frame-data tooling.',
-    gamesChapter: 'CHAPTER 04 // ANALYTICAL PLAY ARCHIVE',
-    gamesTitle: 'Gaming Mastery & System Deconstruction Log',
-    gamesMoreBtn: 'Open Full Analytical Notes Archive',
+      '/* Functional Slot Annotation: Left-column summary note; right column renders animated progress bars for each skill parameter. */',
+    gamesChapter: 'CHAPTER 04 // [Functional Slot: Analytical Play Archive Section (#resume)]',
+    gamesTitle: '[Heading Slot: Gaming Mastery & Deconstruction Log]',
+    gamesMoreBtn: '[Button: Open Full Analytical Archive Subpage]',
   },
 };
 
 const CORE_SKILLS = [
   {
-    code: 'SPEC-01',
+    code: 'SKILL-01',
     name: {
-      ja: '戦闘企画・60FPSフレーム＆判定ボックス設計',
-      zh: '战斗策划 · 60FPS 帧数表与判定框设计',
-      en: 'Battle Planning & 60FPS Hitbox/Frame Data',
+      ja: '[機能展示枠 01：スキル項目タイトル 01]',
+      zh: '[功能展示位 01：核心技能名称槽位 01]',
+      en: '[Functional Slot 01: Core Skill Title 01]',
     },
     annotation: {
-      ja: '発生8F / 持続3F / 硬直19F、ジャストパリィ受付6Fなどフレーム単位の攻防設計',
-      zh: '前摇 8F / 持续 3F / 后摇 19F、6F 完美弹反窗口与受击硬直差量化调优',
-      en: 'Startup 8F / Active 3F / Recovery 19F, 6F Just-Parry windows & frame advantage tuning',
+      ja: '/* 機能展示位置注釈：スキル 01 の具体的な内容・ツール・指標データの説明枠 */',
+      zh: '/* 功能展示位置注释：在此填写技能 01 的具体掌握程度、工具链或量化产出说明 */',
+      en: '/* Functional Slot Annotation: Details, tools, and measurable output for Skill 01 */',
     },
     pct: '95%',
   },
   {
-    code: 'SPEC-02',
+    code: 'SKILL-02',
     name: {
-      ja: '3D箱庭レベルデザイン・視線誘導トポロジー',
-      zh: '关卡策划 · 3D 立体箱庭与视线引导动线',
-      en: '3D Box-Garden Level Design & Sightlines',
+      ja: '[機能展示枠 02：スキル項目タイトル 02]',
+      zh: '[功能展示位 02：核心技能名称槽位 02]',
+      en: '[Functional Slot 02: Core Skill Title 02]',
     },
     annotation: {
-      ja: 'UIマーカーに頼らないランドマーク配置、高低差ループ、交戦ペース配分',
-      zh: '无 UI 寻路引导的视觉地标锚点、单向捷径回路与高低差遭遇战配比',
-      en: 'HUD-free landmark anchoring, one-way shortcut loops & vertical encounter pacing',
+      ja: '/* 機能展示位置注釈：スキル 02 の具体的な内容・ツール・指標データの説明枠 */',
+      zh: '/* 功能展示位置注释：在此填写技能 02 的具体掌握程度、工具链或量化产出说明 */',
+      en: '/* Functional Slot Annotation: Details, tools, and measurable output for Skill 02 */',
     },
     pct: '92%',
   },
   {
-    code: 'SPEC-03',
+    code: 'SKILL-03',
     name: {
-      ja: 'ボスAI行動ツリー・体幹＆経済数値バランス',
-      zh: 'Boss AI 状态机与体干/数值平衡建模',
-      en: 'Boss AI Behavior Trees & Combat Telemetry',
+      ja: '[機能展示枠 03：スキル項目タイトル 03]',
+      zh: '[功能展示位 03：核心技能名称槽位 03]',
+      en: '[Functional Slot 03: Core Skill Title 03]',
     },
     annotation: {
-      ja: '距離・プレイヤー行動に応じたAI重み付け、体幹蓄積・減衰曲線の数理モデル',
-      zh: '基于距离与玩家动作权重的 Boss 派生树、体干累积与衰减速率数学建模',
-      en: 'Distance/input-weighted boss state machines & posture build-up/decay curves',
+      ja: '/* 機能展示位置注釈：スキル 03 の具体的な内容・ツール・指標データの説明枠 */',
+      zh: '/* 功能展示位置注释：在此填写技能 03 的具体掌握程度、工具链或量化产出说明 */',
+      en: '/* Functional Slot Annotation: Details, tools, and measurable output for Skill 03 */',
     },
     pct: '90%',
   },
   {
-    code: 'SPEC-04',
+    code: 'SKILL-04',
     name: {
-      ja: 'Unity / UE5 / Webインタラクティブ試作実装',
-      zh: 'Unity / UE5 / 网页端可玩企划原型实现',
-      en: 'Unity / UE5 / Interactive Web Prototyping',
+      ja: '[機能展示枠 04：スキル項目タイトル 04]',
+      zh: '[功能展示位 04：核心技能名称槽位 04]',
+      en: '[Functional Slot 04: Core Skill Title 04]',
     },
     annotation: {
-      ja: 'C# / Blueprint / TypeScriptによる60FPS検証ツール・グレーボックス即時構築',
-      zh: '使用 C# / 蓝图 / TypeScript 独立构建 60FPS 帧数调试台与白盒试玩关卡',
-      en: 'Self-sufficient C# / Blueprint / TypeScript 60FPS combat sandboxes & greyboxes',
+      ja: '/* 機能展示位置注釈：スキル 04 の具体的な内容・ツール・指標データの説明枠 */',
+      zh: '/* 功能展示位置注释：在此填写技能 04 的具体掌握程度、工具链或量化产出说明 */',
+      en: '/* Functional Slot Annotation: Details, tools, and measurable output for Skill 04 */',
     },
     pct: '94%',
+  },
+];
+
+const WORK_DEV_LOGS = [
+  {
+    party: {
+      ja: 'PARTY SLOT // [機能展示枠：制作体制・人数・担当ロール・制作期間 01]',
+      zh: 'PARTY SLOT // [功能展示位：团队人数 · 担任职责 · 开发周期槽位 01]',
+      en: 'PARTY SLOT // [Functional Slot: Team Size · Role · Duration 01]',
+    },
+    challenge: {
+      ja: '[DEV LOG — 課題 (Challenge) 展示枠 01]：解決すべきだった制作上の課題・問題点を記述。',
+      zh: '[DEV LOG — 课题 (Challenge) 展示位 01]：在此填写作品 01 开发中遇到的核心设计痛点。',
+      en: '[DEV LOG — Challenge Slot 01]: Describe the core design problem encountered.',
+    },
+    solution: {
+      ja: '[DEV LOG — 解決 (Solution) 展示枠 01]：課題に対して行った設計・実装アプローチを記述。',
+      zh: '[DEV LOG — 解决 (Solution) 展示位 01]：在此填写针对痛点采取的具体企划/技术方案。',
+      en: '[DEV LOG — Solution Slot 01]: Describe the design/engineering solution implemented.',
+    },
+    result: {
+      ja: '[DEV LOG — 結果 (Result) 展示枠 01]：テストプレイ結果や受賞・改善数値を記述。',
+      zh: '[DEV LOG — 结果 (Result) 展示位 01]：在此填写实机测试数据提升或获奖成果。',
+      en: '[DEV LOG — Result Slot 01]: State the measurable playtest outcome or award.',
+    },
+  },
+  {
+    party: {
+      ja: 'PARTY SLOT // [機能展示枠：制作体制・人数・担当ロール・制作期間 02]',
+      zh: 'PARTY SLOT // [功能展示位：团队人数 · 担任职责 · 开发周期槽位 02]',
+      en: 'PARTY SLOT // [Functional Slot: Team Size · Role · Duration 02]',
+    },
+    challenge: {
+      ja: '[DEV LOG — 課題 (Challenge) 展示枠 02]：解決すべきだった制作上の課題・問題点を記述。',
+      zh: '[DEV LOG — 课题 (Challenge) 展示位 02]：在此填写作品 02 开发中遇到的核心设计痛点。',
+      en: '[DEV LOG — Challenge Slot 02]: Describe the core design problem encountered.',
+    },
+    solution: {
+      ja: '[DEV LOG — 解決 (Solution) 展示枠 02]：課題に対して行った設計・実装アプローチを記述。',
+      zh: '[DEV LOG — 解决 (Solution) 展示位 02]：在此填写针对痛点采取的具体企划/技术方案。',
+      en: '[DEV LOG — Solution Slot 02]: Describe the design/engineering solution implemented.',
+    },
+    result: {
+      ja: '[DEV LOG — 結果 (Result) 展示枠 02]：テストプレイ結果や受賞・改善数値を記述。',
+      zh: '[DEV LOG — 结果 (Result) 展示位 02]：在此填写实机测试数据提升或获奖成果。',
+      en: '[DEV LOG — Result Slot 02]: State the measurable playtest outcome or award.',
+    },
+  },
+  {
+    party: {
+      ja: 'PARTY SLOT // [機能展示枠：制作体制・人数・担当ロール・制作期間 03]',
+      zh: 'PARTY SLOT // [功能展示位：团队人数 · 担任职责 · 开发周期槽位 03]',
+      en: 'PARTY SLOT // [Functional Slot: Team Size · Role · Duration 03]',
+    },
+    challenge: {
+      ja: '[DEV LOG — 課題 (Challenge) 展示枠 03]：解決すべきだった制作上の課題・問題点を記述。',
+      zh: '[DEV LOG — 课题 (Challenge) 展示位 03]：在此填写作品 03 开发中遇到的核心设计痛点。',
+      en: '[DEV LOG — Challenge Slot 03]: Describe the core design problem encountered.',
+    },
+    solution: {
+      ja: '[DEV LOG — 解決 (Solution) 展示枠 03]：課題に対して行った設計・実装アプローチを記述。',
+      zh: '[DEV LOG — 解决 (Solution) 展示位 03]：在此填写针对痛点采取的具体企划/技术方案。',
+      en: '[DEV LOG — Solution Slot 03]: Describe the design/engineering solution implemented.',
+    },
+    result: {
+      ja: '[DEV LOG — 結果 (Result) 展示枠 03]：テストプレイ結果や受賞・改善数値を記述。',
+      zh: '[DEV LOG — 结果 (Result) 展示位 03]：在此填写实机测试数据提升或获奖成果。',
+      en: '[DEV LOG — Result Slot 03]: State the measurable playtest outcome or award.',
+    },
+  },
+  {
+    party: {
+      ja: 'PARTY SLOT // [機能展示枠：制作体制・人数・担当ロール・制作期間 04]',
+      zh: 'PARTY SLOT // [功能展示位：团队人数 · 担任职责 · 开发周期槽位 04]',
+      en: 'PARTY SLOT // [Functional Slot: Team Size · Role · Duration 04]',
+    },
+    challenge: {
+      ja: '[DEV LOG — 課題 (Challenge) 展示枠 04]：解決すべきだった制作上の課題・問題点を記述。',
+      zh: '[DEV LOG — 课题 (Challenge) 展示位 04]：在此填写作品 04 开发中遇到的核心设计痛点。',
+      en: '[DEV LOG — Challenge Slot 04]: Describe the core design problem encountered.',
+    },
+    solution: {
+      ja: '[DEV LOG — 解決 (Solution) 展示枠 04]：課題に対して行った設計・実装アプローチを記述。',
+      zh: '[DEV LOG — 解决 (Solution) 展示位 04]：在此填写针对痛点采取的具体企划/技术方案。',
+      en: '[DEV LOG — Solution Slot 04]: Describe the design/engineering solution implemented.',
+    },
+    result: {
+      ja: '[DEV LOG — 結果 (Result) 展示枠 04]：テストプレイ結果や受賞・改善数値を記述。',
+      zh: '[DEV LOG — 结果 (Result) 展示位 04]：在此填写实机测试数据提升或获奖成果。',
+      en: '[DEV LOG — Result Slot 04]: State the measurable playtest outcome or award.',
+    },
   },
 ];
 
@@ -587,6 +694,24 @@ const EditorialWorkSpread: React.FC<EditorialWorkSpreadProps> = ({
               </div>
             ))}
           </div>
+
+          {/* DEV LOG (課題 → 解決 → 結果) & PARTY Block (Inspired by haru2401game.github.io/portfolio/#featured-works) */}
+          {WORK_DEV_LOGS[idx] && (
+            <div className="mt-5 p-4 bg-[#EFEDE6]/85 dark:bg-[#1B1916]/90 border border-[#E2E0D8] dark:border-[#2E2924] space-y-2 text-xs">
+              <div className="font-mono text-[11px] text-[#C84B31] dark:text-[#E57052] pb-1.5 border-b border-[#E2E0D8] dark:border-[#2E2924]">
+                {WORK_DEV_LOGS[idx].party[locale]}
+              </div>
+              <div className="text-[#555B61] dark:text-[#B0A89E] leading-relaxed">
+                {WORK_DEV_LOGS[idx].challenge[locale]}
+              </div>
+              <div className="text-[#181A1C] dark:text-[#F2EFE9] leading-relaxed">
+                {WORK_DEV_LOGS[idx].solution[locale]}
+              </div>
+              <div className="font-mono text-[11px] text-[#C84B31] dark:text-[#E57052] pt-1">
+                ★ {WORK_DEV_LOGS[idx].result[locale]}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Editorial Action Links (Fixed Button Dimensions Across Locales) */}
@@ -638,7 +763,7 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState<ProjectSpec>(PROJECTS_DATA[0]);
   const [subPageStageMode, setSubPageStageMode] = useState<'video' | 'playable'>('video');
   const [resumeSubTab, setResumeSubTab] = useState<'playHistory' | 'otherWorks'>('playHistory');
-  const [githubUsername, setGithubUsername] = useState<string>('kurogane-dev');
+  const [githubUsername, setGithubUsername] = useState<string>('your-github-id');
 
   // Page 1 Showreel active slide index (0..3)
   const [reelIdx, setReelIdx] = useState<number>(0);
@@ -875,7 +1000,15 @@ export default function App() {
 
     // Update active top nav chapter highlight smoothly during scroll
     if (activeView === 'main') {
-      const sectionIds = ['contact', 'resume', 'skills', 'works', 'about', 'main-menu'];
+      const sectionIds = [
+        'contact',
+        'resume',
+        'skills',
+        'play-games',
+        'works',
+        'about',
+        'main-menu',
+      ];
       const probeY = latestY + vh * 0.32;
       for (const secId of sectionIds) {
         const el = document.getElementById(secId);
@@ -985,11 +1118,11 @@ export default function App() {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         soundFX.playBlip(600);
-        setActiveMenuIdx((prev) => (prev + 1) % 5);
+        setActiveMenuIdx((prev) => (prev + 1) % c.menuItems.length);
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         soundFX.playBlip(640);
-        setActiveMenuIdx((prev) => (prev - 1 + 5) % 5);
+        setActiveMenuIdx((prev) => (prev - 1 + c.menuItems.length) % c.menuItems.length);
       } else if (e.key === 'Enter') {
         const target = c.menuItems[activeMenuIdx];
         if (target) {
@@ -1106,20 +1239,21 @@ export default function App() {
                 className="inline-flex items-baseline gap-3 text-left cursor-pointer group whitespace-nowrap"
               >
                 <span className="font-editorial text-lg sm:text-xl font-semibold tracking-[0.2em] text-[#181A1C] dark:text-[#F2EFE9]">
-                  KUROGANE
+                  [BRAND LOGO]
                 </span>
                 <span className="hidden sm:inline-block text-[11px] font-mono tracking-[0.22em] text-[#888E94] group-hover:text-[#C84B31] dark:group-hover:text-[#E57052] transition-colors">
-                  DESIGN WORKS
+                  [MAIN TITLE SLOT]
                 </span>
               </button>
             </div>
 
             {/* CENTER ZONE: Expanded Chapter Jump Links (No Truncation, Stable Slot Widths Across JA/ZH/EN) */}
-            <nav className="hidden lg:flex items-center justify-center gap-5 xl:gap-9 justify-self-center text-xs font-mono tracking-wider text-[#555B61] dark:text-[#B0A89E]">
+            <nav className="hidden lg:flex items-center justify-center gap-3 xl:gap-6 justify-self-center text-xs font-mono tracking-wider text-[#555B61] dark:text-[#B0A89E]">
               {[
                 { id: 'main-menu', label: c.nav.menu, num: '00' },
                 { id: 'about', label: c.nav.about, num: '01' },
                 { id: 'works', label: c.nav.works, num: '02' },
+                { id: 'play-games', label: c.nav.playGames, num: '2B' },
                 { id: 'skills', label: c.nav.skills, num: '03' },
                 { id: 'resume', label: c.nav.resume, num: '04' },
                 { id: 'contact', label: c.nav.contact, num: '05' },
@@ -1130,7 +1264,7 @@ export default function App() {
                     key={item.id}
                     type="button"
                     onClick={() => scrollToSection(item.id)}
-                    className={`group relative h-10 min-w-[92px] xl:min-w-[106px] px-2 inline-flex items-center justify-center gap-1.5 transition-colors whitespace-nowrap cursor-pointer ${
+                    className={`group relative h-10 min-w-[82px] xl:min-w-[94px] px-1.5 inline-flex items-center justify-center gap-1.5 transition-colors whitespace-nowrap cursor-pointer ${
                       isCurrent
                         ? 'text-[#181A1C] dark:text-[#F2EFE9] font-medium'
                         : 'hover:text-[#181A1C] dark:hover:text-[#F2EFE9]'
@@ -1557,10 +1691,10 @@ export default function App() {
                     </svg>
                   </div>
 
-                  <h1 className="font-editorial text-5xl sm:text-8xl font-semibold tracking-[0.28em] pl-[0.28em]">
-                    KUROGANE
+                  <h1 className="font-editorial text-4xl sm:text-7xl font-semibold tracking-[0.22em] pl-[0.22em]">
+                    [HERO LOGO SLOT]
                   </h1>
-                  <p className="mt-4 text-xs sm:text-sm font-mono tracking-[0.36em] text-white/80 pl-[0.36em]">
+                  <p className="mt-4 text-xs sm:text-sm font-mono tracking-[0.28em] text-white/80 pl-[0.28em]">
                     {c.titleMain}
                   </p>
                 </div>
@@ -1719,6 +1853,17 @@ export default function App() {
             </section>
 
             {/* =========================================================
+                CHAPTER 00B. PURPOSE-DRIVEN MODE SELECT & 30s RECRUITER GUIDE
+                (Inspired by haru2401game.github.io/portfolio/#quick-guide)
+               ========================================================= */}
+            <QuickRecruiterGuideSection
+              locale={locale}
+              githubUsername={githubUsername}
+              onScrollToSection={scrollToSection}
+              onOpenSpec={openSpecPage}
+            />
+
+            {/* =========================================================
                 CHAPTER 01. 人物设定与企划哲学 (EDITORIAL FEATURE SPREAD)
                 Oversized Serif Headline + Left Marginalia Dossier + Right Annotated Pillars
                ========================================================= */}
@@ -1874,6 +2019,17 @@ export default function App() {
             </section>
 
             {/* =========================================================
+                CHAPTER 02B. PLAYABLE GAMES & BROWSER GAME PORTAL (#play-games)
+                (Inspired by haru2401game.github.io/portfolio/#play-games)
+               ========================================================= */}
+            <PlayGamesPortalSection
+              locale={locale}
+              githubUsername={githubUsername}
+              onScrollToSection={scrollToSection}
+              onOpenSpec={openSpecPage}
+            />
+
+            {/* =========================================================
                 CHAPTER 03. 核心策划与工程指标 (ANNOTATED SPECIFICATION TABLE)
                ========================================================= */}
             <section
@@ -1953,6 +2109,12 @@ export default function App() {
                 </div>
               </div>
             </section>
+
+            {/* =========================================================
+                CHAPTER 03B. WHAT I CAN DO IN GAME PRODUCTION (#what-i-can-do)
+                (Inspired by haru2401game.github.io/portfolio/#what-i-can-do)
+               ========================================================= */}
+            <WhatICanDoSection locale={locale} />
 
             {/* =========================================================
                 CHAPTER 04. 游戏履历与拆解笔记 (EDITORIAL ARCHIVE INDEX)
@@ -2040,6 +2202,15 @@ export default function App() {
             </section>
 
             {/* =========================================================
+                CHAPTER 04B. STAGE-SELECT PRODUCTION TIMELINE & 128+ DESIGN NOTES
+                (Inspired by haru2401game.github.io/portfolio/#timeline & #blog)
+               ========================================================= */}
+            <TimelineAndBlogSection
+              locale={locale}
+              githubUsername={githubUsername}
+            />
+
+            {/* =========================================================
                 CHAPTER 05. GITHUB ARCHIVE & CORRESPONDENCE
                ========================================================= */}
             <motion.section
@@ -2071,6 +2242,15 @@ export default function App() {
                 <ContactFormSection locale={locale} />
               </div>
             </motion.section>
+
+            {/* =========================================================
+                ENDING CREDITS & ALL STAGES CLEAR (#ending)
+                (Inspired by haru2401game.github.io/portfolio/#ending)
+               ========================================================= */}
+            <EndingCreditsSection
+              locale={locale}
+              onScrollToSection={scrollToSection}
+            />
           </motion.main>
         )}
       </AnimatePresence>

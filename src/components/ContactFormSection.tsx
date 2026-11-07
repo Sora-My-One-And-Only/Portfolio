@@ -28,21 +28,21 @@ export const ContactFormSection: React.FC<ContactFormSectionProps> = ({
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
       <div className="lg:col-span-5">
         <div className="text-xs font-mono tracking-[0.24em] text-[#C84B31] dark:text-[#E57052] mb-3 editorial-callout-line">
-          CHAPTER 06 // CORRESPONDENCE & INQUIRY
+          CHAPTER 05B // [機能展示位置 / 功能展示位置：連絡フォーム (#contact)]
         </div>
-        <h2 className="font-editorial text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.15] min-h-[1.15em]">
+        <h2 className="font-editorial text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.18] min-h-[1.2em]">
           {locale === 'ja'
-            ? '採用・面接のご連絡'
+            ? '[機能見出し：採用・面談・連絡フォーム枠]'
             : locale === 'zh'
-            ? '联系与面试邀约'
-            : 'Direct Correspondence'}
+            ? '[功能标题槽位：联系与面试邀约表单模块]'
+            : '[Heading Slot: Direct Correspondence & Inquiry Form]'}
         </h2>
-        <p className="mt-5 text-sm sm:text-base text-[#555B61] dark:text-[#B0A89E] leading-relaxed min-h-[4.8rem]">
+        <p className="mt-5 text-xs sm:text-sm font-mono text-[#555B61] dark:text-[#B0A89E] leading-relaxed min-h-[4.8rem]">
           {locale === 'ja'
-            ? '新卒採用・インターンシップ・作品仕様書に関するお問い合わせは、右記フォームより直接送信いただけます。'
+            ? '/* 機能展示位置注釈：連絡先案内テキスト・SNSリンク・メールアドレス等を配置する左カラム説明枠です。右側は実際に送信動作確認が可能なフォーム枠です。 */'
             : locale === 'zh'
-            ? '关于游戏策划（战斗/关卡）应届招聘、实习机会或作品源文件的交流，欢迎通过右侧表单直接发送信函。'
-            : 'For game planning roles, internships, or inquiries regarding full design specifications, please send a note via the correspondence form.'}
+            ? '/* 功能展示位置注释：左栏用于放置您的求职联系说明、邮箱地址或社交账号链接；右栏为支持交互验证的联系信函表单组件。 */'
+            : '/* Functional Slot Annotation: Left column houses contact instructions and social/email links; right column is an interactive inquiry form component. */'}
         </p>
       </div>
 
@@ -51,7 +51,7 @@ export const ContactFormSection: React.FC<ContactFormSectionProps> = ({
           <div className="py-8 text-center space-y-3">
             <CheckCircle2 className="w-9 h-9 text-[#C84B31] dark:text-[#E57052] mx-auto" />
             <h3 className="font-editorial text-2xl font-semibold">{t.successTitle}</h3>
-            <p className="text-xs sm:text-sm text-[#555B61] dark:text-[#B0A89E]">
+            <p className="text-xs sm:text-sm font-mono text-[#555B61] dark:text-[#B0A89E]">
               {t.successDesc}
             </p>
             <button
@@ -78,7 +78,7 @@ export const ContactFormSection: React.FC<ContactFormSectionProps> = ({
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder={t.namePlaceholder}
-                  className="w-full h-11 px-4 text-sm bg-[#F7F6F2] dark:bg-[#131210] border border-[#E2E0D8] dark:border-[#2E2924] focus:outline-none focus:border-[#181A1C] dark:focus:border-[#F2EFE9]"
+                  className="w-full h-11 px-4 text-sm font-mono bg-[#F7F6F2] dark:bg-[#131210] border border-[#E2E0D8] dark:border-[#2E2924] focus:outline-none focus:border-[#181A1C] dark:focus:border-[#F2EFE9]"
                 />
               </div>
               <div>
@@ -91,7 +91,7 @@ export const ContactFormSection: React.FC<ContactFormSectionProps> = ({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={t.emailPlaceholder}
-                  className="w-full h-11 px-4 text-sm bg-[#F7F6F2] dark:bg-[#131210] border border-[#E2E0D8] dark:border-[#2E2924] focus:outline-none focus:border-[#181A1C] dark:focus:border-[#F2EFE9]"
+                  className="w-full h-11 px-4 text-sm font-mono bg-[#F7F6F2] dark:bg-[#131210] border border-[#E2E0D8] dark:border-[#2E2924] focus:outline-none focus:border-[#181A1C] dark:focus:border-[#F2EFE9]"
                 />
               </div>
             </div>
@@ -106,7 +106,7 @@ export const ContactFormSection: React.FC<ContactFormSectionProps> = ({
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder={t.messagePlaceholder}
-                className="w-full px-4 py-3 text-sm bg-[#F7F6F2] dark:bg-[#131210] border border-[#E2E0D8] dark:border-[#2E2924] focus:outline-none focus:border-[#181A1C] dark:focus:border-[#F2EFE9]"
+                className="w-full px-4 py-3 text-sm font-mono bg-[#F7F6F2] dark:bg-[#131210] border border-[#E2E0D8] dark:border-[#2E2924] focus:outline-none focus:border-[#181A1C] dark:focus:border-[#F2EFE9]"
               />
             </div>
 

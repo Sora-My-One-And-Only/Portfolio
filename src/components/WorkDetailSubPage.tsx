@@ -62,7 +62,11 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
           >
             <ArrowLeft className="w-3.5 h-3.5 text-[#C84B31] dark:text-[#E57052]" />
             <span>
-              {locale === 'ja' ? '目次・設定集へ戻る' : locale === 'zh' ? '返回设定集目录' : 'Back to Archive Index'}
+              {locale === 'ja'
+                ? '[機能ボタン：メインページへ戻る]'
+                : locale === 'zh'
+                ? '[功能按钮：返回主页面]'
+                : '[Action Button: Back to Main Page]'}
             </span>
           </button>
 
@@ -72,7 +76,7 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-mono text-[#555B61] dark:text-[#B0A89E] hover:text-[#C84B31] dark:hover:text-[#E57052] btn-3d-secondary"
           >
-            <span>REPO // {project.repoName}</span>
+            <span>[REPO LINK SLOT // {project.repoName}]</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
@@ -83,17 +87,17 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
             <div className="text-xs font-mono tracking-[0.22em] text-[#C84B31] dark:text-[#E57052] mb-3 editorial-callout-line">
               {project.code} · {project.roleTag[locale]} · {project.engineTag}
             </div>
-            <h1 className="font-editorial text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.08]">
+            <h1 className="font-editorial text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.14]">
               {project.title[locale]}
             </h1>
-            <p className="mt-5 text-base sm:text-lg text-[#555B61] dark:text-[#B0A89E] leading-relaxed">
+            <p className="mt-5 text-sm sm:text-base font-mono text-[#555B61] dark:text-[#B0A89E] leading-relaxed">
               {project.summary[locale]}
             </p>
           </div>
 
           <aside className="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-[#E2E0D8] dark:border-[#2E2924] pt-6 lg:pt-0 lg:pl-8 flex flex-col justify-between">
             <div className="text-[11px] font-mono tracking-[0.2em] text-[#888E94] mb-4">
-              ── KEY TELEMETRY // 核心参数注记
+              ── KEY TELEMETRY // [機能展示枠：作品主要パラメータ枠]
             </div>
             <div className="divide-y divide-[#E2E0D8] dark:divide-[#2E2924] font-mono tabular-nums">
               {project.metrics.map((m, i) => (
@@ -116,7 +120,7 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
         />
 
         {/* Editorial Section Switcher */}
-        <div className="flex items-center gap-3 mb-8 pt-4">
+        <div className="flex flex-wrap items-center gap-3 mb-8 pt-4">
           <button
             type="button"
             onClick={() => {
@@ -128,7 +132,11 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
             }`}
           >
             <span>
-              {locale === 'ja' ? '01 // 企画意図・コア設計注釈' : locale === 'zh' ? '01 // 企划意图与机制注释' : '01 // Design Concept & Notes'}
+              {locale === 'ja'
+                ? 'TAB 01 // [企画意図・主要メカニクス注釈枠]'
+                : locale === 'zh'
+                ? 'TAB 01 // [企划意图与核心机制注释槽位]'
+                : 'TAB 01 // [Design Intent & Mechanics Notes Slot]'}
             </span>
           </button>
 
@@ -143,7 +151,11 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
             }`}
           >
             <span>
-              {locale === 'ja' ? '02 // フレーム・仕様データ表' : locale === 'zh' ? '02 // 仕样书帧数与参数表' : '02 // Frame & Spec Data Table'}
+              {locale === 'ja'
+                ? 'TAB 02 // [フレーム・仕様パラメータデータ表枠]'
+                : locale === 'zh'
+                ? 'TAB 02 // [仕样书帧数与数值参数表槽位]'
+                : 'TAB 02 // [Frame & Specification Data Table Slot]'}
             </span>
           </button>
         </div>
@@ -162,20 +174,20 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
               >
                 <div className="lg:col-span-5">
                   <div className="text-xs font-mono uppercase tracking-[0.2em] text-[#C84B31] dark:text-[#E57052] mb-3">
-                    ── {locale === 'ja' ? '企画意図 (DESIGN INTENT)' : locale === 'zh' ? '企划意图 (DESIGN INTENT)' : 'DESIGN INTENT'}
+                    ── {locale === 'ja' ? '[機能展示枠：企画意図 (DESIGN INTENT)]' : locale === 'zh' ? '[功能展示位：企划意图 (DESIGN INTENT)]' : '[Slot: DESIGN INTENT]'}
                   </div>
-                  <p className="text-base sm:text-lg font-normal leading-relaxed">
+                  <p className="text-xs sm:text-sm font-mono leading-relaxed text-[#555B61] dark:text-[#B0A89E]">
                     {project.designIntent[locale]}
                   </p>
                 </div>
 
                 <div className="lg:col-span-7 lg:border-l border-[#E2E0D8] dark:border-[#2E2924] lg:pl-10">
                   <div className="text-xs font-mono uppercase tracking-[0.2em] text-[#C84B31] dark:text-[#E57052] mb-4">
-                    ── {locale === 'ja' ? '主要メカニクス注釈 (ANNOTATED MECHANICS)' : locale === 'zh' ? '核心机制拆解注释 (ANNOTATED MECHANICS)' : 'ANNOTATED MECHANICS'}
+                    ── {locale === 'ja' ? '[機能展示枠：主要メカニクス注釈リスト]' : locale === 'zh' ? '[功能展示位：核心机制拆解注释列表]' : '[Slot: ANNOTATED MECHANICS LIST]'}
                   </div>
                   <div className="divide-y divide-[#E2E0D8] dark:divide-[#2E2924]">
                     {project.keyMechanics[locale].map((item, idx) => (
-                      <div key={idx} className="py-4 first:pt-0 last:pb-0 flex items-baseline gap-4 text-sm sm:text-base">
+                      <div key={idx} className="py-4 first:pt-0 last:pb-0 flex items-baseline gap-4 text-xs sm:text-sm font-mono">
                         <span className="text-xs font-mono text-[#C84B31] dark:text-[#E57052] shrink-0">
                           [0{idx + 1}]
                         </span>
@@ -197,18 +209,18 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
                   <table className="w-full text-left border-collapse text-xs sm:text-sm font-mono tabular-nums">
                     <thead>
                       <tr className="border-b border-[#181A1C] dark:border-[#F2EFE9] text-[#888E94]">
-                        <th className="py-3.5 px-4">{locale === 'ja' ? '技 / エリア' : locale === 'zh' ? '名称 / 区域' : 'Name'}</th>
-                        <th className="py-3.5 px-4">{locale === 'ja' ? '発生' : locale === 'zh' ? '发生 / 区间' : 'Startup'}</th>
-                        <th className="py-3.5 px-4">{locale === 'ja' ? '持続' : locale === 'zh' ? '持续 / 负荷' : 'Active'}</th>
-                        <th className="py-3.5 px-4">{locale === 'ja' ? '硬直' : locale === 'zh' ? '后摇 / 状态' : 'Recovery'}</th>
-                        <th className="py-3.5 px-4">{locale === 'ja' ? '硬直差' : locale === 'zh' ? '帧差 / 配置' : 'On Block'}</th>
-                        <th className="py-3.5 px-4">{locale === 'ja' ? '威力 / 効果' : locale === 'zh' ? '伤害 / 效果' : 'Output'}</th>
+                        <th className="py-3.5 px-4">[COL 01 // NAME]</th>
+                        <th className="py-3.5 px-4">[COL 02 // PARAM A]</th>
+                        <th className="py-3.5 px-4">[COL 03 // PARAM B]</th>
+                        <th className="py-3.5 px-4">[COL 04 // PARAM C]</th>
+                        <th className="py-3.5 px-4">[COL 05 // PARAM D]</th>
+                        <th className="py-3.5 px-4">[COL 06 // OUTPUT]</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[#E2E0D8] dark:divide-[#2E2924]">
                       {project.frameTable.map((row, idx) => (
                         <tr key={idx}>
-                          <td className="py-4 px-4 font-sans font-medium">
+                          <td className="py-4 px-4 font-medium">
                             {row.moveName[locale]}
                           </td>
                           <td className="py-4 px-4 text-[#C84B31] dark:text-[#E57052]">{row.startup}</td>
@@ -238,8 +250,8 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
           >
             <ArrowLeft className="w-4 h-4 text-[#C84B31] dark:text-[#E57052] shrink-0" />
             <div className="min-w-0">
-              <div className="text-[11px] font-mono text-[#888E94]">PREVIOUS PLATE // {prevProject.code}</div>
-              <div className="font-editorial text-xl font-semibold truncate mt-0.5">{prevProject.title[locale]}</div>
+              <div className="text-[11px] font-mono text-[#888E94]">PREVIOUS SLOT // {prevProject.code}</div>
+              <div className="font-editorial text-lg font-semibold mt-0.5">{prevProject.title[locale]}</div>
             </div>
           </button>
 
@@ -252,8 +264,8 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
             className="text-right p-5 btn-3d-secondary flex items-center justify-end gap-4 cursor-pointer"
           >
             <div className="min-w-0">
-              <div className="text-[11px] font-mono text-[#888E94]">NEXT PLATE // {nextProject.code}</div>
-              <div className="font-editorial text-xl font-semibold truncate mt-0.5">{nextProject.title[locale]}</div>
+              <div className="text-[11px] font-mono text-[#888E94]">NEXT SLOT // {nextProject.code}</div>
+              <div className="font-editorial text-lg font-semibold mt-0.5">{nextProject.title[locale]}</div>
             </div>
             <ArrowRight className="w-4 h-4 text-[#C84B31] dark:text-[#E57052] shrink-0" />
           </button>

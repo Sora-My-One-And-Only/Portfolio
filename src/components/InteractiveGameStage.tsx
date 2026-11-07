@@ -481,8 +481,8 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#151C24]/90 via-[#151C24]/25 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 text-xs font-mono text-[#E6EDF3]">
-                  <div className="text-[#38B2A6] mb-1">KEY VISUAL & CONCEPT</div>
-                  <div className="truncate">{project.title[locale]}</div>
+                  <div className="text-[#38B2A6] mb-1">[KEY VISUAL / ARTWORK SLOT]</div>
+                  <div>{project.title[locale]}</div>
                 </div>
               </div>
 
@@ -496,21 +496,21 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
                 />
                 <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-xs font-mono text-[#E6EDF3] bg-[#151C24]/80 backdrop-blur-sm px-3.5 py-2 rounded border border-white/10">
                   <div className="flex items-center gap-2">
-                    <span className="px-1.5 py-0.5 text-[10px] bg-[#1D7A74] text-white rounded">
-                      LIVE 60FPS LOOP
+                    <span className="px-1.5 py-0.5 text-[10px] bg-[#1D7A74] text-white rounded shrink-0">
+                      LIVE 60FPS DEMO SLOT
                     </span>
-                    <span className="truncate">
+                    <span>
                       {locale === 'ja'
-                        ? '自動再生デモ（右上のボタンで今すぐ操作・試遊可能）'
+                        ? '[機能展示枠：実機映像 / GIF / 60FPS自動デモ再生エリア]'
                         : locale === 'zh'
-                        ? '实机帧数动态演示循环（点击上方「网页即点即玩」可亲自操作）'
-                        : 'Live 60FPS Motion Reel (Switch to Playable tab to control)'}
+                        ? '[功能展示位：实机视频 / GIF / 60FPS 动画演示区]'
+                        : '[Functional Slot: Gameplay Video / GIF / 60FPS Reel Area]'}
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setIsPlayingVideo((p) => !p)}
-                    className="p-1 rounded hover:bg-white/15 cursor-pointer"
+                    className="p-1 rounded hover:bg-white/15 cursor-pointer shrink-0"
                     title={isPlayingVideo ? 'Pause Reel' : 'Play Reel'}
                   >
                     {isPlayingVideo ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
@@ -537,7 +537,7 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
               {/* Top Posture & Combo Bar inside Playable Stage */}
               <div className="px-5 py-3 bg-[#1C2530] border-b border-[#2A3543] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
                 <div className="flex items-center gap-3 flex-1 min-w-[220px]">
-                  <span className="text-[#38B2A6] shrink-0">BOSS POSTURE (体幹):</span>
+                  <span className="text-[#38B2A6] shrink-0">[GAUGE SLOT]:</span>
                   <div className="flex-1 max-w-xs h-2.5 bg-[#11171D] border border-[#2E3A48] p-[1px]">
                     <div
                       className="h-full bg-gradient-to-r from-[#1D7A74] to-[#38B2A6] transition-all duration-150"
@@ -552,7 +552,7 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
                     FRAME: <strong className="text-[#38B2A6]">{String(bossFrame).padStart(3, '0')}F</strong>
                   </span>
                   <span>
-                    COMBO: <strong className="text-emerald-400">{playerCombo} HITS</strong>
+                    COUNT: <strong className="text-emerald-400">{playerCombo}</strong>
                   </span>
                   <button
                     type="button"
@@ -578,8 +578,8 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
 
               {/* Tactile 3D Arcade Controller Deck */}
               <div className="p-5 bg-[#1C2530] border-t border-[#2A3543] flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="text-xs font-mono text-[#38B2A6] truncate">
-                  ▶ {lastFeedback} (STATE: {playerState.toUpperCase()})
+                <div className="text-xs font-mono text-[#38B2A6]">
+                  ▶ [INTERACTIVE STAGE LOG]: {lastFeedback} ({playerState.toUpperCase()})
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 shrink-0">
@@ -589,7 +589,7 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
                     className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-mono font-medium rounded bg-[#232F3D] text-[#E6EDF3] border border-[#38B2A6]/40 btn-3d-primary cursor-pointer"
                   >
                     <Sword className="w-3.5 h-3.5 text-[#38B2A6]" />
-                    <span>[J] 斬撃 (8F)</span>
+                    <span>[ACTION BTN 01 // J]</span>
                   </button>
 
                   <button
@@ -598,7 +598,7 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
                     className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-mono font-medium rounded bg-[#1D7A74] text-white btn-3d-primary cursor-pointer"
                   >
                     <Shield className="w-3.5 h-3.5" />
-                    <span>[SPACE] 弾き (6F Parry)</span>
+                    <span>[ACTION BTN 02 // SPACE]</span>
                   </button>
 
                   <button
@@ -607,7 +607,7 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
                     className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-mono font-medium rounded bg-[#232F3D] text-[#E6EDF3] border border-[#2E3A48] btn-3d-secondary cursor-pointer"
                   >
                     <Zap className="w-3.5 h-3.5 text-sky-400" />
-                    <span>[L] ステップ回避</span>
+                    <span>[ACTION BTN 03 // L]</span>
                   </button>
                 </div>
               </div>

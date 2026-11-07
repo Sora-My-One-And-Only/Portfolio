@@ -19,78 +19,63 @@ interface GameResumeSubPageProps {
 
 export const GAMER_PLAY_LOGS = [
   {
-    id: 'gh-1',
-    title: 'SEKIRO: SHADOWS DIE TWICE',
-    hours: '340h',
+    id: 'gh-slot-1',
+    title: '[機能展示枠 01 / 功能展示位 01：ゲームタイトル / 游戏名称槽位 01]',
+    hours: '[HOURS]',
     tag: {
-      ja: '全実績 · 苦難＋鐘鬼 ボス連戦ノーダメ',
-      zh: '全成就 · 双难连战全 Boss 无伤',
-      en: '100% · Charmless No-Hit Boss Rush',
+      ja: '[機能展示枠：やり込み度・達成ランク・実績タグ 01]',
+      zh: '[功能展示位：通关进度 / 成就段位标签槽位 01]',
+      en: '[Functional Slot: Completion / Rank / Achievement Tag 01]',
     },
     note: {
-      ja: '弾き受付（30F→7F減衰）と体幹削り計算式をフレーム単位で逆解析。',
-      zh: '逐帧拆解招架窗口衰减（30F→7F）与架势槽恢复公式。',
-      en: 'Reverse-engineered deflect window decay (30F to 7F) and posture math.',
+      ja: '/* 機能展示位置注釈：該当タイトルのシステム逆解析・レベル構造研究メモを1〜2行で記載する枠です。 */',
+      zh: '/* 功能展示位置注释：在此填写针对该游戏的机制拆解、关卡分析或数值研究简记（点击可进入完整别册子页面）。 */',
+      en: '/* Functional Slot Annotation: Place a 1-2 line system deconstruction or level analysis note for Game 01 here. */',
     },
   },
   {
-    id: 'gh-2',
-    title: 'STREET FIGHTER 6',
-    hours: '520h',
+    id: 'gh-slot-2',
+    title: '[機能展示枠 02 / 功能展示位 02：ゲームタイトル / 游戏名称槽位 02]',
+    hours: '[HOURS]',
     tag: {
-      ja: 'MASTERランク · 全キャラ確定反撃フレーム把握',
-      zh: 'MASTER 大师段位 · 全角色确反帧差研究',
-      en: 'MASTER Rank · Full Roster Frame Data',
+      ja: '[機能展示枠：やり込み度・達成ランク・実績タグ 02]',
+      zh: '[功能展示位：通关进度 / 成就段位标签槽位 02]',
+      en: '[Functional Slot: Completion / Rank / Achievement Tag 02]',
     },
     note: {
-      ja: '発生・持続・硬直差と先行入力バッファ(8F)のレスポンス設計を研究。',
-      zh: '研究 1/60s 发生/持续/被防帧差与预输入缓冲手感。',
-      en: 'Studied 1/60s frame advantage and input buffer responsiveness.',
+      ja: '/* 機能展示位置注釈：ゲーム 02 のシステム解析・設計考察メモ枠。 */',
+      zh: '/* 功能展示位置注释：在此填写游戏 02 的机制拆解或手感研究笔记。 */',
+      en: '/* Functional Slot Annotation: System deconstruction note slot for Game 02. */',
     },
   },
   {
-    id: 'gh-3',
-    title: 'ELDEN RING / DARK SOULS',
-    hours: '680h',
+    id: 'gh-slot-3',
+    title: '[機能展示枠 03 / 功能展示位 03：ゲームタイトル / 游戏名称槽位 03]',
+    hours: '[HOURS]',
     tag: {
-      ja: 'プラチナ獲得 · 15ダンジョン高低差断面図作成',
-      zh: '全白金 · 测绘 15 座立体城塞高低差动线图',
-      en: 'Platinum · Mapped 15 Multi-Tier Dungeons',
+      ja: '[機能展示枠：やり込み度・達成ランク・実績タグ 03]',
+      zh: '[功能展示位：通关进度 / 成就段位标签槽位 03]',
+      en: '[Functional Slot: Completion / Rank / Achievement Tag 03]',
     },
     note: {
-      ja: '30度仰角ランドマーク誘導と一方通行ショートカットのループ構造を解析。',
-      zh: '提炼 30° 仰角视觉地标引导与单向升降梯捷径回路。',
-      en: 'Analyzed 30° landmark sightlines and vertical shortcut loops.',
+      ja: '/* 機能展示位置注釈：ゲーム 03 のシステム解析・設計考察メモ枠。 */',
+      zh: '/* 功能展示位置注释：在此填写游戏 03 的关卡动线或系统拆解笔记。 */',
+      en: '/* Functional Slot Annotation: System deconstruction note slot for Game 03. */',
     },
   },
   {
-    id: 'gh-4',
-    title: 'SUPER MARIO BROS. 3 / ロックマンX',
-    hours: '260h',
+    id: 'gh-slot-4',
+    title: '[機能展示枠 04 / 功能展示位 04：ゲームタイトル / 游戏名称槽位 04]',
+    hours: '[HOURS]',
     tag: {
-      ja: '古典40ステージを方眼紙＆JSONデータベース化',
-      zh: '40 个经典关卡“起承转合”方格纸数字化建档',
-      en: '40 Classic Stages Digitized on Grid Paper',
+      ja: '[機能展示枠：やり込み度・達成ランク・実績タグ 04]',
+      zh: '[功能展示位：通关进度 / 成就段位标签槽位 04]',
+      en: '[Functional Slot: Completion / Rank / Achievement Tag 04]',
     },
     note: {
-      ja: 'テキスト説明ゼロでギミックを教える「安全な初見→応用→転」の配置を研究。',
-      zh: '拆解零文字弹窗教学的“安全初见 → 进阶 → 变奏”地形法则。',
-      en: 'Deconstructed wordless tutorials using safe intro, twist, and mastery.',
-    },
-  },
-  {
-    id: 'gh-5',
-    title: 'MONSTER HUNTER: WORLD / ICEBORNE',
-    hours: '600h',
-    tag: {
-      ja: 'ミラボレアス・アルバトリオン 太刀/大剣ソロ討伐',
-      zh: '黑龙与煌黑龙 太刀/大剑单人无猫车讨伐',
-      en: 'Solo Fatalis & Alatreon (LS / GS)',
-    },
-    note: {
-      ja: '距離別・角度別モンスター行動抽選テーブルと部位破壊ダウン報酬を研究。',
-      zh: '分析大型怪物距离环/扇区出招权重表与部位破坏正反馈。',
-      en: 'Analyzed boss distance-ring move weights and part-break stagger rewards.',
+      ja: '/* 機能展示位置注釈：ゲーム 04 のシステム解析・設計考察メモ枠。 */',
+      zh: '/* 功能展示位置注释：在此填写游戏 04 的核心机制拆解笔记。 */',
+      en: '/* Functional Slot Annotation: System deconstruction note slot for Game 04. */',
     },
   },
 ];
@@ -127,25 +112,29 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
           >
             <ArrowLeft className="w-3.5 h-3.5 text-[#C84B31] dark:text-[#E57052]" />
             <span>
-              {locale === 'ja' ? '目次・設定集へ戻る' : locale === 'zh' ? '返回设定集目录' : 'Back to Archive Index'}
+              {locale === 'ja'
+                ? '[機能ボタン：メインページへ戻る]'
+                : locale === 'zh'
+                ? '[功能按钮：返回主页面]'
+                : '[Action Button: Back to Main Page]'}
             </span>
           </button>
         </div>
 
         <div className="mb-10">
           <div className="text-xs font-mono tracking-[0.22em] text-[#C84B31] dark:text-[#E57052] mb-3 editorial-callout-line">
-            APPENDIX // ARCHIVAL NOTES & PROTOTYPES
+            APPENDIX SUBPAGE // [機能展示位置：別冊アーカイブ・サブページ枠]
           </div>
-          <h1 className="font-editorial text-4xl sm:text-6xl font-semibold tracking-tight">
+          <h1 className="font-editorial text-3xl sm:text-5xl font-semibold tracking-tight">
             {locale === 'ja'
-              ? '実機解析ノート ＆ 別冊作品録'
+              ? '[サブページ見出し：実機解析ノート ＆ 別冊サブ作品一覧枠]'
               : locale === 'zh'
-              ? '深度游戏拆解笔记 & 别册作品录'
-              : 'Analytical Play Log & Appendix Works'}
+              ? '[子页面标题槽位：深度游戏拆解笔记 & 别册作品列表]'
+              : '[Subpage Heading Slot: Play Deconstructions & Appendix Works]'}
           </h1>
         </div>
 
-        <div className="flex items-center gap-3 mb-12">
+        <div className="flex flex-wrap items-center gap-3 mb-12">
           <button
             type="button"
             onClick={() => {
@@ -158,7 +147,11 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
           >
             <Gamepad2 className="w-3.5 h-3.5" />
             <span>
-              {locale === 'ja' ? '01 // やり込み・逆解析ノート' : locale === 'zh' ? '01 // 深度游玩与逆向拆解笔记' : '01 // Analytical Play History'}
+              {locale === 'ja'
+                ? 'TAB 01 // [プレイ履歴・システム解析リスト枠]'
+                : locale === 'zh'
+                ? 'TAB 01 // [深度游戏履历与机制拆解列表槽位]'
+                : 'TAB 01 // [Analytical Play Log List Slot]'}
             </span>
           </button>
 
@@ -174,7 +167,11 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
           >
             <Wrench className="w-3.5 h-3.5" />
             <span>
-              {locale === 'ja' ? '02 // 別冊：サブ作品・GameJam' : locale === 'zh' ? '02 // 别册：更多作品与工具' : '02 // Appendix: Other Works'}
+              {locale === 'ja'
+                ? 'TAB 02 // [別冊：サブ作品・GameJam・ツール枠]'
+                : locale === 'zh'
+                ? 'TAB 02 // [别册：小型原型 / Game Jam / 工具槽位]'
+                : 'TAB 02 // [Appendix: Sub-Works & Tooling Slot]'}
             </span>
           </button>
         </div>
@@ -195,7 +192,7 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
                   className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-baseline"
                 >
                   <div className="lg:col-span-2 flex items-center gap-3 text-xs font-mono text-[#888E94]">
-                    <span className="text-[#C84B31] dark:text-[#E57052]">ARCHIVE 0{idx + 1}</span>
+                    <span className="text-[#C84B31] dark:text-[#E57052]">SLOT 0{idx + 1}</span>
                     <span>·</span>
                     <span className="inline-flex items-center gap-1 tabular-nums">
                       <Clock className="w-3 h-3" />
@@ -204,7 +201,7 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
                   </div>
 
                   <div className="lg:col-span-4">
-                    <h3 className="font-editorial text-2xl sm:text-3xl font-semibold tracking-tight">
+                    <h3 className="font-editorial text-xl sm:text-2xl font-semibold tracking-tight">
                       {item.title}
                     </h3>
                     <div className="mt-1 text-xs font-mono text-[#C84B31] dark:text-[#E57052]">
@@ -212,8 +209,8 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
                     </div>
                   </div>
 
-                  <div className="lg:col-span-6 text-sm sm:text-base text-[#555B61] dark:text-[#B0A89E] leading-relaxed">
-                    ─── {item.note[locale]}
+                  <div className="lg:col-span-6 text-xs sm:text-sm font-mono text-[#555B61] dark:text-[#B0A89E] leading-relaxed">
+                    {item.note[locale]}
                   </div>
                 </div>
               ))}
@@ -236,10 +233,10 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
                     <div className="text-xs font-mono text-[#C84B31] dark:text-[#E57052] mb-2">
                       APPENDIX 0{idx + 1} · {ow.category[locale]} · {ow.year}
                     </div>
-                    <h3 className="font-editorial text-2xl font-semibold leading-snug">
+                    <h3 className="font-editorial text-xl font-semibold leading-snug">
                       {ow.title[locale]}
                     </h3>
-                    <p className="mt-3 text-xs sm:text-sm text-[#555B61] dark:text-[#B0A89E] leading-relaxed">
+                    <p className="mt-3 text-xs font-mono text-[#555B61] dark:text-[#B0A89E] leading-relaxed">
                       {ow.desc[locale]}
                     </p>
                   </div>
@@ -251,7 +248,7 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
                       rel="noreferrer"
                       className="inline-flex items-center gap-1.5 text-xs font-mono text-[#555B61] dark:text-[#B0A89E] hover:text-[#C84B31] dark:hover:text-[#E57052] transition-colors"
                     >
-                      <span>GITHUB ARCHIVE</span>
+                      <span>[EXTERNAL REPO LINK SLOT]</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
