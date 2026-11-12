@@ -19,65 +19,50 @@ interface GameResumeSubPageProps {
 
 export const GAMER_PLAY_LOGS = [
   {
-    id: 'gh-slot-1',
-    title: '[機能展示枠 01 / 功能展示位 01：ゲームタイトル / 游戏名称槽位 01]',
-    hours: '[HOURS]',
-    tag: {
-      ja: '[機能展示枠：やり込み度・達成ランク・実績タグ 01]',
-      zh: '[功能展示位：通关进度 / 成就段位标签槽位 01]',
-      en: '[Functional Slot: Completion / Rank / Achievement Tag 01]',
+    "id": "spell-commands",
+    "title": "ARCANE CHRONICLE / Combat",
+    "hours": "Break",
+    "tag": {
+      "ja": "バトル設計",
+      "zh": "战斗设计",
+      "en": "Combat design"
     },
-    note: {
-      ja: '/* 機能展示位置注釈：該当タイトルのシステム逆解析・レベル構造研究メモを1〜2行で記載する枠です。 */',
-      zh: '/* 功能展示位置注释：在此填写针对该游戏的机制拆解、关卡分析或数值研究简记（点击可进入完整别册子页面）。 */',
-      en: '/* Functional Slot Annotation: Place a 1-2 line system deconstruction or level analysis note for Game 01 here. */',
-    },
+    "note": {
+      "ja": "敵の動きを見て、いつ魔法を使うかを選ぶアクションを目指しました。小さな隙には短いコマンドを差し込み、長いコマンドを使うなら、近接攻撃で先に詠唱の時間を作ります。魔法コマンドと火竜戦の仕様整理に携わりました。",
+      "zh": "设计目标是让玩家在交战中判断何时施法。短指令能抓住小破绽，长指令则需要用近战主动创造咏唱机会。我参与了魔法指令与火龙战的规格整理。",
+      "en": "The player chooses when to cast while reading the enemy. Short commands fit into brief openings. Longer commands reward using melee attacks to create a casting window. I contributed to the specifications for spell commands and the fire dragon encounter."
+    }
   },
   {
-    id: 'gh-slot-2',
-    title: '[機能展示枠 02 / 功能展示位 02：ゲームタイトル / 游戏名称槽位 02]',
-    hours: '[HOURS]',
-    tag: {
-      ja: '[機能展示枠：やり込み度・達成ランク・実績タグ 02]',
-      zh: '[功能展示位：通关进度 / 成就段位标签槽位 02]',
-      en: '[Functional Slot: Completion / Rank / Achievement Tag 02]',
+    "id": "fire-dragon",
+    "title": "ARCANE CHRONICLE / Fire Dragon",
+    "hours": "3",
+    "tag": {
+      "ja": "レベル設計",
+      "zh": "关卡设计",
+      "en": "Level design"
     },
-    note: {
-      ja: '/* 機能展示位置注釈：ゲーム 02 のシステム解析・設計考察メモ枠。 */',
-      zh: '/* 功能展示位置注释：在此填写游戏 02 的机制拆解或手感研究笔记。 */',
-      en: '/* Functional Slot Annotation: System deconstruction note slot for Game 02. */',
-    },
+    "note": {
+      "ja": "火竜が足場を崩すたびに移動先を選ぶ。最後の崩壊に先立ち、中央の足場がせり上がる。",
+      "zh": "火龙摧毁平台后重新选择落脚点。最后一次崩塌前，中心平台会升起。",
+      "en": "Choose a new foothold when the fire dragon destroys a platform. The central platform rises before the final collapse."
+    }
   },
   {
-    id: 'gh-slot-3',
-    title: '[機能展示枠 03 / 功能展示位 03：ゲームタイトル / 游戏名称槽位 03]',
-    hours: '[HOURS]',
-    tag: {
-      ja: '[機能展示枠：やり込み度・達成ランク・実績タグ 03]',
-      zh: '[功能展示位：通关进度 / 成就段位标签槽位 03]',
-      en: '[Functional Slot: Completion / Rank / Achievement Tag 03]',
+    "id": "greybox-tools",
+    "title": "Level Builder",
+    "hours": "3 Views",
+    "tag": {
+      "ja": "ツール制作",
+      "zh": "工具制作",
+      "en": "Tool development"
     },
-    note: {
-      ja: '/* 機能展示位置注釈：ゲーム 03 のシステム解析・設計考察メモ枠。 */',
-      zh: '/* 功能展示位置注释：在此填写游戏 03 的关卡动线或系统拆解笔记。 */',
-      en: '/* Functional Slot Annotation: System deconstruction note slot for Game 03. */',
-    },
-  },
-  {
-    id: 'gh-slot-4',
-    title: '[機能展示枠 04 / 功能展示位 04：ゲームタイトル / 游戏名称槽位 04]',
-    hours: '[HOURS]',
-    tag: {
-      ja: '[機能展示枠：やり込み度・達成ランク・実績タグ 04]',
-      zh: '[功能展示位：通关进度 / 成就段位标签槽位 04]',
-      en: '[Functional Slot: Completion / Rank / Achievement Tag 04]',
-    },
-    note: {
-      ja: '/* 機能展示位置注釈：ゲーム 04 のシステム解析・設計考察メモ枠。 */',
-      zh: '/* 功能展示位置注释：在此填写游戏 04 的核心机制拆解笔记。 */',
-      en: '/* Functional Slot Annotation: System deconstruction note slot for Game 04. */',
-    },
-  },
+    "note": {
+      "ja": "次の足場が見えるか、そこまで跳べるか。ステージを組む途中で、視点を切り替えたり実際に動いたりしながら確認できるようにしました。",
+      "zh": "在搭建关卡的过程中，就能检查下一处平台是否看得见、跳得到，并实际操作角色走一遍路线。",
+      "en": "The editor lets you check whether a player can see or reach the next platform while the level is still being laid out."
+    }
+  }
 ];
 
 export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
@@ -123,14 +108,14 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
 
         <div className="mb-10">
           <div className="text-xs font-mono tracking-[0.22em] text-[#C84B31] dark:text-[#E57052] mb-3 editorial-callout-line">
-            APPENDIX SUBPAGE // [機能展示位置：別冊アーカイブ・サブページ枠]
+            APPENDIX
           </div>
           <h1 className="font-editorial text-3xl sm:text-5xl font-semibold tracking-tight">
             {locale === 'ja'
-              ? '[サブページ見出し：実機解析ノート ＆ 別冊サブ作品一覧枠]'
+              ? '制作ノート・ツール作品'
               : locale === 'zh'
-              ? '[子页面标题槽位：深度游戏拆解笔记 & 别册作品列表]'
-              : '[Subpage Heading Slot: Play Deconstructions & Appendix Works]'}
+              ? '制作笔记与工具作品'
+              : 'Design Notes & Tools'}
           </h1>
         </div>
 
@@ -148,10 +133,10 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
             <Gamepad2 className="w-3.5 h-3.5" />
             <span>
               {locale === 'ja'
-                ? 'TAB 01 // [プレイ履歴・システム解析リスト枠]'
+                ? '設計ノート'
                 : locale === 'zh'
-                ? 'TAB 01 // [深度游戏履历与机制拆解列表槽位]'
-                : 'TAB 01 // [Analytical Play Log List Slot]'}
+                ? '设计笔记'
+                : 'Design Notes'}
             </span>
           </button>
 
@@ -168,10 +153,10 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
             <Wrench className="w-3.5 h-3.5" />
             <span>
               {locale === 'ja'
-                ? 'TAB 02 // [別冊：サブ作品・GameJam・ツール枠]'
+                ? 'ツール作品'
                 : locale === 'zh'
-                ? 'TAB 02 // [别册：小型原型 / Game Jam / 工具槽位]'
-                : 'TAB 02 // [Appendix: Sub-Works & Tooling Slot]'}
+                ? '工具作品'
+                : 'Tool Projects'}
             </span>
           </button>
         </div>
@@ -192,7 +177,7 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
                   className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-baseline"
                 >
                   <div className="lg:col-span-2 flex items-center gap-3 text-xs font-mono text-[#888E94]">
-                    <span className="text-[#C84B31] dark:text-[#E57052]">SLOT 0{idx + 1}</span>
+                    <span className="text-[#C84B31] dark:text-[#E57052]">WORK 0{idx + 1}</span>
                     <span>·</span>
                     <span className="inline-flex items-center gap-1 tabular-nums">
                       <Clock className="w-3 h-3" />
@@ -243,12 +228,12 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
 
                   <div className="mt-6 pt-4 border-t border-[#E2E0D8] dark:border-[#2E2924]">
                     <a
-                      href={ow.repoUrl}
+                      href={ow.repoUrl || undefined}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex items-center gap-1.5 text-xs font-mono text-[#555B61] dark:text-[#B0A89E] hover:text-[#C84B31] dark:hover:text-[#E57052] transition-colors"
                     >
-                      <span>[EXTERNAL REPO LINK SLOT]</span>
+                      <span>GitHub</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>

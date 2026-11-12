@@ -25,6 +25,7 @@ export interface ProjectSpec {
     damage: string;
   }[];
   repoName: string;
+  playUrl?: string;
 }
 
 export interface EraNode {
@@ -77,535 +78,315 @@ export const PORTFOLIO_IMAGES = {
 
 export const PROJECTS_DATA: ProjectSpec[] = [
   {
-    id: 'work-slot-01',
-    code: 'SLOT-01',
-    span: 'wide',
-    image: PORTFOLIO_IMAGES.combatSystem,
-    roleTag: {
-      ja: '[機能展示位置：担当職種・役割タグ 01]',
-      zh: '[功能展示位置：担任职责与岗位标签 01]',
-      en: '[Functional Slot: Role & Specialty Tag 01]',
+    "id": "arcane-chronicle",
+    "code": "ARCANE CHRONICLE",
+    "span": "wide",
+    "image": PORTFOLIO_IMAGES.combatSystem,
+    "roleTag": {
+      "ja": "ゲーム企画・チーム制作",
+      "zh": "游戏策划 · 团队制作",
+      "en": "Game design · Team project"
     },
-    engineTag: '[ENGINE / TOOL TAG 01]',
-    year: 'YYYY',
-    title: {
-      ja: '[機能展示位置：代表作タイトル枠 01（クリックで詳細・試遊サブページへ）]',
-      zh: '[功能展示位置：代表作主标题槽位 01（点击进入详情与试玩子页面）]',
-      en: '[Functional Slot: Flagship Work Title 01 (Click to Open Spec & Playable Subpage)]',
+    "engineTag": "Unity / C#",
+    "year": "2026",
+    "title": {
+      "ja": "ルミアの冒険譚",
+      "zh": "ルミアの冒険譚",
+      "en": "Lumia’s Adventure"
     },
-    summary: {
-      ja: '/* 機能展示位置注釈：ここに代表作 01 の概要テキスト（1〜2文の要約・コア体験の説明）を配置します。 */',
-      zh: '/* 功能展示位置注释：此处用于展示代表作 01 的核心简介文本（1~2句话概括玩法特征与个人贡献）。 */',
-      en: '/* Functional Slot Annotation: Place a 1-2 sentence summary describing Flagship Work 01 and your core contribution here. */',
+    "summary": {
+      "ja": "戦闘中にコマンドを入力して魔法を詠唱する3Dアクションゲーム。剣で魔力を回復し、敵をブレイクさせた隙に強力な魔法を狙います。",
+      "zh": "在战斗中输入指令、咏唱魔法的 3D 动作游戏。近战恢复魔力，打出 Break 后就有机会释放强力魔法。",
+      "en": "A 3D action game about entering commands to cast spells in combat. Sword attacks restore mana and build Break, creating time for more powerful spells."
     },
-    designIntent: {
-      ja: '/* 機能展示位置注釈：作品詳細サブページ内の「企画意図 (DESIGN INTENT)」テキスト枠。制作背景やターゲット体験を記述します。 */',
-      zh: '/* 功能展示位置注释：作品详情子页面内的「企划意图 (DESIGN INTENT)」正文展示位，用于阐述立项背景与核心体验目标。 */',
-      en: '/* Functional Slot Annotation: "Design Intent" body slot inside the Work Detail Subpage. */',
+    "designIntent": {
+      "ja": "敵の動きを見て、いつ魔法を使うかを選ぶアクションを目指しました。小さな隙には短いコマンドを差し込み、長いコマンドを使うなら、近接攻撃で先に詠唱の時間を作ります。魔法コマンドと火竜戦の仕様整理に携わりました。",
+      "zh": "设计目标是让玩家在交战中判断何时施法。短指令能抓住小破绽，长指令则需要用近战主动创造咏唱机会。我参与了魔法指令与火龙战的规格整理。",
+      "en": "The player chooses when to cast while reading the enemy. Short commands fit into brief openings. Longer commands reward using melee attacks to create a casting window. I contributed to the specifications for spell commands and the fire dragon encounter."
     },
-    keyMechanics: {
-      ja: [
-        '[機能展示位置：主要メカニクス・特徴コールアウト注釈 01-A]',
-        '[機能展示位置：主要メカニクス・特徴コールアウト注釈 01-B]',
-        '[機能展示位置：主要メカニクス・特徴コールアウト注釈 01-C]',
+    "keyMechanics": {
+      "ja": [
+        "剣で魔力を回復し、ブレイクを狙う。",
+        "短いコマンドと長いコマンドを、敵の隙に応じて使い分ける。",
+        "火竜が足場を崩すたびに移動先を選ぶ。最後の崩壊に先立ち、中央の足場がせり上がる。"
       ],
-      zh: [
-        '[功能展示位置：核心机制/亮点图版旁注槽位 01-A]',
-        '[功能展示位置：核心机制/亮点图版旁注槽位 01-B]',
-        '[功能展示位置：核心机制/亮点图版旁注槽位 01-C]',
+      "zh": [
+        "用剑攻击恢复魔力并积累 Break。",
+        "根据敌人的破绽选择短指令或长指令。",
+        "火龙摧毁平台后重新选择落脚点。最后一次崩塌前，中心平台会升起。"
       ],
-      en: [
-        '[Functional Slot: Key Mechanic / Feature Callout Annotation 01-A]',
-        '[Functional Slot: Key Mechanic / Feature Callout Annotation 01-B]',
-        '[Functional Slot: Key Mechanic / Feature Callout Annotation 01-C]',
-      ],
+      "en": [
+        "Restore mana and build Break through melee attacks.",
+        "Choose a short or long spell command based on the available opening.",
+        "Choose a new foothold when the fire dragon destroys a platform. The central platform rises before the final collapse."
+      ]
     },
-    metrics: [
+    "metrics": [
       {
-        label: {
-          ja: '[指標ラベル枠 01]',
-          zh: '[参数指标名称槽位 01]',
-          en: '[Metric Label Slot 01]',
+        "label": {
+          "ja": "ジャンル",
+          "zh": "类型",
+          "en": "Genre"
         },
-        value: '[VALUE 01]',
+        "value": "3D Action"
       },
       {
-        label: {
-          ja: '[指標ラベル枠 02]',
-          zh: '[参数指标名称槽位 02]',
-          en: '[Metric Label Slot 02]',
+        "label": {
+          "ja": "開発状況",
+          "zh": "开发阶段",
+          "en": "Status"
         },
-        value: '[VALUE 02]',
+        "value": "In development"
       },
       {
-        label: {
-          ja: '[指標ラベル枠 03]',
-          zh: '[参数指标名称槽位 03]',
-          en: '[Metric Label Slot 03]',
+        "label": {
+          "ja": "火竜戦の外周足場",
+          "zh": "火龙战外围平台",
+          "en": "Outer boss platforms"
         },
-        value: '[VALUE 03]',
-      },
+        "value": "3"
+      }
     ],
-    frameTable: [
+    "frameTable": [
       {
-        moveName: {
-          ja: '[仕様データ表・行 01]',
-          zh: '[仕样参数表·数据行 01]',
-          en: '[Spec Data Table Row 01]',
+        "moveName": {
+          "ja": "火球",
+          "zh": "火球",
+          "en": "Fireball"
         },
-        startup: '[COL-A]',
-        active: '[COL-B]',
-        recovery: '[COL-C]',
-        onBlock: '[COL-D]',
-        damage: '[COL-E]',
+        "startup": "↑ → + □",
+        "active": "Fire",
+        "recovery": "—",
+        "onBlock": "—",
+        "damage": "—"
       },
       {
-        moveName: {
-          ja: '[仕様データ表・行 02]',
-          zh: '[仕样参数表·数据行 02]',
-          en: '[Spec Data Table Row 02]',
+        "moveName": {
+          "ja": "強化火球",
+          "zh": "强化火球",
+          "en": "Enhanced fireball"
         },
-        startup: '[COL-A]',
-        active: '[COL-B]',
-        recovery: '[COL-C]',
-        onBlock: '[COL-D]',
-        damage: '[COL-E]',
+        "startup": "↑ → ↑ → + □",
+        "active": "Fire",
+        "recovery": "—",
+        "onBlock": "—",
+        "damage": "—"
       },
       {
-        moveName: {
-          ja: '[仕様データ表・行 03]',
-          zh: '[仕样参数表·数据行 03]',
-          en: '[Spec Data Table Row 03]',
+        "moveName": {
+          "ja": "貫通火球",
+          "zh": "贯穿火球",
+          "en": "Piercing fireball"
         },
-        startup: '[COL-A]',
-        active: '[COL-B]',
-        recovery: '[COL-C]',
-        onBlock: '[COL-D]',
-        damage: '[COL-E]',
-      },
+        "startup": "↑ → → + □",
+        "active": "Fire",
+        "recovery": "—",
+        "onBlock": "—",
+        "damage": "—"
+      }
     ],
-    repoName: 'project-repo-slot-01',
+    "repoName": ""
   },
   {
-    id: 'work-slot-02',
-    code: 'SLOT-02',
-    span: 'normal',
-    image: PORTFOLIO_IMAGES.levelTopography,
-    roleTag: {
-      ja: '[機能展示位置：担当職種・役割タグ 02]',
-      zh: '[功能展示位置：担任职责与岗位标签 02]',
-      en: '[Functional Slot: Role & Specialty Tag 02]',
+    "id": "level-builder",
+    "code": "LEVEL BUILDER",
+    "span": "normal",
+    "image": PORTFOLIO_IMAGES.levelTopography,
+    "roleTag": {
+      "ja": "レベル設計ツール",
+      "zh": "关卡设计工具",
+      "en": "Level design tool"
     },
-    engineTag: '[ENGINE / TOOL TAG 02]',
-    year: 'YYYY',
-    title: {
-      ja: '[機能展示位置：代表作タイトル枠 02（クリックで詳細・試遊サブページへ）]',
-      zh: '[功能展示位置：代表作主标题槽位 02（点击进入详情与试玩子页面）]',
-      en: '[Functional Slot: Flagship Work Title 02 (Click to Open Spec & Playable Subpage)]',
+    "engineTag": "TypeScript / Three.js",
+    "year": "2026",
+    "title": {
+      "ja": "Level Builder",
+      "zh": "Level Builder",
+      "en": "Level Builder"
     },
-    summary: {
-      ja: '/* 機能展示位置注釈：ここに代表作 02 の概要テキスト（レベル設計やシステム仕様の要約）を配置します。 */',
-      zh: '/* 功能展示位置注释：此处用于展示代表作 02 的核心简介文本（支持多语言无跳变切换）。 */',
-      en: '/* Functional Slot Annotation: Place a summary describing Flagship Work 02 here. */',
+    "summary": {
+      "ja": "ブラウザでグレーボックスを組み、視界やジャンプ軌道を確認しながらステージの動線を試せるツールです。",
+      "zh": "在浏览器搭建白盒关卡，通过角色视野和跳跃轨迹验证关卡动线。",
+      "en": "A browser-based greybox editor for checking sight lines, jump trajectories and level routes."
     },
-    designIntent: {
-      ja: '/* 機能展示位置注釈：作品 02 の詳細サブページ内「企画意図」テキスト枠。 */',
-      zh: '/* 功能展示位置注释：作品 02 详情子页面内的「企划意图」正文展示位。 */',
-      en: '/* Functional Slot Annotation: "Design Intent" body slot for Work 02. */',
+    "designIntent": {
+      "ja": "次の足場が見えるか、そこまで跳べるか。ステージを組む途中で、視点を切り替えたり実際に動いたりしながら確認できるようにしました。",
+      "zh": "在搭建关卡的过程中，就能检查下一处平台是否看得见、跳得到，并实际操作角色走一遍路线。",
+      "en": "The editor lets you check whether a player can see or reach the next platform while the level is still being laid out."
     },
-    keyMechanics: {
-      ja: [
-        '[機能展示位置：主要メカニクス・特徴コールアウト注釈 02-A]',
-        '[機能展示位置：主要メカニクス・特徴コールアウト注釈 02-B]',
-        '[機能展示位置：主要メカニクス・特徴コールアウト注釈 02-C]',
+    "keyMechanics": {
+      "ja": [
+        "3つのビューを連動させ、配置を確認する。",
+        "プレイヤーの視界とジャンプ軌道を表示する。",
+        "ブラウザ内で動線を試し、Unity C#、glTF、OBJに書き出す。"
       ],
-      zh: [
-        '[功能展示位置：核心机制/亮点图版旁注槽位 02-A]',
-        '[功能展示位置：核心机制/亮点图版旁注槽位 02-B]',
-        '[功能展示位置：核心机制/亮点图版旁注槽位 02-C]',
+      "zh": [
+        "通过联动的三个视口检查布局。",
+        "显示角色视野与跳跃轨迹。",
+        "在浏览器中试玩动线，支持导出 Unity C#、glTF、OBJ。"
       ],
-      en: [
-        '[Functional Slot: Key Mechanic / Feature Callout Annotation 02-A]',
-        '[Functional Slot: Key Mechanic / Feature Callout Annotation 02-B]',
-        '[Functional Slot: Key Mechanic / Feature Callout Annotation 02-C]',
-      ],
+      "en": [
+        "Inspect placement across three linked views.",
+        "Visualize player sight lines and jump trajectories.",
+        "Playtest routes in the browser and export to Unity C#, glTF or OBJ."
+      ]
     },
-    metrics: [
+    "metrics": [
       {
-        label: {
-          ja: '[指標ラベル枠 01]',
-          zh: '[参数指标名称槽位 01]',
-          en: '[Metric Label Slot 01]',
+        "label": {
+          "ja": "動作環境",
+          "zh": "运行环境",
+          "en": "Platform"
         },
-        value: '[VALUE 01]',
+        "value": "Web"
       },
       {
-        label: {
-          ja: '[指標ラベル枠 02]',
-          zh: '[参数指标名称槽位 02]',
-          en: '[Metric Label Slot 02]',
+        "label": {
+          "ja": "連動ビュー",
+          "zh": "联动视口",
+          "en": "Linked views"
         },
-        value: '[VALUE 02]',
+        "value": "3"
       },
       {
-        label: {
-          ja: '[指標ラベル枠 03]',
-          zh: '[参数指标名称槽位 03]',
-          en: '[Metric Label Slot 03]',
+        "label": {
+          "ja": "試遊",
+          "zh": "在线体验",
+          "en": "Availability"
         },
-        value: '[VALUE 03]',
-      },
+        "value": "Online"
+      }
     ],
-    frameTable: [
-      {
-        moveName: {
-          ja: '[仕様データ表・行 01]',
-          zh: '[仕样参数表·数据行 01]',
-          en: '[Spec Data Table Row 01]',
-        },
-        startup: '[COL-A]',
-        active: '[COL-B]',
-        recovery: '[COL-C]',
-        onBlock: '[COL-D]',
-        damage: '[COL-E]',
-      },
-      {
-        moveName: {
-          ja: '[仕様データ表・行 02]',
-          zh: '[仕样参数表·数据行 02]',
-          en: '[Spec Data Table Row 02]',
-        },
-        startup: '[COL-A]',
-        active: '[COL-B]',
-        recovery: '[COL-C]',
-        onBlock: '[COL-D]',
-        damage: '[COL-E]',
-      },
-    ],
-    repoName: 'project-repo-slot-02',
+    "frameTable": [],
+    "repoName": "Level-Builder",
+    "playUrl": "https://sora-my-one-and-only.github.io/Level-Builder/"
   },
   {
-    id: 'work-slot-03',
-    code: 'SLOT-03',
-    span: 'normal',
-    image: PORTFOLIO_IMAGES.bossAiBehavior,
-    roleTag: {
-      ja: '[機能展示位置：担当職種・役割タグ 03]',
-      zh: '[功能展示位置：担任职责与岗位标签 03]',
-      en: '[Functional Slot: Role & Specialty Tag 03]',
+    "id": "gs-particle-studio",
+    "code": "GS PARTICLE STUDIO",
+    "span": "normal",
+    "image": PORTFOLIO_IMAGES.bossAiBehavior,
+    "roleTag": {
+      "ja": "エフェクト制作ツール",
+      "zh": "特效制作工具",
+      "en": "Effects authoring tool"
     },
-    engineTag: '[ENGINE / TOOL TAG 03]',
-    year: 'YYYY',
-    title: {
-      ja: '[機能展示位置：代表作タイトル枠 03（クリックで詳細・試遊サブページへ）]',
-      zh: '[功能展示位置：代表作主标题槽位 03（点击进入详情与试玩子页面）]',
-      en: '[Functional Slot: Flagship Work Title 03 (Click to Open Spec & Playable Subpage)]',
+    "engineTag": "GLSL",
+    "year": "2026",
+    "title": {
+      "ja": "GSParticleStudio",
+      "zh": "GSParticleStudio",
+      "en": "GSParticleStudio"
     },
-    summary: {
-      ja: '/* 機能展示位置注釈：ここに代表作 03 の概要テキストを配置します。 */',
-      zh: '/* 功能展示位置注释：此处用于展示代表作 03 的核心简介文本。 */',
-      en: '/* Functional Slot Annotation: Place a summary describing Flagship Work 03 here. */',
+    "summary": {
+      "ja": "魔法エフェクトを制作するためのパーティクルエディタです。複数のレイヤーを重ねて演出を組み立てます。",
+      "zh": "用于制作魔法特效的粒子编辑器。通过叠加多个图层组合演出。",
+      "en": "A particle editor for spell effects. It layers multiple elements to build an effect."
     },
-    designIntent: {
-      ja: '/* 機能展示位置注釈：作品 03 の詳細サブページ内「企画意図」テキスト枠。 */',
-      zh: '/* 功能展示位置注释：作品 03 详情子页面内的「企划意图」正文展示位。 */',
-      en: '/* Functional Slot Annotation: "Design Intent" body slot for Work 03. */',
+    "designIntent": {
+      "ja": "魔法の発動から消えるまでの変化を、複数のレイヤーに分けて調整できるようにしました。",
+      "zh": "把魔法从发动到消散的演出拆成多个图层，便于分别调整。",
+      "en": "Separate a spell’s buildup, burst and fade into layers that can be adjusted independently."
     },
-    keyMechanics: {
-      ja: [
-        '[機能展示位置：主要メカニクス・特徴コールアウト注釈 03-A]',
-        '[機能展示位置：主要メカニクス・特徴コールアウト注釈 03-B]',
-        '[機能展示位置：主要メカニクス・特徴コールアウト注釈 03-C]',
+    "keyMechanics": {
+      "ja": [
+        "魔法の演出をレイヤーに分ける。",
+        "複数のレイヤーを重ねて一つのエフェクトにする。",
+        "専用ランタイムで再生する。"
       ],
-      zh: [
-        '[功能展示位置：核心机制/亮点图版旁注槽位 03-A]',
-        '[功能展示位置：核心机制/亮点图版旁注槽位 03-B]',
-        '[功能展示位置：核心机制/亮点图版旁注槽位 03-C]',
+      "zh": [
+        "把魔法演出拆分成图层。",
+        "叠加多个图层组合成一个特效。",
+        "通过专用运行时播放。"
       ],
-      en: [
-        '[Functional Slot: Key Mechanic / Feature Callout Annotation 03-A]',
-        '[Functional Slot: Key Mechanic / Feature Callout Annotation 03-B]',
-        '[Functional Slot: Key Mechanic / Feature Callout Annotation 03-C]',
-      ],
+      "en": [
+        "Separate a spell effect into layers.",
+        "Combine those layers into one effect.",
+        "Play it through a dedicated runtime."
+      ]
     },
-    metrics: [
+    "metrics": [
       {
-        label: {
-          ja: '[指標ラベル枠 01]',
-          zh: '[参数指标名称槽位 01]',
-          en: '[Metric Label Slot 01]',
+        "label": {
+          "ja": "用途",
+          "zh": "用途",
+          "en": "Purpose"
         },
-        value: '[VALUE 01]',
+        "value": "VFX"
       },
       {
-        label: {
-          ja: '[指標ラベル枠 02]',
-          zh: '[参数指标名称槽位 02]',
-          en: '[Metric Label Slot 02]',
+        "label": {
+          "ja": "構成",
+          "zh": "构成",
+          "en": "Authoring"
         },
-        value: '[VALUE 02]',
+        "value": "Layers"
       },
       {
-        label: {
-          ja: '[指標ラベル枠 03]',
-          zh: '[参数指标名称槽位 03]',
-          en: '[Metric Label Slot 03]',
+        "label": {
+          "ja": "公開状況",
+          "zh": "公开状态",
+          "en": "Availability"
         },
-        value: '[VALUE 03]',
-      },
+        "value": "Private"
+      }
     ],
-    frameTable: [
-      {
-        moveName: {
-          ja: '[仕様データ表・行 01]',
-          zh: '[仕样参数表·数据行 01]',
-          en: '[Spec Data Table Row 01]',
-        },
-        startup: '[COL-A]',
-        active: '[COL-B]',
-        recovery: '[COL-C]',
-        onBlock: '[COL-D]',
-        damage: '[COL-E]',
-      },
-      {
-        moveName: {
-          ja: '[仕様データ表・行 02]',
-          zh: '[仕样参数表·数据行 02]',
-          en: '[Spec Data Table Row 02]',
-        },
-        startup: '[COL-A]',
-        active: '[COL-B]',
-        recovery: '[COL-C]',
-        onBlock: '[COL-D]',
-        damage: '[COL-E]',
-      },
-    ],
-    repoName: 'project-repo-slot-03',
-  },
-  {
-    id: 'work-slot-04',
-    code: 'SLOT-04',
-    span: 'wide',
-    image: PORTFOLIO_IMAGES.retroArchive,
-    roleTag: {
-      ja: '[機能展示位置：担当職種・役割タグ 04]',
-      zh: '[功能展示位置：担任职责与岗位标签 04]',
-      en: '[Functional Slot: Role & Specialty Tag 04]',
-    },
-    engineTag: '[ENGINE / TOOL TAG 04]',
-    year: 'YYYY',
-    title: {
-      ja: '[機能展示位置：代表作タイトル枠 04（クリックで詳細・試遊サブページへ）]',
-      zh: '[功能展示位置：代表作主标题槽位 04（点击进入详情与试玩子页面）]',
-      en: '[Functional Slot: Flagship Work Title 04 (Click to Open Spec & Playable Subpage)]',
-    },
-    summary: {
-      ja: '/* 機能展示位置注釈：ここに代表作 04 の概要テキストを配置します。 */',
-      zh: '/* 功能展示位置注释：此处用于展示代表作 04 的核心简介文本。 */',
-      en: '/* Functional Slot Annotation: Place a summary describing Flagship Work 04 here. */',
-    },
-    designIntent: {
-      ja: '/* 機能展示位置注釈：作品 04 の詳細サブページ内「企画意図」テキスト枠。 */',
-      zh: '/* 功能展示位置注释：作品 04 详情子页面内的「企划意图」正文展示位。 */',
-      en: '/* Functional Slot Annotation: "Design Intent" body slot for Work 04. */',
-    },
-    keyMechanics: {
-      ja: [
-        '[機能展示位置：主要メカニクス・特徴コールアウト注釈 04-A]',
-        '[機能展示位置：主要メカニクス・特徴コールアウト注釈 04-B]',
-        '[機能展示位置：主要メカニクス・特徴コールアウト注釈 04-C]',
-      ],
-      zh: [
-        '[功能展示位置：核心机制/亮点图版旁注槽位 04-A]',
-        '[功能展示位置：核心机制/亮点图版旁注槽位 04-B]',
-        '[功能展示位置：核心机制/亮点图版旁注槽位 04-C]',
-      ],
-      en: [
-        '[Functional Slot: Key Mechanic / Feature Callout Annotation 04-A]',
-        '[Functional Slot: Key Mechanic / Feature Callout Annotation 04-B]',
-        '[Functional Slot: Key Mechanic / Feature Callout Annotation 04-C]',
-      ],
-    },
-    metrics: [
-      {
-        label: {
-          ja: '[指標ラベル枠 01]',
-          zh: '[参数指标名称槽位 01]',
-          en: '[Metric Label Slot 01]',
-        },
-        value: '[VALUE 01]',
-      },
-      {
-        label: {
-          ja: '[指標ラベル枠 02]',
-          zh: '[参数指标名称槽位 02]',
-          en: '[Metric Label Slot 02]',
-        },
-        value: '[VALUE 02]',
-      },
-      {
-        label: {
-          ja: '[指標ラベル枠 03]',
-          zh: '[参数指标名称槽位 03]',
-          en: '[Metric Label Slot 03]',
-        },
-        value: '[VALUE 03]',
-      },
-    ],
-    frameTable: [
-      {
-        moveName: {
-          ja: '[仕様データ表・行 01]',
-          zh: '[仕样参数表·数据行 01]',
-          en: '[Spec Data Table Row 01]',
-        },
-        startup: '[COL-A]',
-        active: '[COL-B]',
-        recovery: '[COL-C]',
-        onBlock: '[COL-D]',
-        damage: '[COL-E]',
-      },
-      {
-        moveName: {
-          ja: '[仕様データ表・行 02]',
-          zh: '[仕样参数表·数据行 02]',
-          en: '[Spec Data Table Row 02]',
-        },
-        startup: '[COL-A]',
-        active: '[COL-B]',
-        recovery: '[COL-C]',
-        onBlock: '[COL-D]',
-        damage: '[COL-E]',
-      },
-    ],
-    repoName: 'project-repo-slot-04',
-  },
+    "frameTable": [],
+    "repoName": ""
+  }
 ];
 
 export const ERA_CHRONICLES: EraNode[] = [];
 
-export const FALLBACK_GITHUB_REPOS: FallbackRepo[] = [
-  {
-    id: 101,
-    name: 'github-repo-slot-01',
-    html_url: 'https://github.com',
-    description: {
-      ja: '/* 機能展示位置注釈：GitHub リポジトリカード 01 の説明文表示枠（上の入力欄に GitHub ID を入力すると実データを自動取得します）。 */',
-      zh: '/* 功能展示位置注释：GitHub 开源仓库卡片 01 简介槽位（在上方输入您的 GitHub 用户名可实时拉取真实仓库数据）。 */',
-      en: '/* Functional Slot Annotation: GitHub Repository Card 01 description slot (Enter your GitHub ID above to fetch live repos). */',
-    },
-    language: 'LANG-01',
-    stargazers_count: 0,
-    forks_count: 0,
-    updated_at: '2026-01-01T00:00:00Z',
-    topics: ['topic-slot-1', 'topic-slot-2'],
-    latestCommit: {
-      sha: '0000000',
-      message: {
-        ja: '[最新コミットメッセージ表示枠]',
-        zh: '[最近 Commit 提交信息展示位]',
-        en: '[Latest Commit Message Slot]',
-      },
-      date: 'YYYY-MM-DD',
-    },
-  },
-  {
-    id: 102,
-    name: 'github-repo-slot-02',
-    html_url: 'https://github.com',
-    description: {
-      ja: '/* 機能展示位置注釈：GitHub リポジトリカード 02 の説明文表示枠。 */',
-      zh: '/* 功能展示位置注释：GitHub 开源仓库卡片 02 简介槽位。 */',
-      en: '/* Functional Slot Annotation: GitHub Repository Card 02 description slot. */',
-    },
-    language: 'LANG-02',
-    stargazers_count: 0,
-    forks_count: 0,
-    updated_at: '2026-01-01T00:00:00Z',
-    topics: ['topic-slot-1', 'topic-slot-2'],
-    latestCommit: {
-      sha: '0000000',
-      message: {
-        ja: '[最新コミットメッセージ表示枠]',
-        zh: '[最近 Commit 提交信息展示位]',
-        en: '[Latest Commit Message Slot]',
-      },
-      date: 'YYYY-MM-DD',
-    },
-  },
-  {
-    id: 103,
-    name: 'github-repo-slot-03',
-    html_url: 'https://github.com',
-    description: {
-      ja: '/* 機能展示位置注釈：GitHub リポジトリカード 03 の説明文表示枠。 */',
-      zh: '/* 功能展示位置注释：GitHub 开源仓库卡片 03 简介槽位。 */',
-      en: '/* Functional Slot Annotation: GitHub Repository Card 03 description slot. */',
-    },
-    language: 'LANG-03',
-    stargazers_count: 0,
-    forks_count: 0,
-    updated_at: '2026-01-01T00:00:00Z',
-    topics: ['topic-slot-1', 'topic-slot-2'],
-    latestCommit: {
-      sha: '0000000',
-      message: {
-        ja: '[最新コミットメッセージ表示枠]',
-        zh: '[最近 Commit 提交信息展示位]',
-        en: '[Latest Commit Message Slot]',
-      },
-      date: 'YYYY-MM-DD',
-    },
-  },
-];
+export const FALLBACK_GITHUB_REPOS: FallbackRepo[] = [];
 
 export const UI_TEXT = {
-  ja: {
-    github: {
-      fetchBtn: 'GitHub同期',
+  "ja": {
+    "github": {
+      "fetchBtn": "GitHub同期"
     },
-    contact: {
-      nameLabel: '[機能展示枠：送信者氏名ラベル]',
-      namePlaceholder: '[入力枠：氏名・所属]',
-      emailLabel: '[機能展示枠：メールアドレスラベル]',
-      emailPlaceholder: '[入力枠：email@example.com]',
-      messageLabel: '[機能展示枠：メッセージ本文ラベル]',
-      messagePlaceholder: '[入力枠：連絡・面談メッセージ本文入力エリア]',
-      submitBtn: '[機能ボタン：メッセージ送信]',
-      successTitle: '[機能展示枠：送信完了フィードバック見出し]',
-      successDesc: '/* 機能展示位置注釈：フォーム送信完了時に表示される確認メッセージ枠です。 */',
-    },
+    "contact": {
+      "nameLabel": "お名前",
+      "namePlaceholder": "氏名・所属",
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "email@example.com",
+      "messageLabel": "内容",
+      "messagePlaceholder": "メッセージ",
+      "submitBtn": "入力内容を確認",
+      "successTitle": "入力内容を確認しました",
+      "successDesc": "フォームのプレビューです。メッセージは送信されていません。"
+    }
   },
-  zh: {
-    github: {
-      fetchBtn: '同步仓库',
+  "zh": {
+    "github": {
+      "fetchBtn": "同步仓库"
     },
-    contact: {
-      nameLabel: '[功能展示位：寄件人姓名标签]',
-      namePlaceholder: '[输入框：姓名 / 所属团队]',
-      emailLabel: '[功能展示位：联系邮箱标签]',
-      emailPlaceholder: '[输入框：email@example.com]',
-      messageLabel: '[功能展示位：留言正文标签]',
-      messagePlaceholder: '[输入框：面试邀约或合作留言输入区域]',
-      submitBtn: '[功能按钮：发送联系信函]',
-      successTitle: '[功能展示位：发送成功状态标题]',
-      successDesc: '/* 功能展示位置注释：表单提交成功后显示的反馈提示文本槽位。 */',
-    },
+    "contact": {
+      "nameLabel": "姓名",
+      "namePlaceholder": "姓名或所属团队",
+      "emailLabel": "邮箱",
+      "emailPlaceholder": "email@example.com",
+      "messageLabel": "留言",
+      "messagePlaceholder": "留言内容",
+      "submitBtn": "预览留言",
+      "successTitle": "留言已预览",
+      "successDesc": "这是表单预览。留言未发送。"
+    }
   },
-  en: {
-    github: {
-      fetchBtn: 'Sync Repos',
+  "en": {
+    "github": {
+      "fetchBtn": "Sync Repos"
     },
-    contact: {
-      nameLabel: '[Slot: Sender Name Label]',
-      namePlaceholder: '[Input: Name / Studio]',
-      emailLabel: '[Slot: Email Label]',
-      emailPlaceholder: '[Input: email@example.com]',
-      messageLabel: '[Slot: Message Body Label]',
-      messagePlaceholder: '[Input: Message / Inquiry Textarea]',
-      submitBtn: '[Action Button: Submit Form]',
-      successTitle: '[Slot: Submission Confirmed Heading]',
-      successDesc: '/* Functional Slot Annotation: Confirmation message displayed after form submission. */',
-    },
-  },
+    "contact": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Name or team",
+      "emailLabel": "Email",
+      "emailPlaceholder": "email@example.com",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Your message",
+      "submitBtn": "Preview Message",
+      "successTitle": "Message Preview",
+      "successDesc": "This is a form preview. No message was sent."
+    }
+  }
 };

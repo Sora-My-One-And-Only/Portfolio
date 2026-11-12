@@ -395,10 +395,10 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
             <Gamepad2 className="w-3.5 h-3.5" />
             <span>
               {locale === 'ja'
-                ? 'ブラウザで今すぐ試遊 (Web試遊)'
+                ? (project.playUrl ? 'ブラウザで試す' : 'サイトの操作デモ')
                 : locale === 'zh'
-                ? '网页即点即玩 (立即试玩)'
-                : 'Play Web Prototype Now'}
+                ? (project.playUrl ? '在线体验' : '网站交互演示')
+                : (project.playUrl ? 'Try in Browser' : 'Site Interaction Demo')}
             </span>
           </button>
         </div>
@@ -481,7 +481,7 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#151C24]/90 via-[#151C24]/25 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 text-xs font-mono text-[#E6EDF3]">
-                  <div className="text-[#38B2A6] mb-1">[KEY VISUAL / ARTWORK SLOT]</div>
+                  <div className="text-[#38B2A6] mb-1">EDITORIAL ILLUSTRATION</div>
                   <div>{project.title[locale]}</div>
                 </div>
               </div>
@@ -497,14 +497,14 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
                 <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-xs font-mono text-[#E6EDF3] bg-[#151C24]/80 backdrop-blur-sm px-3.5 py-2 rounded border border-white/10">
                   <div className="flex items-center gap-2">
                     <span className="px-1.5 py-0.5 text-[10px] bg-[#1D7A74] text-white rounded shrink-0">
-                      LIVE 60FPS DEMO SLOT
+                      SITE DEMO
                     </span>
                     <span>
                       {locale === 'ja'
-                        ? '[機能展示枠：実機映像 / GIF / 60FPS自動デモ再生エリア]'
+                        ? 'サイトの操作デモ。作品の映像は準備中です。'
                         : locale === 'zh'
-                        ? '[功能展示位：实机视频 / GIF / 60FPS 动画演示区]'
-                        : '[Functional Slot: Gameplay Video / GIF / 60FPS Reel Area]'}
+                        ? '网站交互演示，作品实机视频待公开。'
+                        : 'Site interaction demo. Project footage is pending.'}
                     </span>
                   </div>
                   <button
@@ -523,10 +523,10 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
       ) : (
         /* PLAYABLE WEB GAME MODE */
         <div className="bg-[#151C24] text-[#E6EDF3]">
-          {customIframeUrl.trim() ? (
+          {(customIframeUrl.trim() || project.playUrl) ? (
             <div className="w-full h-[420px] bg-[#151C24]">
               <iframe
-                src={customIframeUrl}
+                src={customIframeUrl.trim() || project.playUrl}
                 title={project.title[locale]}
                 className="w-full h-full border-0"
                 allow="autoplay; fullscreen; gamepad"
@@ -537,7 +537,7 @@ export const InteractiveGameStage: React.FC<InteractiveGameStageProps> = ({
               {/* Top Posture & Combo Bar inside Playable Stage */}
               <div className="px-5 py-3 bg-[#1C2530] border-b border-[#2A3543] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
                 <div className="flex items-center gap-3 flex-1 min-w-[220px]">
-                  <span className="text-[#38B2A6] shrink-0">[GAUGE SLOT]:</span>
+                  <span className="text-[#38B2A6] shrink-0">DEMO GAUGE:</span>
                   <div className="flex-1 max-w-xs h-2.5 bg-[#11171D] border border-[#2E3A48] p-[1px]">
                     <div
                       className="h-full bg-gradient-to-r from-[#1D7A74] to-[#38B2A6] transition-all duration-150"

@@ -28,20 +28,20 @@ export const ContactFormSection: React.FC<ContactFormSectionProps> = ({
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
       <div className="lg:col-span-5">
         <div className="text-xs font-mono tracking-[0.24em] text-[#C84B31] dark:text-[#E57052] mb-3 editorial-callout-line">
-          CHAPTER 05B // [機能展示位置 / 功能展示位置：連絡フォーム (#contact)]
+          CHAPTER 05B // CONTACT
         </div>
         <h2 className="font-editorial text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.18] min-h-[1.2em]">
           {locale === 'ja'
-            ? '[機能見出し：採用・面談・連絡フォーム枠]'
+            ? 'お問い合わせ'
             : locale === 'zh'
-            ? '[功能标题槽位：联系与面试邀约表单模块]'
-            : '[Heading Slot: Direct Correspondence & Inquiry Form]'}
+            ? '联系'
+            : 'Contact'}
         </h2>
         <p className="mt-5 text-xs sm:text-sm font-mono text-[#555B61] dark:text-[#B0A89E] leading-relaxed min-h-[4.8rem]">
           {locale === 'ja'
             ? '/* 機能展示位置注釈：連絡先案内テキスト・SNSリンク・メールアドレス等を配置する左カラム説明枠です。右側は実際に送信動作確認が可能なフォーム枠です。 */'
             : locale === 'zh'
-            ? '/* 功能展示位置注释：左栏用于放置您的求职联系说明、邮箱地址或社交账号链接；右栏为支持交互验证的联系信函表单组件。 */'
+            ? '公开联系方式请见 GitHub 个人主页。右侧表单用于预览填写内容。'
             : '/* Functional Slot Annotation: Left column houses contact instructions and social/email links; right column is an interactive inquiry form component. */'}
         </p>
       </div>

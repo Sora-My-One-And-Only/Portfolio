@@ -29,8 +29,8 @@ class ArtbookStaticAudioEngine {
   private hoverPanStep = 0;
   private listeners = new Set<SoundListener>();
 
-  public bgmEnabled: boolean = false;
-  public sfxEnabled: boolean = false;
+  public bgmEnabled: boolean = true;
+  public sfxEnabled: boolean = true;
   public bgmPlaying: boolean = false;
   public volume: number = 0.13;
 
@@ -71,7 +71,7 @@ class ArtbookStaticAudioEngine {
     if (typeof window === 'undefined' || this.audioEl) return;
     const audio = new Audio(STATIC_BGM_URL);
     audio.loop = true;
-    audio.preload = 'none';
+    audio.preload = 'auto';
     audio.volume = this.volume;
 
     audio.addEventListener('play', () => {

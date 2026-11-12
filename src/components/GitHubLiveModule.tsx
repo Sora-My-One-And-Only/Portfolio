@@ -121,14 +121,14 @@ git push -u origin main`;
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-8 border-b border-[#181A1C] dark:border-[#F2EFE9]">
         <div className="min-w-0">
           <div className="text-xs font-mono tracking-[0.24em] text-[#C84B31] dark:text-[#E57052] mb-3 editorial-callout-line">
-            CHAPTER 05A // [機能展示位置 / 功能展示位置：GitHub API 同期＆リポジトリ枠 (#github)]
+            CHAPTER 05A // GITHUB
           </div>
           <h2 className="font-editorial text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.15] min-h-[1.15em]">
             {locale === 'ja'
-              ? '[機能見出し：GitHub 公開リポジトリ自動取得＆表示枠]'
+              ? '公開リポジトリ'
               : locale === 'zh'
-              ? '[功能标题槽位：GitHub 开源仓库实时拉取与展示模块]'
-              : '[Heading Slot: Live GitHub Repository Sync & Showcase]'}
+              ? '公开仓库'
+              : 'Public Repositories'}
           </h2>
         </div>
 
@@ -186,7 +186,7 @@ git push -u origin main`;
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E2E0D8] dark:border-[#2E2924]">
             <div>
               <div className="text-[11px] font-mono tracking-[0.2em] text-[#C84B31] dark:text-[#E57052]">
-                GITHUB PAGES DEPLOY PANEL // [機能展示枠：GitHub Pages 公開コマンド生成パネル]
+                GITHUB PAGES
               </div>
             </div>
 
@@ -243,7 +243,7 @@ git push -u origin main`;
             <div>
               <div className="flex items-center justify-between text-xs font-mono text-[#888E94] mb-4">
                 <span className="text-[#C84B31] dark:text-[#E57052]">
-                  REPO SLOT 0{idx + 1} // {repo.language}
+                  REPO 0{idx + 1} // {repo.language}
                 </span>
                 <div className="flex items-center gap-3 tabular-nums">
                   <span className="inline-flex items-center gap-1">

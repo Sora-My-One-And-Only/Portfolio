@@ -63,22 +63,24 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
             <ArrowLeft className="w-3.5 h-3.5 text-[#C84B31] dark:text-[#E57052]" />
             <span>
               {locale === 'ja'
-                ? '[機能ボタン：メインページへ戻る]'
+                ? 'トップへ戻る'
                 : locale === 'zh'
-                ? '[功能按钮：返回主页面]'
-                : '[Action Button: Back to Main Page]'}
+                ? '返回首页'
+                : 'Back to portfolio'}
             </span>
           </button>
 
+          {(project.playUrl || project.repoName) && (
           <a
-            href={`https://github.com/${githubUsername}/${project.repoName}`}
+            href={project.playUrl || `https://github.com/${githubUsername}/${project.repoName}`}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-mono text-[#555B61] dark:text-[#B0A89E] hover:text-[#C84B31] dark:hover:text-[#E57052] btn-3d-secondary"
           >
-            <span>[REPO LINK SLOT // {project.repoName}]</span>
+            <span>{project.playUrl ? { ja: 'ブラウザで試す', zh: '在线体验', en: 'Try in browser' }[locale] : 'GitHub'}</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
+          )}
         </div>
 
         {/* Asymmetric Editorial Spread Header: Title + Telemetry Sidebar */}
@@ -97,7 +99,7 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
 
           <aside className="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-[#E2E0D8] dark:border-[#2E2924] pt-6 lg:pt-0 lg:pl-8 flex flex-col justify-between">
             <div className="text-[11px] font-mono tracking-[0.2em] text-[#888E94] mb-4">
-              ── KEY TELEMETRY // [機能展示枠：作品主要パラメータ枠]
+              ── WORK OVERVIEW
             </div>
             <div className="divide-y divide-[#E2E0D8] dark:divide-[#2E2924] font-mono tabular-nums">
               {project.metrics.map((m, i) => (
@@ -133,13 +135,14 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
           >
             <span>
               {locale === 'ja'
-                ? 'TAB 01 // [企画意図・主要メカニクス注釈枠]'
+                ? '企画意図・主な仕組み'
                 : locale === 'zh'
-                ? 'TAB 01 // [企划意图与核心机制注释槽位]'
-                : 'TAB 01 // [Design Intent & Mechanics Notes Slot]'}
+                ? '企划意图与核心机制'
+                : 'Design Intent & Mechanics'}
             </span>
           </button>
 
+          {project.frameTable.length > 0 && (
           <button
             type="button"
             onClick={() => {
@@ -152,12 +155,13 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
           >
             <span>
               {locale === 'ja'
-                ? 'TAB 02 // [フレーム・仕様パラメータデータ表枠]'
+                ? '魔法コマンド'
                 : locale === 'zh'
-                ? 'TAB 02 // [仕样书帧数与数值参数表槽位]'
-                : 'TAB 02 // [Frame & Specification Data Table Slot]'}
+                ? '魔法指令'
+                : 'Spell Commands'}
             </span>
           </button>
+          )}
         </div>
 
         {/* Annotated Document Body */}
@@ -174,7 +178,7 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
               >
                 <div className="lg:col-span-5">
                   <div className="text-xs font-mono uppercase tracking-[0.2em] text-[#C84B31] dark:text-[#E57052] mb-3">
-                    ── {locale === 'ja' ? '[機能展示枠：企画意図 (DESIGN INTENT)]' : locale === 'zh' ? '[功能展示位：企划意图 (DESIGN INTENT)]' : '[Slot: DESIGN INTENT]'}
+                    ── {locale === 'ja' ? '企画意図' : locale === 'zh' ? '企划意图' : 'DESIGN INTENT'}
                   </div>
                   <p className="text-xs sm:text-sm font-mono leading-relaxed text-[#555B61] dark:text-[#B0A89E]">
                     {project.designIntent[locale]}
@@ -183,7 +187,7 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
 
                 <div className="lg:col-span-7 lg:border-l border-[#E2E0D8] dark:border-[#2E2924] lg:pl-10">
                   <div className="text-xs font-mono uppercase tracking-[0.2em] text-[#C84B31] dark:text-[#E57052] mb-4">
-                    ── {locale === 'ja' ? '[機能展示枠：主要メカニクス注釈リスト]' : locale === 'zh' ? '[功能展示位：核心机制拆解注释列表]' : '[Slot: ANNOTATED MECHANICS LIST]'}
+                    ── {locale === 'ja' ? '主な仕組み' : locale === 'zh' ? '核心机制' : 'CORE MECHANICS'}
                   </div>
                   <div className="divide-y divide-[#E2E0D8] dark:divide-[#2E2924]">
                     {project.keyMechanics[locale].map((item, idx) => (
@@ -209,12 +213,12 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
                   <table className="w-full text-left border-collapse text-xs sm:text-sm font-mono tabular-nums">
                     <thead>
                       <tr className="border-b border-[#181A1C] dark:border-[#F2EFE9] text-[#888E94]">
-                        <th className="py-3.5 px-4">[COL 01 // NAME]</th>
-                        <th className="py-3.5 px-4">[COL 02 // PARAM A]</th>
-                        <th className="py-3.5 px-4">[COL 03 // PARAM B]</th>
-                        <th className="py-3.5 px-4">[COL 04 // PARAM C]</th>
-                        <th className="py-3.5 px-4">[COL 05 // PARAM D]</th>
-                        <th className="py-3.5 px-4">[COL 06 // OUTPUT]</th>
+                        <th className="py-3.5 px-4">{ { ja: '魔法', zh: '魔法', en: 'Spell' }[locale] }</th>
+                        <th className="py-3.5 px-4">{ { ja: 'コマンド', zh: '指令', en: 'Command' }[locale] }</th>
+                        <th className="py-3.5 px-4">{ { ja: '属性', zh: '属性', en: 'Element' }[locale] }</th>
+
+
+
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[#E2E0D8] dark:divide-[#2E2924]">
@@ -225,9 +229,9 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
                           </td>
                           <td className="py-4 px-4 text-[#C84B31] dark:text-[#E57052]">{row.startup}</td>
                           <td className="py-4 px-4 font-medium">{row.active}</td>
-                          <td className="py-4 px-4 text-[#555B61] dark:text-[#B0A89E]">{row.recovery}</td>
-                          <td className="py-4 px-4 text-[#C84B31] dark:text-[#E57052]">{row.onBlock}</td>
-                          <td className="py-4 px-4 font-medium">{row.damage}</td>
+
+
+
                         </tr>
                       ))}
                     </tbody>
@@ -250,7 +254,7 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
           >
             <ArrowLeft className="w-4 h-4 text-[#C84B31] dark:text-[#E57052] shrink-0" />
             <div className="min-w-0">
-              <div className="text-[11px] font-mono text-[#888E94]">PREVIOUS SLOT // {prevProject.code}</div>
+              <div className="text-[11px] font-mono text-[#888E94]">PREVIOUS // {prevProject.code}</div>
               <div className="font-editorial text-lg font-semibold mt-0.5">{prevProject.title[locale]}</div>
             </div>
           </button>
@@ -264,7 +268,7 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
             className="text-right p-5 btn-3d-secondary flex items-center justify-end gap-4 cursor-pointer"
           >
             <div className="min-w-0">
-              <div className="text-[11px] font-mono text-[#888E94]">NEXT SLOT // {nextProject.code}</div>
+              <div className="text-[11px] font-mono text-[#888E94]">NEXT // {nextProject.code}</div>
               <div className="font-editorial text-lg font-semibold mt-0.5">{nextProject.title[locale]}</div>
             </div>
             <ArrowRight className="w-4 h-4 text-[#C84B31] dark:text-[#E57052] shrink-0" />

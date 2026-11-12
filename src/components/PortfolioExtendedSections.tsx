@@ -32,660 +32,633 @@ interface ExtendedSectionsProps {
 }
 
 const EXTENDED_COPY = {
-  ja: {
-    modeSelectTag: 'SELECT MODE // [機能展示位置：閲覧目的別ナビゲーション枠]',
-    modeSelectTitle: '[機能見出し：訪問者の目的別クイックジャンプ枠]',
-    modes: [
+  "ja": {
+    "modeSelectTag": "閲覧メニュー",
+    "modeSelectTitle": "見たい内容を選ぶ",
+    "modes": [
       {
-        id: 'recruit',
-        target: 'quick-guide',
-        badge: 'MODE 01 // RECRUITER',
-        title: '[機能展示枠 01：採用担当・面接官向け誘導ボタン]',
-        sub: '/* クリックで「30秒要約カード (#quick-guide)」へスクロール移動 */',
+        "id": "recruit",
+        "target": "quick-guide",
+        "badge": "MODE 01 // RECRUITER",
+        "title": "採用担当の方へ",
+        "sub": "概要と代表作を短く確認できます。"
       },
       {
-        id: 'gamedev',
-        target: 'what-i-can-do',
-        badge: 'MODE 02 // COLLABORATOR',
-        title: '[機能展示枠 02：開発チーム・協業者向け誘導ボタン]',
-        sub: '/* クリックで「できること一覧 (#what-i-can-do)」へスクロール移動 */',
+        "id": "gamedev",
+        "target": "what-i-can-do",
+        "badge": "MODE 02 // COLLABORATOR",
+        "title": "制作や協業に関心のある方へ",
+        "sub": "制作で取り組んでいることを紹介します。"
       },
       {
-        id: 'play',
-        target: 'play-games',
-        badge: 'MODE 03 // PLAYABLE',
-        title: '[機能展示枠 03：公開作品をすぐ遊びたい方向け誘導ボタン]',
-        sub: '/* クリックで「公開試遊ポータル (#play-games)」へスクロール移動 */',
-      },
+        "id": "play",
+        "target": "play-games",
+        "badge": "MODE 03 // PLAYABLE",
+        "title": "公開作品を試したい方へ",
+        "sub": "ブラウザで公開ツールを体験できます。"
+      }
     ],
-    quickGuideTag: 'QUICK GUIDE // [機能展示位置：30秒サマリーカード枠]',
-    quickGuideTitle: '[機能見出し：30秒でわかる人物・実績ダイジェスト枠]',
-    quickTimer: '0:30 READ SLOT',
-    quickItems: {
-      roleLabel: '01 // [機能展示枠：志望職種・専門領域スロット]',
-      roleMain: '[メインテキスト枠：志望職種・ロール名]',
-      roleSub: '/* 注釈：ここに志望ポジション・得意ジャンル・卒業年度などを1行で記載 */',
-      skillLabel: '02 // [機能展示枠：使用エンジン・技術・言語タグ群]',
-      skillTags: [
-        '[技術タグ枠 01]',
-        '[技術タグ枠 02]',
-        '[技術タグ枠 03]',
-        '[技術タグ枠 04]',
-        '[資格・語学タグ枠 05]',
-        '[ツールタグ枠 06]',
+    "quickGuideTag": "QUICK GUIDE",
+    "quickGuideTitle": "30秒でわかるSora",
+    "quickTimer": "0:30",
+    "quickItems": {
+      "roleLabel": "志望職種",
+      "roleMain": "ゲームプランナー志望",
+      "roleSub": "バトルデザイン・レベルデザイン",
+      "skillLabel": "制作環境",
+      "skillTags": [
+        "Unity",
+        "C#",
+        "Combat Design",
+        "Level Design"
       ],
-      worksLabel: '03 // [機能展示枠：まず見てほしい代表作ショートカット枠]',
-      statsLabel: '04 // [機能展示枠：実績数値カウンター（4項目）]',
-      stats: [
-        { val: '[N]', unit: '[実績指標枠 01：制作作品数など]' },
-        { val: '[N]', unit: '[実績指標枠 02：受賞・入選歴など]' },
-        { val: '[N]', unit: '[実績指標枠 03：イベント・Jam参加数]' },
-        { val: '[N]', unit: '[実績指標枠 04：技術記事・ノート数]' },
-      ],
+      "worksLabel": "まず見てほしい作品",
+      "statsLabel": "掲載内容",
+      "stats": [
+        {
+          "val": "3",
+          "unit": "掲載作品"
+        },
+        {
+          "val": "1",
+          "unit": "ゲーム"
+        },
+        {
+          "val": "2",
+          "unit": "制作ツール"
+        },
+        {
+          "val": "3",
+          "unit": "表示言語"
+        }
+      ]
     },
-    quickContactPrompt: '/* 機能展示位置注釈：カード下部のアクション誘導テキスト枠 */',
-    quickPlayBtn: '[機能ボタン：試遊セクションへ移動]',
-    quickMailBtn: '[機能ボタン：連絡フォームへ移動]',
-
-    playGamesChapter: 'CHAPTER 02B // [機能展示位置：公開試遊ポータル＆Web試遊ラボ (#play-games)]',
-    playGamesTitle: '[機能見出し：公開中のゲーム・外部配信プラットフォーム一覧枠]',
-    playGamesLead:
-      '/* 機能展示位置注釈：unityroom / itch.io / 夢現 / Steam などの外部ゲーム公開サイトへのリンクカード群と、ブラウザ内試遊ランチャーを配置するセクションです。 */',
-    platforms: [
+    "quickContactPrompt": "代表作の設計と、公開ツールを確認できます。",
+    "quickPlayBtn": "オンライン体験へ",
+    "quickMailBtn": "連絡先へ",
+    "playGamesChapter": "CHAPTER 02B // TRY ONLINE",
+    "playGamesTitle": "オンライン体験",
+    "playGamesLead": "Level Builderをブラウザで試せます。",
+    "platforms": [
       {
-        id: 'unityroom',
-        code: 'PORTAL 01 // EXTERNAL LINK SLOT',
-        name: '[外部配信サイト枠 01 (例: unityroom)]',
-        badge: '[属性バッジ枠：WebGL / 即時試遊]',
-        desc: '/* 機能展示位置注釈：外部ゲーム投稿サイト 01 の紹介テキスト枠。クリックで該当プロフィールページを新規タブで開きます。 */',
-        url: 'https://unityroom.com/',
-        cta: '[外部リンク移動ボタン 01 ↗]',
+        "id": "public-0",
+        "code": "PORTAL 01",
+        "name": "Level Builder",
+        "badge": "公開ツール",
+        "desc": "視界やジャンプ軌道を確認しながら、グレーボックスの動線を試せます。",
+        "url": "https://sora-my-one-and-only.github.io/Level-Builder/",
+        "cta": "ブラウザで試す"
       },
       {
-        id: 'itchio',
-        code: 'PORTAL 02 // EXTERNAL LINK SLOT',
-        name: '[外部配信サイト枠 02 (例: itch.io)]',
-        badge: '[属性バッジ枠：PC Build / ビルド配布]',
-        desc: '/* 機能展示位置注釈：外部ゲーム投稿サイト 02 の紹介テキスト枠。実行ファイルや仕様書PDFの配布先リンクとして機能します。 */',
-        url: 'https://itch.io/',
-        cta: '[外部リンク移動ボタン 02 ↗]',
+        "id": "public-1",
+        "code": "PORTAL 02",
+        "name": "Level Builder / GitHub",
+        "badge": "ソースコード",
+        "desc": "レベルデザインツールのソースコードと説明を公開しています。",
+        "url": "https://github.com/Sora-My-One-And-Only/Level-Builder",
+        "cta": "ソースを見る"
       },
       {
-        id: 'freegame',
-        code: 'PORTAL 03 // EXTERNAL LINK SLOT',
-        name: '[外部配信サイト枠 03 (例: 夢現 / BOOTH)]',
-        badge: '[属性バッジ枠：長編作品 / 資料集配布]',
-        desc: '/* 機能展示位置注釈：外部ゲーム投稿サイト 03 または個人配布ページへの誘導枠です。 */',
-        url: 'https://freegame-mugen.jp/',
-        cta: '[外部リンク移動ボタン 03 ↗]',
-      },
+        "id": "public-2",
+        "code": "PORTAL 03",
+        "name": "Sora / GitHub",
+        "badge": "プロフィール",
+        "desc": "制作活動と公開リポジトリをまとめています。",
+        "url": "https://github.com/Sora-My-One-And-Only",
+        "cta": "プロフィールを見る"
+      }
     ],
-    browserLabTag: 'EMBEDDED PLAYABLE LAB // [機能展示枠：ブラウザ内即時試遊ランチャー]',
-    browserLabTitle: '[機能見出し：ページ内60FPS試遊ステージ起動パネル]',
-    browserLabDesc:
-      '/* 機能展示位置注釈：外部サイトへ移動せず、このポートフォリオ内で直接プレイアブル試作（STAGE 01〜04）を起動する機能ブロックです。 */',
-    browserLabFeatures: [
-      '[機能説明項目 01：クリックで各作品のインタラクティブ試遊モードを直接起動]',
-      '[機能説明項目 02：カスタム WebGL iframe URL または MP4 / GIF プレビューの埋め込みに対応]',
-      '[機能説明項目 03：キーボード / マウス操作によるリアルタイム判定表示]',
+    "browserLabTag": "作品プレビュー",
+    "browserLabTitle": "作品詳細と関連資料",
+    "browserLabDesc": "気になった作品を選んで、企画意図や仕組みを確認できます。",
+    "browserLabFeatures": [],
+    "browserLabStageSelect": "作品を選ぶ",
+    "whatICanDoChapter": "CHAPTER 03B // CAPABILITIES",
+    "whatICanDoTitle": "制作でできること",
+    "whatICanDoLead": "取り組んでいる設計と制作を、実例とあわせて紹介します。",
+    "capabilities": [
+      {
+        "num": "CAPABILITY 01",
+        "category": "バトル設計",
+        "title": "近接と魔法の役割をつなぐ",
+        "desc": "近接で魔力を回復し、ブレイク後に長い詠唱を狙う流れを考えます。",
+        "example": "魔法コマンドとブレイク",
+        "tags": [
+          "Unity",
+          "Break"
+        ]
+      },
+      {
+        "num": "CAPABILITY 02",
+        "category": "レベル設計",
+        "title": "動線を試せる形にする",
+        "desc": "白箱で足場と視界を確認し、プレイヤーの進み方を検討します。",
+        "example": "火竜戦の足場変化",
+        "tags": [
+          "Greybox",
+          "Playtest"
+        ]
+      },
+      {
+        "num": "CAPABILITY 03",
+        "category": "ツール制作",
+        "title": "検証を助けるツールを作る",
+        "desc": "視界、ジャンプ軌道、エフェクトなどを試せるツールを制作します。",
+        "example": "Level Builder / GSParticleStudio",
+        "tags": [
+          "Web",
+          "VFX"
+        ]
+      },
+      {
+        "num": "CAPABILITY 04",
+        "category": "チーム制作",
+        "title": "仕様をチームで共有する",
+        "desc": "操作や敵の挙動を整理し、チームで使える仕様に落とし込みます。",
+        "example": "『ルミアの冒険譚』の制作",
+        "tags": [
+          "Unity",
+          "Design Spec"
+        ]
+      }
     ],
-    browserLabStageSelect: '── STAGE SELECT // [機能展示枠：試遊ステージ選択ボタン群]',
-
-    whatICanDoChapter: 'CHAPTER 03B // [機能展示位置：制作で担当できること (#what-i-can-do)]',
-    whatICanDoTitle: '[機能見出し：職種別・担当可能な業務領域マトリクス（4カード枠）]',
-    whatICanDoLead:
-      '/* 機能展示位置注釈：スキルの数値バーだけでなく「具体的にチーム開発で何ができるか・どんな成果物を作れるか」を実例とタグ付きで提示する機能セクションです。 */',
-    capabilities: [
+    "timelineChapter": "CHAPTER 04B // PROJECTS",
+    "timelineTitle": "制作の記録",
+    "timelineSub": "制作テーマ",
+    "timelineNodes": [
       {
-        num: 'CAPABILITY 01',
-        category: '[専門領域タグ枠 01]',
-        title: '[機能展示枠 01：担当できる業務・強みの見出し]',
-        desc: '/* 機能展示位置注釈：能力カード 01 の詳細説明テキスト枠。具体的な作成ドキュメントや設計手法を記述します。 */',
-        example: '[実績・具体例コールアウト枠 01：どの作品でどう活かしたかの1行注釈]',
-        tags: ['[スキルタグ 1A]', '[スキルタグ 1B]', '[スキルタグ 1C]'],
+        "stage": "WORK 01",
+        "period": "2026",
+        "badge": "チーム制作",
+        "title": "ルミアの冒険譚",
+        "desc": "近接で魔力を回復し、ブレイク後に長い詠唱を狙う流れを考えます。"
       },
       {
-        num: 'CAPABILITY 02',
-        category: '[専門領域タグ枠 02]',
-        title: '[機能展示枠 02：担当できる業務・強みの見出し]',
-        desc: '/* 機能展示位置注釈：能力カード 02 の詳細説明テキスト枠。 */',
-        example: '[実績・具体例コールアウト枠 02：どの作品でどう活かしたかの1行注釈]',
-        tags: ['[スキルタグ 2A]', '[スキルタグ 2B]', '[スキルタグ 2C]'],
+        "stage": "WORK 02",
+        "period": "2026",
+        "badge": "ツール制作",
+        "title": "Level Builder",
+        "desc": "視界、ジャンプ軌道、エフェクトなどを試せるツールを制作します。"
       },
       {
-        num: 'CAPABILITY 03',
-        category: '[専門領域タグ枠 03]',
-        title: '[機能展示枠 03：担当できる業務・強みの見出し]',
-        desc: '/* 機能展示位置注釈：能力カード 03 の詳細説明テキスト枠。 */',
-        example: '[実績・具体例コールアウト枠 03：どの作品でどう活かしたかの1行注釈]',
-        tags: ['[スキルタグ 3A]', '[スキルタグ 3B]', '[スキルタグ 3C]'],
-      },
-      {
-        num: 'CAPABILITY 04',
-        category: '[専門領域タグ枠 04]',
-        title: '[機能展示枠 04：担当できる業務・強みの見出し]',
-        desc: '/* 機能展示位置注釈：能力カード 04 の詳細説明テキスト枠。 */',
-        example: '[実績・具体例コールアウト枠 04：どの作品でどう活かしたかの1行注釈]',
-        tags: ['[スキルタグ 4A]', '[スキルタグ 4B]', '[スキルタグ 4C]'],
-      },
+        "stage": "WORK 03",
+        "period": "2026",
+        "badge": "ツール制作",
+        "title": "GSParticleStudio",
+        "desc": "視界、ジャンプ軌道、エフェクトなどを試せるツールを制作します。"
+      }
     ],
-
-    timelineChapter: 'CHAPTER 04B // [機能展示位置：制作活動の歩み＆発信記事 (#timeline)]',
-    timelineTitle: '[機能見出し：時系列ステージ型・制作ヒストリー＆外部ブログ枠]',
-    timelineSub: 'CHRONOLOGICAL STAGE MAP // [時系列ノード表示枠]',
-    timelineNodes: [
+    "blogHeader": "公開ドキュメント",
+    "blogDesc": "レベルデザインツールのソースコードと説明を公開しています。",
+    "blogArticles": [
       {
-        stage: 'STAGE 01',
-        period: '[YYYY.MM - YYYY.MM]',
-        badge: '[マイルストーン区分 01]',
-        title: '[機能展示枠：時系列ヒストリーノード 01 見出し]',
-        desc: '/* 機能展示位置注釈：時期 01 の活動内容・学習・制作イベントなどを記述する枠です。 */',
-      },
-      {
-        stage: 'STAGE 02',
-        period: '[YYYY.MM - YYYY.MM]',
-        badge: '[マイルストーン区分 02]',
-        title: '[機能展示枠：時系列ヒストリーノード 02 見出し]',
-        desc: '/* 機能展示位置注釈：時期 02 の活動内容・チーム開発・受賞歴などを記述する枠です。 */',
-      },
-      {
-        stage: 'STAGE 03',
-        period: '[YYYY.MM - YYYY.MM]',
-        badge: '[マイルストーン区分 03]',
-        title: '[機能展示枠：時系列ヒストリーノード 03 見出し]',
-        desc: '/* 機能展示位置注釈：時期 03 の活動内容を記述する枠です。 */',
-      },
-      {
-        stage: 'STAGE 04',
-        period: '[YYYY.MM - PRESENT]',
-        badge: '[現在・直近ステータス]',
-        title: '[機能展示枠：時系列ヒストリーノード 04 見出し]',
-        desc: '/* 機能展示位置注釈：現在の制作状況や就職活動ステータスを記述する枠です。 */',
-      },
+        "date": "2026",
+        "tag": "LEVEL DESIGN",
+        "title": "Level Builder",
+        "summary": "レベルデザインツールのソースコードと説明を公開しています。",
+        "url": "https://github.com/Sora-My-One-And-Only/Level-Builder#readme"
+      }
     ],
-    blogHeader: 'DESIGN NOTES & BLOG // [機能展示枠：外部ブログ・技術記事ピックアップ]',
-    blogDesc:
-      '/* 機能展示位置注釈：note / Zenn / Qiita / 個人ブログ等で発信している記事リンクを3件ピックアップ展示する枠です。 */',
-    blogArticles: [
+    "endingBanner": "CREDITS",
+    "endingTitle": "ご覧いただきありがとうございます",
+    "endingLead": "作品や制作活動については、GitHubの公開ページもご覧ください。",
+    "credits": [
       {
-        date: 'YYYY.MM.DD',
-        tag: '[記事カテゴリ枠 01]',
-        title: '[機能展示枠：ピックアップ記事タイトル 01]',
-        summary: '/* 機能展示位置注釈：記事 01 の要約テキスト枠（クリックで外部記事URLへ遷移）。 */',
+        "role": "制作名義",
+        "name": "Sora"
       },
       {
-        date: 'YYYY.MM.DD',
-        tag: '[記事カテゴリ枠 02]',
-        title: '[機能展示枠：ピックアップ記事タイトル 02]',
-        summary: '/* 機能展示位置注釈：記事 02 の要約テキスト枠（クリックで外部記事URLへ遷移）。 */',
+        "role": "サイト制作",
+        "name": "React / TypeScript"
       },
       {
-        date: 'YYYY.MM.DD',
-        tag: '[記事カテゴリ枠 03]',
-        title: '[機能展示枠：ピックアップ記事タイトル 03]',
-        summary: '/* 機能展示位置注釈：記事 03 の要約テキスト枠（クリックで外部記事URLへ遷移）。 */',
-      },
+        "role": "掲載作品",
+        "name": "ARCANE CHRONICLE / Level Builder / GSParticleStudio"
+      }
     ],
-
-    endingBanner: '★ ENDING CREDITS SLOT // [機能展示位置：巻末クリア演出バナー] ★',
-    endingTitle: '[機能見出し：THANK YOU FOR EXPLORING / 巻末挨拶枠]',
-    endingLead:
-      '/* 機能展示位置注釈：ページ最下部までスクロールした訪問者への感謝メッセージと、クレジット・いいねボタン・トップ復帰ボタンを配置するエンディング枠です。 */',
-    credits: [
-      {
-        role: '[CREDIT SLOT 01 // 企画・設計担当枠]',
-        name: '[氏名・ハンドルネーム表示枠]',
-      },
-      {
-        role: '[CREDIT SLOT 02 // 実装・デザイン担当枠]',
-        name: '[使用技術・ツールクレジット表示枠]',
-      },
-      {
-        role: '[CREDIT SLOT 03 // SPECIAL THANKS]',
-        name: '[訪問者・採用担当者への謝辞表示枠]',
-      },
-    ],
-    kudosBtn: '[機能ボタン：応援・いいねカウンター]',
-    kudosSent: '[機能フィードバック：カウント加算完了！]',
-    replayBtn: '[機能ボタン：巻頭（TOP）へ戻る]',
-    contactBtn: '[機能ボタン：連絡フォームへスクロール]',
+    "kudosBtn": "応援する",
+    "kudosSent": "ありがとうございます",
+    "replayBtn": "先頭へ",
+    "contactBtn": "連絡先へ"
   },
-  zh: {
-    modeSelectTag: 'SELECT MODE // [功能展示位置：浏览目的分流导航区]',
-    modeSelectTitle: '[功能标题槽位：按访客目的快速跳转入口]',
-    modes: [
+  "zh": {
+    "modeSelectTag": "浏览导航",
+    "modeSelectTitle": "选择想看的内容",
+    "modes": [
       {
-        id: 'recruit',
-        target: 'quick-guide',
-        badge: 'MODE 01 // RECRUITER',
-        title: '[功能展示位 01：面向招聘官/面试官快捷入口]',
-        sub: '/* 点击平滑滚动至「30秒速览卡片 (#quick-guide)」 */',
+        "id": "recruit",
+        "target": "quick-guide",
+        "badge": "MODE 01 // RECRUITER",
+        "title": "招聘方入口",
+        "sub": "快速浏览个人概况与代表作。"
       },
       {
-        id: 'gamedev',
-        target: 'what-i-can-do',
-        badge: 'MODE 02 // COLLABORATOR',
-        title: '[功能展示位 02：面向开发团队/合作方快捷入口]',
-        sub: '/* 点击平滑滚动至「可胜任工作模块 (#what-i-can-do)」 */',
+        "id": "gamedev",
+        "target": "what-i-can-do",
+        "badge": "MODE 02 // COLLABORATOR",
+        "title": "制作与协作",
+        "sub": "查看我在设计和制作中的实践。"
       },
       {
-        id: 'play',
-        target: 'play-games',
-        badge: 'MODE 03 // PLAYABLE',
-        title: '[功能展示位 03：面向想直接试玩作品的访客入口]',
-        sub: '/* 点击平滑滚动至「在线试玩平台矩阵 (#play-games)」 */',
-      },
+        "id": "play",
+        "target": "play-games",
+        "badge": "MODE 03 // PLAYABLE",
+        "title": "体验公开作品",
+        "sub": "在浏览器体验公开工具。"
+      }
     ],
-    quickGuideTag: 'QUICK GUIDE // [功能展示位置：30秒速览摘要卡片]',
-    quickGuideTitle: '[功能标题槽位：30秒个人核心信息与实绩速览看板]',
-    quickTimer: '0:30 READ SLOT',
-    quickItems: {
-      roleLabel: '01 // [功能展示位：目标岗位与求职方向槽位]',
-      roleMain: '[主文本槽位：求职意向岗位名称]',
-      roleSub: '/* 注释：在此填写您的意向岗位、毕业届别、可就职地区等核心求职信息 */',
-      skillLabel: '02 // [功能展示位：核心技能与开发工具标签组槽位]',
-      skillTags: [
-        '[技能标签槽位 01]',
-        '[技能标签槽位 02]',
-        '[技能标签槽位 03]',
-        '[技能标签槽位 04]',
-        '[语言/证书标签槽位 05]',
-        '[工具链标签槽位 06]',
+    "quickGuideTag": "QUICK GUIDE",
+    "quickGuideTitle": "30 秒了解 Sora",
+    "quickTimer": "0:30",
+    "quickItems": {
+      "roleLabel": "目标岗位",
+      "roleMain": "游戏策划求职",
+      "roleSub": "战斗设计 · 关卡设计",
+      "skillLabel": "制作环境",
+      "skillTags": [
+        "Unity",
+        "C#",
+        "Combat Design",
+        "Level Design"
       ],
-      worksLabel: '03 // [功能展示位：主打代表作一键试玩跳转槽位]',
-      statsLabel: '04 // [功能展示位：个人实绩数字统计看板（4格）]',
-      stats: [
-        { val: '[N]', unit: '[实绩统计槽位 01：累计作品数]' },
-        { val: '[N]', unit: '[实绩统计槽位 02：获奖/入围数]' },
-        { val: '[N]', unit: '[实绩统计槽位 03：参展/Jam次数]' },
-        { val: '[N]', unit: '[实绩统计槽位 04：专栏文章数]' },
-      ],
+      "worksLabel": "优先看这两项",
+      "statsLabel": "当前展示",
+      "stats": [
+        {
+          "val": "3",
+          "unit": "展示作品"
+        },
+        {
+          "val": "1",
+          "unit": "游戏"
+        },
+        {
+          "val": "2",
+          "unit": "制作工具"
+        },
+        {
+          "val": "3",
+          "unit": "语言版本"
+        }
+      ]
     },
-    quickContactPrompt: '/* 功能展示位置注释：卡片底部的引导说明文本槽位 */',
-    quickPlayBtn: '[功能按钮：跳转至在线试玩区]',
-    quickMailBtn: '[功能按钮：跳转至联系表单区]',
-
-    playGamesChapter: 'CHAPTER 02B // [功能展示位置：公开试玩平台矩阵与网页实验室 (#play-games)]',
-    playGamesTitle: '[功能标题槽位：外部游戏发布平台入口 & 网页内嵌试玩区]',
-    playGamesLead:
-      '/* 功能展示位置注释：参考 haru2401game.github.io/portfolio/#play-games，此处包含 3 个外部游戏发布平台外链卡片（如 unityroom / itch.io / 夢現 / Steam）以及下方的网页端即点即玩启动台。 */',
-    platforms: [
+    "quickContactPrompt": "查看代表作的设计和公开工具。",
+    "quickPlayBtn": "前往在线体验",
+    "quickMailBtn": "查看联系方式",
+    "playGamesChapter": "CHAPTER 02B // TRY ONLINE",
+    "playGamesTitle": "在线体验",
+    "playGamesLead": "可以在浏览器中直接体验 Level Builder。",
+    "platforms": [
       {
-        id: 'unityroom',
-        code: 'PORTAL 01 // EXTERNAL LINK SLOT',
-        name: '[外部试玩平台卡片 01 (例: unityroom)]',
-        badge: '[属性标签槽位：WebGL 在线即玩]',
-        desc: '/* 功能展示位置注释：外部游戏平台 01 说明文本槽位。点击卡片可新窗口打开您的对应平台主页。 */',
-        url: 'https://unityroom.com/',
-        cta: '[外部平台跳转按钮 01 ↗]',
+        "id": "public-0",
+        "code": "PORTAL 01",
+        "name": "Level Builder",
+        "badge": "公开工具",
+        "desc": "借助视野和跳跃轨迹验证白盒关卡动线。",
+        "url": "https://sora-my-one-and-only.github.io/Level-Builder/",
+        "cta": "在线体验"
       },
       {
-        id: 'itchio',
-        code: 'PORTAL 02 // EXTERNAL LINK SLOT',
-        name: '[外部试玩平台卡片 02 (例: itch.io)]',
-        badge: '[属性标签槽位：PC 独立包体 / 工程下载]',
-        desc: '/* 功能展示位置注释：外部游戏平台 02 说明文本槽位。可用于放置 PC 可执行包体与企划书 PDF 下载页链接。 */',
-        url: 'https://itch.io/',
-        cta: '[外部平台跳转按钮 02 ↗]',
+        "id": "public-1",
+        "code": "PORTAL 02",
+        "name": "Level Builder / GitHub",
+        "badge": "源代码",
+        "desc": "查看关卡设计工具的源码和说明。",
+        "url": "https://github.com/Sora-My-One-And-Only/Level-Builder",
+        "cta": "查看源码"
       },
       {
-        id: 'freegame',
-        code: 'PORTAL 03 // EXTERNAL LINK SLOT',
-        name: '[外部试玩平台卡片 03 (例: 夢現 / BOOTH / Steam)]',
-        badge: '[属性标签槽位：完整作品与设定集发布]',
-        desc: '/* 功能展示位置注释：外部游戏平台 03 说明文本槽位。可用于关联更多作品发布渠道。 */',
-        url: 'https://freegame-mugen.jp/',
-        cta: '[外部平台跳转按钮 03 ↗]',
-      },
+        "id": "public-2",
+        "code": "PORTAL 03",
+        "name": "Sora / GitHub",
+        "badge": "个人主页",
+        "desc": "查看制作活动和公开仓库。",
+        "url": "https://github.com/Sora-My-One-And-Only",
+        "cta": "查看主页"
+      }
     ],
-    browserLabTag: 'EMBEDDED PLAYABLE LAB // [功能展示位：网页内嵌试玩实验室]',
-    browserLabTitle: '[功能标题槽位：无需跳转、在当前网页直接启动可玩原型]',
-    browserLabDesc:
-      '/* 功能展示位置注释：左栏用于说明网页内嵌试玩区的功能特性；右栏提供 4 个代表作试玩关卡（STAGE 01~04）的一键启动按钮，点击直接打开作品子页面的可交互试玩模式。 */',
-    browserLabFeatures: [
-      '[功能特性说明槽位 01：点击右侧任意关卡按钮直接进入 60FPS 交互试玩舞台]',
-      '[功能特性说明槽位 02：支持嵌入自定义 WebGL 链接或实机 MP4 / GIF 演示源]',
-      '[功能特性说明槽位 03：支持键盘与鼠标实时触发动作判定反馈]',
+    "browserLabTag": "作品预览",
+    "browserLabTitle": "查看作品与相关资料",
+    "browserLabDesc": "选择作品，查看企划意图和机制说明。",
+    "browserLabFeatures": [],
+    "browserLabStageSelect": "选择作品",
+    "whatICanDoChapter": "CHAPTER 03B // CAPABILITIES",
+    "whatICanDoTitle": "我在制作中做什么",
+    "whatICanDoLead": "这些能力都对应具体的作品实践。",
+    "capabilities": [
+      {
+        "num": "CAPABILITY 01",
+        "category": "战斗设计",
+        "title": "让近战和魔法互相配合",
+        "desc": "用近战恢复魔力，在打出 Break 后为长咏唱争取时间。",
+        "example": "魔法指令与 Break",
+        "tags": [
+          "Unity",
+          "Break"
+        ]
+      },
+      {
+        "num": "CAPABILITY 02",
+        "category": "关卡设计",
+        "title": "把动线做成能玩的白盒",
+        "desc": "搭建白盒确认视野和落脚点，检查玩家能怎么走。",
+        "example": "火龙战平台变化",
+        "tags": [
+          "Greybox",
+          "Playtest"
+        ]
+      },
+      {
+        "num": "CAPABILITY 03",
+        "category": "工具制作",
+        "title": "制作设计验证工具",
+        "desc": "制作能验证视野、跳跃和特效演出的工具。",
+        "example": "Level Builder / GSParticleStudio",
+        "tags": [
+          "Web",
+          "VFX"
+        ]
+      },
+      {
+        "num": "CAPABILITY 04",
+        "category": "团队制作",
+        "title": "整理团队规格",
+        "desc": "梳理操作和敌人行为，写成团队可用的规格。",
+        "example": "《ルミアの冒険譚》团队制作",
+        "tags": [
+          "Unity",
+          "Design Spec"
+        ]
+      }
     ],
-    browserLabStageSelect: '── STAGE SELECT // [功能展示位：4 部作品试玩关卡一键启动槽位]',
-
-    whatICanDoChapter: 'CHAPTER 03B // [功能展示位置：可胜任工作与核心能力矩阵 (#what-i-can-do)]',
-    whatICanDoTitle: '[功能标题槽位：我在游戏制作中能负责的具体工作（4卡片槽位）]',
-    whatICanDoLead:
-      '/* 功能展示位置注释：参考 haru2401game.github.io/portfolio/#what-i-can-do，用于向招聘官和团队展示您具体能交付什么文档、原型或工具，每张卡片含标题、职责说明、实际应用案例与技术标签。 */',
-    capabilities: [
+    "timelineChapter": "CHAPTER 04B // PROJECTS",
+    "timelineTitle": "制作记录",
+    "timelineSub": "制作主题",
+    "timelineNodes": [
       {
-        num: 'CAPABILITY 01',
-        category: '[职责分类标签槽位 01]',
-        title: '[功能展示位 01：核心胜任能力标题]',
-        desc: '/* 功能展示位置注释：能力卡片 01 的具体工作内容与交付标准描述槽位。 */',
-        example: '[实际项目应用案例注释槽位 01：说明该能力在哪个作品中如何落地]',
-        tags: ['[能力标签 1A]', '[能力标签 1B]', '[能力标签 1C]'],
+        "stage": "WORK 01",
+        "period": "2026",
+        "badge": "团队制作",
+        "title": "ルミアの冒険譚",
+        "desc": "用近战恢复魔力，在打出 Break 后为长咏唱争取时间。"
       },
       {
-        num: 'CAPABILITY 02',
-        category: '[职责分类标签槽位 02]',
-        title: '[功能展示位 02：核心胜任能力标题]',
-        desc: '/* 功能展示位置注释：能力卡片 02 的具体工作内容与交付标准描述槽位。 */',
-        example: '[实际项目应用案例注释槽位 02：说明该能力在哪个作品中如何落地]',
-        tags: ['[能力标签 2A]', '[能力标签 2B]', '[能力标签 2C]'],
+        "stage": "WORK 02",
+        "period": "2026",
+        "badge": "工具制作",
+        "title": "Level Builder",
+        "desc": "制作能验证视野、跳跃和特效演出的工具。"
       },
       {
-        num: 'CAPABILITY 03',
-        category: '[职责分类标签槽位 03]',
-        title: '[功能展示位 03：核心胜任能力标题]',
-        desc: '/* 功能展示位置注释：能力卡片 03 的具体工作内容与交付标准描述槽位。 */',
-        example: '[实际项目应用案例注释槽位 03：说明该能力在哪个作品中如何落地]',
-        tags: ['[能力标签 3A]', '[能力标签 3B]', '[能力标签 3C]'],
-      },
-      {
-        num: 'CAPABILITY 04',
-        category: '[职责分类标签槽位 04]',
-        title: '[功能展示位 04：核心胜任能力标题]',
-        desc: '/* 功能展示位置注释：能力卡片 04 的具体工作内容与交付标准描述槽位。 */',
-        example: '[实际项目应用案例注释槽位 04：说明该能力在哪个作品中如何落地]',
-        tags: ['[能力标签 4A]', '[能力标签 4B]', '[能力标签 4C]'],
-      },
+        "stage": "WORK 03",
+        "period": "2026",
+        "badge": "工具制作",
+        "title": "GSParticleStudio",
+        "desc": "制作能验证视野、跳跃和特效演出的工具。"
+      }
     ],
-
-    timelineChapter: 'CHAPTER 04B // [功能展示位置：制作历程时间轴与技术专栏 (#timeline)]',
-    timelineTitle: '[功能标题槽位：关卡地图式个人成长时间轴 & 外部文章展示区]',
-    timelineSub: 'CHRONOLOGICAL STAGE MAP // [时间轴节点槽位]',
-    timelineNodes: [
+    "blogHeader": "公开文档",
+    "blogDesc": "查看关卡设计工具的源码和说明。",
+    "blogArticles": [
       {
-        stage: 'STAGE 01',
-        period: '[YYYY.MM - YYYY.MM]',
-        badge: '[阶段标签槽位 01]',
-        title: '[功能展示位：时间轴里程碑节点 01 标题]',
-        desc: '/* 功能展示位置注释：在此填写阶段 01 的学习、项目开发或参赛经历描述。 */',
-      },
-      {
-        stage: 'STAGE 02',
-        period: '[YYYY.MM - YYYY.MM]',
-        badge: '[阶段标签槽位 02]',
-        title: '[功能展示位：时间轴里程碑节点 02 标题]',
-        desc: '/* 功能展示位置注释：在此填写阶段 02 的团队开发、获奖或工具制作经历描述。 */',
-      },
-      {
-        stage: 'STAGE 03',
-        period: '[YYYY.MM - YYYY.MM]',
-        badge: '[阶段标签槽位 03]',
-        title: '[功能展示位：时间轴里程碑节点 03 标题]',
-        desc: '/* 功能展示位置注释：在此填写阶段 03 的核心代表作研发或实习经历描述。 */',
-      },
-      {
-        stage: 'STAGE 04',
-        period: '[YYYY.MM - PRESENT]',
-        badge: '[当前求职/研发状态]',
-        title: '[功能展示位：时间轴里程碑节点 04 标题]',
-        desc: '/* 功能展示位置注释：在此填写当前最新的项目进展与求职目标说明。 */',
-      },
+        "date": "2026",
+        "tag": "LEVEL DESIGN",
+        "title": "Level Builder",
+        "summary": "查看关卡设计工具的源码和说明。",
+        "url": "https://github.com/Sora-My-One-And-Only/Level-Builder#readme"
+      }
     ],
-    blogHeader: 'DESIGN NOTES & BLOG // [功能展示位：外部博客与拆解专栏展示区]',
-    blogDesc:
-      '/* 功能展示位置注释：参考 haru2401game.github.io/portfolio/#blog，用于展示您在知乎 / 机核 / note / 个人博客发布的精选游戏拆解或开发日志外链卡片（3栏）。 */',
-    blogArticles: [
+    "endingBanner": "CREDITS",
+    "endingTitle": "感谢阅读",
+    "endingLead": "也可以在 GitHub 查看公开作品和制作记录。",
+    "credits": [
       {
-        date: 'YYYY.MM.DD',
-        tag: '[文章分类标签 01]',
-        title: '[功能展示位：精选专栏文章标题槽位 01]',
-        summary: '/* 功能展示位置注释：文章 01 的内容摘要槽位，点击卡片可跳转至外部文章链接。 */',
+        "role": "制作署名",
+        "name": "Sora"
       },
       {
-        date: 'YYYY.MM.DD',
-        tag: '[文章分类标签 02]',
-        title: '[功能展示位：精选专栏文章标题槽位 02]',
-        summary: '/* 功能展示位置注释：文章 02 的内容摘要槽位，点击卡片可跳转至外部文章链接。 */',
+        "role": "网站制作",
+        "name": "React / TypeScript"
       },
       {
-        date: 'YYYY.MM.DD',
-        tag: '[文章分类标签 03]',
-        title: '[功能展示位：精选专栏文章标题槽位 03]',
-        summary: '/* 功能展示位置注释：文章 03 的内容摘要槽位，点击卡片可跳转至外部文章链接。 */',
-      },
+        "role": "展示作品",
+        "name": "ARCANE CHRONICLE / Level Builder / GSParticleStudio"
+      }
     ],
-
-    endingBanner: '★ ENDING CREDITS SLOT // [功能展示位置：卷末通关谢幕横幅] ★',
-    endingTitle: '[功能标题槽位：THANK YOU FOR EXPLORING / 卷末致谢区]',
-    endingLead:
-      '/* 功能展示位置注释：参考 haru2401game.github.io/portfolio/#ending，位于页面最底部的通关结算与致谢模块，包含制作署名栏、互动点赞计数器（Kudos）、返回卷首按钮与联系表单跳转按钮。 */',
-    credits: [
-      {
-        role: '[CREDIT SLOT 01 // 企划与内容署名槽位]',
-        name: '[在此填写您的姓名 / 个人品牌名称]',
-      },
-      {
-        role: '[CREDIT SLOT 02 // 技术栈与工具署名槽位]',
-        name: '[在此填写作品集与项目使用的技术栈列表]',
-      },
-      {
-        role: '[CREDIT SLOT 03 // SPECIAL THANKS 致谢槽位]',
-        name: '[在此填写面向招聘官与试玩访客的致谢语]',
-      },
-    ],
-    kudosBtn: '[功能按钮：互动点赞/应援计数器]',
-    kudosSent: '[功能反馈：点赞计数已累加！]',
-    replayBtn: '[功能按钮：返回卷首顶部 (TOP)]',
-    contactBtn: '[功能按钮：滚动至联系表单]',
+    "kudosBtn": "支持一下",
+    "kudosSent": "谢谢支持",
+    "replayBtn": "返回顶部",
+    "contactBtn": "查看联系方式"
   },
-  en: {
-    modeSelectTag: 'SELECT MODE // [Functional Slot: Purpose-Driven Navigation]',
-    modeSelectTitle: '[Heading Slot: Visitor Purpose Quick-Jump Cards]',
-    modes: [
+  "en": {
+    "modeSelectTag": "Browse",
+    "modeSelectTitle": "Choose what to explore",
+    "modes": [
       {
-        id: 'recruit',
-        target: 'quick-guide',
-        badge: 'MODE 01 // RECRUITER',
-        title: '[Functional Slot 01: Recruiter / Hiring Manager Quick Jump]',
-        sub: '/* Scrolls smoothly to the 30-Second Summary Card (#quick-guide) */',
+        "id": "recruit",
+        "target": "quick-guide",
+        "badge": "MODE 01 // RECRUITER",
+        "title": "Recruiters",
+        "sub": "Read the overview and see featured work."
       },
       {
-        id: 'gamedev',
-        target: 'what-i-can-do',
-        badge: 'MODE 02 // COLLABORATOR',
-        title: '[Functional Slot 02: Dev Team / Collaborator Quick Jump]',
-        sub: '/* Scrolls smoothly to the Capabilities Matrix (#what-i-can-do) */',
+        "id": "gamedev",
+        "target": "what-i-can-do",
+        "badge": "MODE 02 // COLLABORATOR",
+        "title": "Development and collaboration",
+        "sub": "See examples of what I contribute."
       },
       {
-        id: 'play',
-        target: 'play-games',
-        badge: 'MODE 03 // PLAYABLE',
-        title: '[Functional Slot 03: Instant Playable Games Quick Jump]',
-        sub: '/* Scrolls smoothly to the Playable Games Portal (#play-games) */',
-      },
+        "id": "play",
+        "target": "play-games",
+        "badge": "MODE 03 // PLAYABLE",
+        "title": "Try a public work",
+        "sub": "Open the published browser tool."
+      }
     ],
-    quickGuideTag: 'QUICK GUIDE // [Functional Slot: 30-Second Summary Card]',
-    quickGuideTitle: '[Heading Slot: 30-Second Candidate & Achievement Digest]',
-    quickTimer: '0:30 READ SLOT',
-    quickItems: {
-      roleLabel: '01 // [Functional Slot: Target Role & Specialty]',
-      roleMain: '[Primary Text Slot: Target Job Title]',
-      roleSub: '/* Annotation: Place your target role, graduation year, and location preference here */',
-      skillLabel: '02 // [Functional Slot: Core Engine, Language & Skill Tags]',
-      skillTags: [
-        '[Skill Tag 01]',
-        '[Skill Tag 02]',
-        '[Skill Tag 03]',
-        '[Skill Tag 04]',
-        '[Language/Cert Tag 05]',
-        '[Tooling Tag 06]',
+    "quickGuideTag": "QUICK GUIDE",
+    "quickGuideTitle": "Sora in 30 seconds",
+    "quickTimer": "0:30",
+    "quickItems": {
+      "roleLabel": "Target role",
+      "roleMain": "Aspiring Game Designer",
+      "roleSub": "Combat Design · Level Design",
+      "skillLabel": "Tools and skills",
+      "skillTags": [
+        "Unity",
+        "C#",
+        "Combat Design",
+        "Level Design"
       ],
-      worksLabel: '03 // [Functional Slot: Flagship Works Quick-Launch Links]',
-      statsLabel: '04 // [Functional Slot: Key Achievement Counters (4 Metrics)]',
-      stats: [
-        { val: '[N]', unit: '[Stat Slot 01: Total Works]' },
-        { val: '[N]', unit: '[Stat Slot 02: Awards Won]' },
-        { val: '[N]', unit: '[Stat Slot 03: Jams / Expos]' },
-        { val: '[N]', unit: '[Stat Slot 04: Design Articles]' },
-      ],
+      "worksLabel": "Featured work",
+      "statsLabel": "Portfolio contents",
+      "stats": [
+        {
+          "val": "3",
+          "unit": "Works"
+        },
+        {
+          "val": "1",
+          "unit": "Game"
+        },
+        {
+          "val": "2",
+          "unit": "Tools"
+        },
+        {
+          "val": "3",
+          "unit": "Languages"
+        }
+      ]
     },
-    quickContactPrompt: '/* Functional Slot Annotation: Bottom call-to-action prompt text */',
-    quickPlayBtn: '[Action Button: Jump to Playable Games]',
-    quickMailBtn: '[Action Button: Jump to Contact Form]',
-
-    playGamesChapter: 'CHAPTER 02B // [Functional Slot: Playable Games Portal & Web Lab (#play-games)]',
-    playGamesTitle: '[Heading Slot: External Game Portals & Embedded Browser Sandbox]',
-    playGamesLead:
-      '/* Functional Slot Annotation: Modeled after haru2401game.github.io/portfolio/#play-games. Houses 3 external distribution platform cards (e.g. unityroom, itch.io, BOOTH/Steam) and an embedded browser game launcher below. */',
-    platforms: [
+    "quickContactPrompt": "Explore the design cases and try the published tool.",
+    "quickPlayBtn": "Try online",
+    "quickMailBtn": "Contact",
+    "playGamesChapter": "CHAPTER 02B // TRY ONLINE",
+    "playGamesTitle": "Try Online",
+    "playGamesLead": "Level Builder runs in the browser.",
+    "platforms": [
       {
-        id: 'unityroom',
-        code: 'PORTAL 01 // EXTERNAL LINK SLOT',
-        name: '[External Platform Card 01 (e.g. unityroom)]',
-        badge: '[Badge Slot: WebGL Instant Play]',
-        desc: '/* Functional Slot Annotation: Description for external game platform 01. Clicking opens your profile in a new tab. */',
-        url: 'https://unityroom.com/',
-        cta: '[External Portal Link 01 ↗]',
+        "id": "public-0",
+        "code": "PORTAL 01",
+        "name": "Level Builder",
+        "badge": "Published tool",
+        "desc": "Check greybox routes with sight lines and jump trajectories.",
+        "url": "https://sora-my-one-and-only.github.io/Level-Builder/",
+        "cta": "Try in browser"
       },
       {
-        id: 'itchio',
-        code: 'PORTAL 02 // EXTERNAL LINK SLOT',
-        name: '[External Platform Card 02 (e.g. itch.io)]',
-        badge: '[Badge Slot: PC Builds & Spec PDFs]',
-        desc: '/* Functional Slot Annotation: Description for external game platform 02 for downloadable builds and documentation. */',
-        url: 'https://itch.io/',
-        cta: '[External Portal Link 02 ↗]',
+        "id": "public-1",
+        "code": "PORTAL 02",
+        "name": "Level Builder / GitHub",
+        "badge": "Source code",
+        "desc": "Read the level editor’s source code and documentation.",
+        "url": "https://github.com/Sora-My-One-And-Only/Level-Builder",
+        "cta": "View source"
       },
       {
-        id: 'freegame',
-        code: 'PORTAL 03 // EXTERNAL LINK SLOT',
-        name: '[External Platform Card 03 (e.g. BOOTH / Steam)]',
-        badge: '[Badge Slot: Full Releases & Archives]',
-        desc: '/* Functional Slot Annotation: Description for external game platform 03. */',
-        url: 'https://freegame-mugen.jp/',
-        cta: '[External Portal Link 03 ↗]',
-      },
+        "id": "public-2",
+        "code": "PORTAL 03",
+        "name": "Sora / GitHub",
+        "badge": "Profile",
+        "desc": "Browse development activity and public repositories.",
+        "url": "https://github.com/Sora-My-One-And-Only",
+        "cta": "View profile"
+      }
     ],
-    browserLabTag: 'EMBEDDED PLAYABLE LAB // [Functional Slot: In-Page Playable Stage Launcher]',
-    browserLabTitle: '[Heading Slot: Instant Browser Playable Prototype Launcher]',
-    browserLabDesc:
-      '/* Functional Slot Annotation: Left column explains the embedded playable sandbox features; right column provides 1-click stage launchers for Works 01-04. */',
-    browserLabFeatures: [
-      '[Feature Slot 01: 1-click launch into the interactive 60FPS playable stage subpage]',
-      '[Feature Slot 02: Supports custom WebGL iframe URLs or MP4/GIF gameplay reels]',
-      '[Feature Slot 03: Real-time keyboard & mouse input feedback]',
+    "browserLabTag": "Work Previews",
+    "browserLabTitle": "Works and related material",
+    "browserLabDesc": "Select a work to read about its design goals and mechanics.",
+    "browserLabFeatures": [],
+    "browserLabStageSelect": "Choose a work",
+    "whatICanDoChapter": "CHAPTER 03B // CAPABILITIES",
+    "whatICanDoTitle": "What I Can Contribute",
+    "whatICanDoLead": "Design and production skills illustrated by actual work.",
+    "capabilities": [
+      {
+        "num": "CAPABILITY 01",
+        "category": "Combat design",
+        "title": "Connect melee and spellcasting",
+        "desc": "Use melee to regain mana and Break to create a long casting window.",
+        "example": "Spell commands and Break",
+        "tags": [
+          "Unity",
+          "Break"
+        ]
+      },
+      {
+        "num": "CAPABILITY 02",
+        "category": "Level design",
+        "title": "Prototype routes for playtesting",
+        "desc": "Greybox footholds and sight lines to test where players can move.",
+        "example": "Fire dragon arena changes",
+        "tags": [
+          "Greybox",
+          "Playtest"
+        ]
+      },
+      {
+        "num": "CAPABILITY 03",
+        "category": "Tool development",
+        "title": "Build tools for iteration",
+        "desc": "Build tools to test sight lines, jumps and visual effects.",
+        "example": "Level Builder / GSParticleStudio",
+        "tags": [
+          "Web",
+          "VFX"
+        ]
+      },
+      {
+        "num": "CAPABILITY 04",
+        "category": "Team production",
+        "title": "Share design specifications",
+        "desc": "Document controls and enemy behavior so the team can work from the same spec.",
+        "example": "Lumia’s Adventure team project",
+        "tags": [
+          "Unity",
+          "Design Spec"
+        ]
+      }
     ],
-    browserLabStageSelect: '── STAGE SELECT // [Functional Slot: 1-Click Playable Stage Launchers]',
-
-    whatICanDoChapter: 'CHAPTER 03B // [Functional Slot: What I Can Do in Production (#what-i-can-do)]',
-    whatICanDoTitle: '[Heading Slot: Production Capabilities Matrix (4 Cards)]',
-    whatICanDoLead:
-      '/* Functional Slot Annotation: Modeled after #what-i-can-do. Presents concrete deliverables, project application examples, and skill tags across 4 cards. */',
-    capabilities: [
+    "timelineChapter": "CHAPTER 04B // PROJECTS",
+    "timelineTitle": "Project Notes",
+    "timelineSub": "Production Focus",
+    "timelineNodes": [
       {
-        num: 'CAPABILITY 01',
-        category: '[Category Tag Slot 01]',
-        title: '[Functional Slot 01: Core Production Capability Title]',
-        desc: '/* Functional Slot Annotation: Detailed description of deliverable and workflow for Capability 01. */',
-        example: '[Applied Example Callout 01: 1-line note on how this was applied in a project]',
-        tags: ['[Tag 1A]', '[Tag 1B]', '[Tag 1C]'],
+        "stage": "WORK 01",
+        "period": "2026",
+        "badge": "Team production",
+        "title": "ルミアの冒険譚",
+        "desc": "Use melee to regain mana and Break to create a long casting window."
       },
       {
-        num: 'CAPABILITY 02',
-        category: '[Category Tag Slot 02]',
-        title: '[Functional Slot 02: Core Production Capability Title]',
-        desc: '/* Functional Slot Annotation: Detailed description of deliverable and workflow for Capability 02. */',
-        example: '[Applied Example Callout 02: 1-line note on how this was applied in a project]',
-        tags: ['[Tag 2A]', '[Tag 2B]', '[Tag 2C]'],
+        "stage": "WORK 02",
+        "period": "2026",
+        "badge": "Tool development",
+        "title": "Level Builder",
+        "desc": "Build tools to test sight lines, jumps and visual effects."
       },
       {
-        num: 'CAPABILITY 03',
-        category: '[Category Tag Slot 03]',
-        title: '[Functional Slot 03: Core Production Capability Title]',
-        desc: '/* Functional Slot Annotation: Detailed description of deliverable and workflow for Capability 03. */',
-        example: '[Applied Example Callout 03: 1-line note on how this was applied in a project]',
-        tags: ['[Tag 3A]', '[Tag 3B]', '[Tag 3C]'],
-      },
-      {
-        num: 'CAPABILITY 04',
-        category: '[Category Tag Slot 04]',
-        title: '[Functional Slot 04: Core Production Capability Title]',
-        desc: '/* Functional Slot Annotation: Detailed description of deliverable and workflow for Capability 04. */',
-        example: '[Applied Example Callout 04: 1-line note on how this was applied in a project]',
-        tags: ['[Tag 4A]', '[Tag 4B]', '[Tag 4C]'],
-      },
+        "stage": "WORK 03",
+        "period": "2026",
+        "badge": "Tool development",
+        "title": "GSParticleStudio",
+        "desc": "Build tools to test sight lines, jumps and visual effects."
+      }
     ],
-
-    timelineChapter: 'CHAPTER 04B // [Functional Slot: Production Timeline & Blog (#timeline)]',
-    timelineTitle: '[Heading Slot: Stage-Map Activity Timeline & Design Blog Cards]',
-    timelineSub: 'CHRONOLOGICAL STAGE MAP // [Timeline Node Slots]',
-    timelineNodes: [
+    "blogHeader": "Public Documentation",
+    "blogDesc": "Read the level editor’s source code and documentation.",
+    "blogArticles": [
       {
-        stage: 'STAGE 01',
-        period: '[YYYY.MM - YYYY.MM]',
-        badge: '[Milestone Badge 01]',
-        title: '[Functional Slot: Timeline Milestone Node 01 Title]',
-        desc: '/* Functional Slot Annotation: Describe milestone 01 activities, studies, or projects here. */',
-      },
-      {
-        stage: 'STAGE 02',
-        period: '[YYYY.MM - YYYY.MM]',
-        badge: '[Milestone Badge 02]',
-        title: '[Functional Slot: Timeline Milestone Node 02 Title]',
-        desc: '/* Functional Slot Annotation: Describe milestone 02 team production or awards here. */',
-      },
-      {
-        stage: 'STAGE 03',
-        period: '[YYYY.MM - YYYY.MM]',
-        badge: '[Milestone Badge 03]',
-        title: '[Functional Slot: Timeline Milestone Node 03 Title]',
-        desc: '/* Functional Slot Annotation: Describe milestone 03 flagship work development here. */',
-      },
-      {
-        stage: 'STAGE 04',
-        period: '[YYYY.MM - PRESENT]',
-        badge: '[Current Status Badge]',
-        title: '[Functional Slot: Timeline Milestone Node 04 Title]',
-        desc: '/* Functional Slot Annotation: Describe your current production focus and career goal here. */',
-      },
+        "date": "2026",
+        "tag": "LEVEL DESIGN",
+        "title": "Level Builder",
+        "summary": "Read the level editor’s source code and documentation.",
+        "url": "https://github.com/Sora-My-One-And-Only/Level-Builder#readme"
+      }
     ],
-    blogHeader: 'DESIGN NOTES & BLOG // [Functional Slot: External Blog & Article Showcase]',
-    blogDesc:
-      '/* Functional Slot Annotation: Displays 3 featured external blog/article cards linking to your design notes or devlogs. */',
-    blogArticles: [
+    "endingBanner": "CREDITS",
+    "endingTitle": "Thanks for reading",
+    "endingLead": "See more public work and development activity on GitHub.",
+    "credits": [
       {
-        date: 'YYYY.MM.DD',
-        tag: '[Article Tag 01]',
-        title: '[Functional Slot: Featured Blog Article Title 01]',
-        summary: '/* Functional Slot Annotation: Article 01 abstract slot (clicks through to external blog URL). */',
+        "role": "Byline",
+        "name": "Sora"
       },
       {
-        date: 'YYYY.MM.DD',
-        tag: '[Article Tag 02]',
-        title: '[Functional Slot: Featured Blog Article Title 02]',
-        summary: '/* Functional Slot Annotation: Article 02 abstract slot (clicks through to external blog URL). */',
+        "role": "Site",
+        "name": "React / TypeScript"
       },
       {
-        date: 'YYYY.MM.DD',
-        tag: '[Article Tag 03]',
-        title: '[Functional Slot: Featured Blog Article Title 03]',
-        summary: '/* Functional Slot Annotation: Article 03 abstract slot (clicks through to external blog URL). */',
-      },
+        "role": "Featured work",
+        "name": "ARCANE CHRONICLE / Level Builder / GSParticleStudio"
+      }
     ],
-
-    endingBanner: '★ ENDING CREDITS SLOT // [Functional Slot: Stage-Clear Ending Banner] ★',
-    endingTitle: '[Heading Slot: THANK YOU FOR EXPLORING / Ending Credits]',
-    endingLead:
-      '/* Functional Slot Annotation: Bottom ending card featuring Cast & Credits slots, an interactive Kudos counter button, Return to Top button, and Contact jump button. */',
-    credits: [
-      {
-        role: '[CREDIT SLOT 01 // Planning & Author Attribution]',
-        name: '[Author Name / Handle Slot]',
-      },
-      {
-        role: '[CREDIT SLOT 02 // Engineering & Stack Attribution]',
-        name: '[Tech Stack & Engine Credits Slot]',
-      },
-      {
-        role: '[CREDIT SLOT 03 // SPECIAL THANKS]',
-        name: '[Thank-You Note Slot for Reviewers & Visitors]',
-      },
-    ],
-    kudosBtn: '[Interactive Button: Kudos / Like Counter]',
-    kudosSent: '[Feedback: Kudos Increment Recorded!]',
-    replayBtn: '[Action Button: Return to Cover (TOP)]',
-    contactBtn: '[Action Button: Scroll to Contact Form]',
-  },
+    "kudosBtn": "Send kudos",
+    "kudosSent": "Thanks for the support",
+    "replayBtn": "Back to top",
+    "contactBtn": "Contact"
+  }
 };
 
 /**
@@ -816,7 +789,7 @@ export const QuickRecruiterGuideSection: React.FC<ExtendedSectionsProps> = ({
                   <button
                     key={proj.id}
                     type="button"
-                    onClick={() => onOpenSpec(proj, 'playable')}
+                    onClick={() => onOpenSpec(proj, proj.playUrl ? 'playable' : 'video')}
                     className="w-full p-3 bg-white dark:bg-[#1B1916] border border-[#E2E0D8] dark:border-[#2E2924] hover:border-[#C84B31] dark:hover:border-[#E57052] flex items-center justify-between gap-3 text-left transition-colors cursor-pointer group"
                   >
                     <div className="min-w-0">
@@ -1012,7 +985,7 @@ export const PlayGamesPortalSection: React.FC<ExtendedSectionsProps> = ({
                     key={proj.id}
                     type="button"
                     onMouseEnter={() => soundFX.playBlip(600 + idx * 25)}
-                    onClick={() => onOpenSpec(proj, 'playable')}
+                    onClick={() => onOpenSpec(proj, proj.playUrl ? 'playable' : 'video')}
                     className="group p-4 bg-[#F7F6F2] dark:bg-[#131210] border border-[#E2E0D8] dark:border-[#2E2924] hover:border-[#C84B31] dark:hover:border-[#E57052] text-left flex flex-col justify-between gap-3 transition-colors cursor-pointer"
                   >
                     <div>
@@ -1026,7 +999,7 @@ export const PlayGamesPortalSection: React.FC<ExtendedSectionsProps> = ({
                     </div>
                     <div className="text-[11px] font-mono text-[#555B61] dark:text-[#B0A89E] flex items-center justify-between pt-2 border-t border-[#E2E0D8] dark:border-[#2E2924]">
                       <span>{proj.roleTag[locale]}</span>
-                      <span className="text-[#C84B31] dark:text-[#E57052] shrink-0">START ▶</span>
+                      <span className="text-[#C84B31] dark:text-[#E57052] shrink-0">DETAILS →</span>
                     </div>
                   </button>
                 ))}
@@ -1249,7 +1222,7 @@ export const TimelineAndBlogSection: React.FC<{
                   </p>
                 </div>
                 <div className="pt-3 border-t border-[#E2E0D8] dark:border-[#2E2924] text-xs font-mono text-[#C84B31] dark:text-[#E57052] flex items-center justify-between">
-                  <span>[ARTICLE LINK SLOT]</span>
+                  <span>README</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </a>

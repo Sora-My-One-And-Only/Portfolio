@@ -14,96 +14,65 @@ export interface OtherWorkItem {
 
 export const OTHER_WORKS_DATA: OtherWorkItem[] = [
   {
-    id: 'ow-slot-1',
-    year: 'YYYY.MM',
-    category: {
-      ja: '[機能展示枠：サブ作品カテゴリ 01]',
-      zh: '[功能展示位：别册作品分类标签 01]',
-      en: '[Functional Slot: Sub-Work Category 01]',
+    "id": "level-builder",
+    "year": "2026",
+    "category": {
+      "ja": "レベル設計ツール",
+      "zh": "关卡设计工具",
+      "en": "Level design tool"
     },
-    tech: '[TECH STACK / ENGINE 01]',
-    duration: {
-      ja: '[制作期間・体制枠 01]',
-      zh: '[开发周期与分工槽位 01]',
-      en: '[Duration & Team Scope Slot 01]',
+    "tech": "TypeScript / Three.js",
+    "duration": {
+      "ja": "制作ツール",
+      "zh": "制作工具",
+      "en": "Production tool"
     },
-    title: {
-      ja: '[機能展示位置：別冊・サブ作品タイトル枠 01]',
-      zh: '[功能展示位置：别册/小型原型作品标题槽位 01]',
-      en: '[Functional Slot: Appendix / Mini-Prototype Title 01]',
+    "title": {
+      "ja": "Level Builder",
+      "zh": "Level Builder",
+      "en": "Level Builder"
     },
-    desc: {
-      ja: '/* 機能展示位置注釈：Game Jam作品・技術試作・企画支援ツールなど、代表作以外のサブ作品 01 の説明文を配置する枠です。 */',
-      zh: '/* 功能展示位置注释：用于展示代表作之外的 Game Jam 作品、技术实验原型或小工具 01 的简介文本。 */',
-      en: '/* Functional Slot Annotation: Description slot for Sub-Work / Game Jam / Tool Prototype 01. */',
+    "desc": {
+      "ja": "ブラウザでグレーボックスを組み、視界やジャンプ軌道を確認しながらステージの動線を試せるツールです。",
+      "zh": "在浏览器搭建白盒关卡，通过角色视野和跳跃轨迹验证关卡动线。",
+      "en": "A browser-based greybox editor for checking sight lines, jump trajectories and level routes."
     },
-    highlight: {
-      ja: '[機能展示枠：サブ作品 01 のアピールポイント注釈]',
-      zh: '[功能展示位：别册作品 01 核心亮点注释]',
-      en: '[Functional Slot: Sub-Work 01 Key Highlight Note]',
+    "highlight": {
+      "ja": "3つのビューを連動させ、配置を確認する。",
+      "zh": "通过联动的三个视口检查布局。",
+      "en": "Inspect placement across three linked views."
     },
-    repoUrl: 'https://github.com',
+    "repoUrl": "https://github.com/Sora-My-One-And-Only/Level-Builder"
   },
   {
-    id: 'ow-slot-2',
-    year: 'YYYY.MM',
-    category: {
-      ja: '[機能展示枠：サブ作品カテゴリ 02]',
-      zh: '[功能展示位：别册作品分类标签 02]',
-      en: '[Functional Slot: Sub-Work Category 02]',
+    "id": "gs-particle-studio",
+    "year": "2026",
+    "category": {
+      "ja": "エフェクト制作ツール",
+      "zh": "特效制作工具",
+      "en": "Effects authoring tool"
     },
-    tech: '[TECH STACK / ENGINE 02]',
-    duration: {
-      ja: '[制作期間・体制枠 02]',
-      zh: '[开发周期与分工槽位 02]',
-      en: '[Duration & Team Scope Slot 02]',
+    "tech": "GLSL",
+    "duration": {
+      "ja": "制作ツール",
+      "zh": "制作工具",
+      "en": "Production tool"
     },
-    title: {
-      ja: '[機能展示位置：別冊・サブ作品タイトル枠 02]',
-      zh: '[功能展示位置：别册/小型原型作品标题槽位 02]',
-      en: '[Functional Slot: Appendix / Mini-Prototype Title 02]',
+    "title": {
+      "ja": "GSParticleStudio",
+      "zh": "GSParticleStudio",
+      "en": "GSParticleStudio"
     },
-    desc: {
-      ja: '/* 機能展示位置注釈：サブ作品 02 の概要・担当箇所・成果などを記述するテキスト枠です。 */',
-      zh: '/* 功能展示位置注释：用于展示别册作品 02 的概要、负责模块与验证成果的文本槽位。 */',
-      en: '/* Functional Slot Annotation: Description slot for Sub-Work / Game Jam / Tool Prototype 02. */',
+    "desc": {
+      "ja": "魔法エフェクトを制作するためのパーティクルエディタです。複数のレイヤーを重ねて演出を組み立てます。",
+      "zh": "用于制作魔法特效的粒子编辑器。通过叠加多个图层组合演出。",
+      "en": "A particle editor for spell effects. It layers multiple elements to build an effect."
     },
-    highlight: {
-      ja: '[機能展示枠：サブ作品 02 のアピールポイント注釈]',
-      zh: '[功能展示位：别册作品 02 核心亮点注释]',
-      en: '[Functional Slot: Sub-Work 02 Key Highlight Note]',
+    "highlight": {
+      "ja": "魔法の演出をレイヤーに分ける。",
+      "zh": "把魔法演出拆分成图层。",
+      "en": "Separate a spell effect into layers."
     },
-    repoUrl: 'https://github.com',
-  },
-  {
-    id: 'ow-slot-3',
-    year: 'YYYY.MM',
-    category: {
-      ja: '[機能展示枠：サブ作品カテゴリ 03]',
-      zh: '[功能展示位：别册作品分类标签 03]',
-      en: '[Functional Slot: Sub-Work Category 03]',
-    },
-    tech: '[TECH STACK / ENGINE 03]',
-    duration: {
-      ja: '[制作期間・体制枠 03]',
-      zh: '[开发周期与分工槽位 03]',
-      en: '[Duration & Team Scope Slot 03]',
-    },
-    title: {
-      ja: '[機能展示位置：別冊・サブ作品タイトル枠 03]',
-      zh: '[功能展示位置：别册/小型原型作品标题槽位 03]',
-      en: '[Functional Slot: Appendix / Mini-Prototype Title 03]',
-    },
-    desc: {
-      ja: '/* 機能展示位置注釈：サブ作品 03 の概要・担当箇所・成果などを記述するテキスト枠です。 */',
-      zh: '/* 功能展示位置注释：用于展示别册作品 03 的概要、负责模块与验证成果的文本槽位。 */',
-      en: '/* Functional Slot Annotation: Description slot for Sub-Work / Game Jam / Tool Prototype 03. */',
-    },
-    highlight: {
-      ja: '[機能展示枠：サブ作品 03 のアピールポイント注釈]',
-      zh: '[功能展示位：别册作品 03 核心亮点注释]',
-      en: '[Functional Slot: Sub-Work 03 Key Highlight Note]',
-    },
-    repoUrl: 'https://github.com',
-  },
+    "repoUrl": ""
+  }
 ];
