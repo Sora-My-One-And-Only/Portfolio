@@ -7,65 +7,17 @@ import {
   ExternalLink,
   Clock,
 } from 'lucide-react';
-import { Locale } from '../data/i18n';
-import { OTHER_WORKS_DATA } from '../data/gamePortfolioData';
+import type { Locale } from '../content/interface-copy';
+import { DESIGN_NOTES, OTHER_WORKS_DATA } from '../content/design-notes';
 import { soundFX } from '../utils/sound';
 
-interface GameResumeSubPageProps {
+interface DesignNotesPageProps {
   locale: Locale;
   initialSubTab?: 'playHistory' | 'otherWorks';
   onBackToMain: () => void;
 }
 
-export const GAMER_PLAY_LOGS = [
-  {
-    "id": "spell-commands",
-    "title": "ARCANE CHRONICLE / Combat",
-    "hours": "Break",
-    "tag": {
-      "ja": "バトル設計",
-      "zh": "战斗设计",
-      "en": "Combat design"
-    },
-    "note": {
-      "ja": "敵の動きを見て、いつ魔法を使うかを選ぶアクションを目指しました。小さな隙には短いコマンドを差し込み、長いコマンドを使うなら、近接攻撃で先に詠唱の時間を作ります。魔法コマンドと火竜戦の仕様整理に携わりました。",
-      "zh": "设计目标是让玩家在交战中判断何时施法。短指令能抓住小破绽，长指令则需要用近战主动创造咏唱机会。我参与了魔法指令与火龙战的规格整理。",
-      "en": "The player chooses when to cast while reading the enemy. Short commands fit into brief openings. Longer commands reward using melee attacks to create a casting window. I contributed to the specifications for spell commands and the fire dragon encounter."
-    }
-  },
-  {
-    "id": "fire-dragon",
-    "title": "ARCANE CHRONICLE / Fire Dragon",
-    "hours": "3",
-    "tag": {
-      "ja": "レベル設計",
-      "zh": "关卡设计",
-      "en": "Level design"
-    },
-    "note": {
-      "ja": "火竜が足場を崩すたびに移動先を選ぶ。最後の崩壊に先立ち、中央の足場がせり上がる。",
-      "zh": "火龙摧毁平台后重新选择落脚点。最后一次崩塌前，中心平台会升起。",
-      "en": "Choose a new foothold when the fire dragon destroys a platform. The central platform rises before the final collapse."
-    }
-  },
-  {
-    "id": "greybox-tools",
-    "title": "Level Builder",
-    "hours": "3 Views",
-    "tag": {
-      "ja": "ツール制作",
-      "zh": "工具制作",
-      "en": "Tool development"
-    },
-    "note": {
-      "ja": "次の足場が見えるか、そこまで跳べるか。ステージを組む途中で、視点を切り替えたり実際に動いたりしながら確認できるようにしました。",
-      "zh": "在搭建关卡的过程中，就能检查下一处平台是否看得见、跳得到，并实际操作角色走一遍路线。",
-      "en": "The editor lets you check whether a player can see or reach the next platform while the level is still being laid out."
-    }
-  }
-];
-
-export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
+export const DesignNotesPage: React.FC<DesignNotesPageProps> = ({
   locale,
   initialSubTab = 'playHistory',
   onBackToMain,
@@ -171,7 +123,7 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
               transition={{ duration: 0.18 }}
               className="border-t border-[#181A1C] dark:border-[#F2EFE9] divide-y divide-[#E2E0D8] dark:divide-[#2E2924]"
             >
-              {GAMER_PLAY_LOGS.map((item, idx) => (
+              {DESIGN_NOTES.map((item, idx) => (
                 <div
                   key={item.id}
                   className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-baseline"
@@ -181,7 +133,7 @@ export const GameResumeSubPage: React.FC<GameResumeSubPageProps> = ({
                     <span>·</span>
                     <span className="inline-flex items-center gap-1 tabular-nums">
                       <Clock className="w-3 h-3" />
-                      {item.hours}
+                      {item.badge}
                     </span>
                   </div>
 

@@ -5,7 +5,8 @@ import {
   ArrowRight,
   ExternalLink,
 } from 'lucide-react';
-import { Locale, PROJECTS_DATA, ProjectSpec } from '../data/i18n';
+import type { Locale } from '../content/interface-copy';
+import { PROJECTS_DATA, type ProjectSpec } from '../content/works';
 import { soundFX } from '../utils/sound';
 import { InteractiveGameStage } from './InteractiveGameStage';
 
@@ -142,7 +143,7 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
             </span>
           </button>
 
-          {project.frameTable.length > 0 && (
+          {project.spellCommands.length > 0 && (
           <button
             type="button"
             onClick={() => {
@@ -222,13 +223,13 @@ export const WorkDetailSubPage: React.FC<WorkDetailSubPageProps> = ({
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[#E2E0D8] dark:divide-[#2E2924]">
-                      {project.frameTable.map((row, idx) => (
+                      {project.spellCommands.map((row, idx) => (
                         <tr key={idx}>
                           <td className="py-4 px-4 font-medium">
-                            {row.moveName[locale]}
+                            {row.name[locale]}
                           </td>
-                          <td className="py-4 px-4 text-[#C84B31] dark:text-[#E57052]">{row.startup}</td>
-                          <td className="py-4 px-4 font-medium">{row.active}</td>
+                          <td className="py-4 px-4 text-[#C84B31] dark:text-[#E57052]">{row.input}</td>
+                          <td className="py-4 px-4 font-medium">{row.element}</td>
 
 
 

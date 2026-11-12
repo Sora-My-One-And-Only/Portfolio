@@ -1,6 +1,0 @@
-{
-  "name": "Kurogane Studio — Game Planner & Developer Portfolio",
-  "description": "Trilingual (JA/ZH/EN) interactive game design portfolio for Battle & Level Planner roles, featuring a live 60FPS combat hitbox sandbox, level pacing simulator, GitHub repository feed, and contact form.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

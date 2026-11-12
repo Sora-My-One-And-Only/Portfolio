@@ -28,11 +28,10 @@ import {
   Play,
   FileText,
 } from 'lucide-react';
-import {
-  Locale,
-  PROJECTS_DATA,
-  ProjectSpec,
-} from './data/i18n';
+import type { Locale } from './content/interface-copy';
+import { PROJECTS_DATA, WORK_DESIGN_NOTES, type ProjectSpec } from './content/works';
+import { CORE_SKILLS, EDITORIAL_COPY } from './content/site-copy';
+import { DESIGN_NOTES } from './content/design-notes';
 import {
   soundFX,
   SoundEngineSnapshot,
@@ -40,14 +39,14 @@ import {
 import { GitHubLiveModule } from './components/GitHubLiveModule';
 import { ContactFormSection } from './components/ContactFormSection';
 import { WorkDetailSubPage } from './components/WorkDetailSubPage';
-import { GameResumeSubPage, GAMER_PLAY_LOGS } from './components/GameResumeSubPage';
+import { DesignNotesPage } from './components/DesignNotesPage';
 import {
   QuickRecruiterGuideSection,
   PlayGamesPortalSection,
   WhatICanDoSection,
   TimelineAndBlogSection,
   EndingCreditsSection,
-} from './components/PortfolioExtendedSections';
+} from './components/PortfolioSections';
 
 type ActivePageView = 'main' | 'spec-detail' | 'resume-detail';
 
@@ -181,501 +180,6 @@ function animateScrollTo(targetY: number, customDuration?: number) {
   activeScrollAnimId = requestAnimationFrame(step);
 }
 
-const EDITORIAL_COPY = {
-  "ja": {
-    "editionTag": "GAME DESIGN PORTFOLIO",
-    "name": "Sora",
-    "titleMain": "ゲームプランナー志望",
-    "titleSubName": "Sora",
-    "roleSubtitle": "バトルデザイン・レベルデザイン",
-    "tocHeading": "CONTENTS",
-    "tocSub": "目次",
-    "tocNote": "上下キーまたはクリックで章を選べます。",
-    "menuItems": [
-      {
-        "id": "quick-guide",
-        "code": "CH.00",
-        "cmd": "30s QUICK GUIDE",
-        "sub": "30秒で概要を読む",
-        "page": "P.02"
-      },
-      {
-        "id": "about",
-        "code": "CH.01",
-        "cmd": "DESIGNER PROFILE",
-        "sub": "制作で大切にしていること",
-        "page": "P.04"
-      },
-      {
-        "id": "works",
-        "code": "CH.02",
-        "cmd": "SELECTED WORKS",
-        "sub": "代表作と設計の詳細",
-        "page": "P.12"
-      },
-      {
-        "id": "play-games",
-        "code": "CH.02B",
-        "cmd": "PLAYABLE GAMES",
-        "sub": "公開ツールを体験する",
-        "page": "P.28"
-      },
-      {
-        "id": "skills",
-        "code": "CH.03",
-        "cmd": "SKILL & CAPABILITIES",
-        "sub": "設計と制作でできること",
-        "page": "P.36"
-      },
-      {
-        "id": "resume",
-        "code": "CH.04",
-        "cmd": "PLAY & TIMELINE",
-        "sub": "制作ノートと関連作品",
-        "page": "P.48"
-      },
-      {
-        "id": "contact",
-        "code": "CH.05",
-        "cmd": "CORRESPONDENCE",
-        "sub": "GitHub・お問い合わせ",
-        "page": "P.60"
-      }
-    ],
-    "nav": {
-      "menu": "目次",
-      "about": "自己紹介",
-      "works": "作品",
-      "playGames": "体験",
-      "skills": "スキル",
-      "resume": "制作ノート",
-      "contact": "連絡先"
-    },
-    "aboutChapter": "CHAPTER 01 // PROFILE",
-    "aboutTitle": "遊べる形にして、設計を確かめる。",
-    "aboutLead": "日本でゲーム制作を学びながら、Unityでチーム制作に取り組んでいます。戦闘中の判断やステージの動線を、操作できるプロトタイプにして検討します。",
-    "aboutMarginLabel": "PROFILE",
-    "profileFacts": [
-      {
-        "label": "制作名義",
-        "value": "Sora"
-      },
-      {
-        "label": "志望職種",
-        "value": "ゲームプランナー"
-      },
-      {
-        "label": "設計領域",
-        "value": "バトルデザイン・レベルデザイン"
-      },
-      {
-        "label": "制作環境",
-        "value": "Unity / C#"
-      }
-    ],
-    "aboutAnnotations": [
-      {
-        "num": "NOTE 01",
-        "title": "戦闘中の判断を作る",
-        "desc": "剣で攻めて詠唱の時間を作る。近接攻撃と魔法の役割を一つの戦闘にまとめます。",
-        "caption": "ARCANE CHRONICLE"
-      },
-      {
-        "num": "NOTE 02",
-        "title": "動線をプレイして確かめる",
-        "desc": "足場の配置を白箱で組み、どこが見えるか、どこまで移動できるかを確認します。",
-        "caption": "LEVEL DESIGN"
-      },
-      {
-        "num": "NOTE 03",
-        "title": "検証に使う道具を作る",
-        "desc": "レベルの視界やジャンプを調べるブラウザツールと、魔法エフェクトを組み立てるエディタを制作しました。",
-        "caption": "LEVEL BUILDER / GSPARTICLESTUDIO"
-      }
-    ],
-    "worksChapter": "CHAPTER 02 // SELECTED WORKS",
-    "worksTitle": "作品一覧",
-    "worksLead": "ゲームと制作ツールの、設計の狙いと仕組みを紹介します。",
-    "openSpec": "作品詳細を見る",
-    "playNowBtn": "体験・プレビュー",
-    "moreWorksBtn": "別冊を見る",
-    "platePrefix": "PLATE",
-    "annotationHeader": "DESIGN NOTES",
-    "skillsChapter": "CHAPTER 03 // PRODUCTION SKILLS",
-    "skillsTitle": "制作スキル",
-    "skillsMarginNote": "作品に紐づく制作経験を紹介します。",
-    "gamesChapter": "CHAPTER 04 // DESIGN NOTES",
-    "gamesTitle": "制作ノート",
-    "gamesMoreBtn": "制作ノートを読む"
-  },
-  "zh": {
-    "editionTag": "GAME DESIGN PORTFOLIO",
-    "name": "Sora",
-    "titleMain": "游戏策划求职作品集",
-    "titleSubName": "Sora",
-    "roleSubtitle": "战斗设计 · 关卡设计",
-    "tocHeading": "CONTENTS",
-    "tocSub": "目录",
-    "tocNote": "用上下方向键或点击选择章节。",
-    "menuItems": [
-      {
-        "id": "quick-guide",
-        "code": "CH.00",
-        "cmd": "30s QUICK GUIDE",
-        "sub": "30 秒速览",
-        "page": "P.02"
-      },
-      {
-        "id": "about",
-        "code": "CH.01",
-        "cmd": "DESIGNER PROFILE",
-        "sub": "了解我的制作思路",
-        "page": "P.04"
-      },
-      {
-        "id": "works",
-        "code": "CH.02",
-        "cmd": "SELECTED WORKS",
-        "sub": "查看代表作与设计细节",
-        "page": "P.12"
-      },
-      {
-        "id": "play-games",
-        "code": "CH.02B",
-        "cmd": "PLAYABLE GAMES",
-        "sub": "在线体验已公开工具",
-        "page": "P.28"
-      },
-      {
-        "id": "skills",
-        "code": "CH.03",
-        "cmd": "SKILL & CAPABILITIES",
-        "sub": "查看设计与制作能力",
-        "page": "P.36"
-      },
-      {
-        "id": "resume",
-        "code": "CH.04",
-        "cmd": "PLAY & TIMELINE",
-        "sub": "阅读制作笔记与相关作品",
-        "page": "P.48"
-      },
-      {
-        "id": "contact",
-        "code": "CH.05",
-        "cmd": "CORRESPONDENCE",
-        "sub": "GitHub 和联系方式",
-        "page": "P.60"
-      }
-    ],
-    "nav": {
-      "menu": "目录",
-      "about": "关于我",
-      "works": "作品",
-      "playGames": "在线体验",
-      "skills": "能力",
-      "resume": "制作笔记",
-      "contact": "联系"
-    },
-    "aboutChapter": "CHAPTER 01 // PROFILE",
-    "aboutTitle": "把想法做成能玩的设计",
-    "aboutLead": "我在日本学习游戏制作，目前用 Unity 参与团队开发。我习惯先做可玩的原型，再检查战斗决策和关卡动线。",
-    "aboutMarginLabel": "PROFILE",
-    "profileFacts": [
-      {
-        "label": "制作署名",
-        "value": "Sora"
-      },
-      {
-        "label": "目标岗位",
-        "value": "游戏策划"
-      },
-      {
-        "label": "设计方向",
-        "value": "战斗设计 · 关卡设计"
-      },
-      {
-        "label": "制作环境",
-        "value": "Unity / C#"
-      }
-    ],
-    "aboutAnnotations": [
-      {
-        "num": "NOTE 01",
-        "title": "设计战斗中的决策",
-        "desc": "用近战主动创造咏唱时间，让剑与魔法在战斗中各有作用。",
-        "caption": "ARCANE CHRONICLE"
-      },
-      {
-        "num": "NOTE 02",
-        "title": "通过实测检查关卡动线",
-        "desc": "先搭建白盒，确认玩家站在这里能看到哪里、能移动到哪里。",
-        "caption": "LEVEL DESIGN"
-      },
-      {
-        "num": "NOTE 03",
-        "title": "制作设计验证工具",
-        "desc": "制作了检查视野与跳跃轨迹的浏览器工具，以及用于组合魔法特效的编辑器。",
-        "caption": "LEVEL BUILDER / GSPARTICLESTUDIO"
-      }
-    ],
-    "worksChapter": "CHAPTER 02 // SELECTED WORKS",
-    "worksTitle": "精选作品",
-    "worksLead": "介绍游戏和制作工具的设计意图与核心机制。",
-    "openSpec": "查看作品详情",
-    "playNowBtn": "体验与预览",
-    "moreWorksBtn": "查看附录",
-    "platePrefix": "PLATE",
-    "annotationHeader": "DESIGN NOTES",
-    "skillsChapter": "CHAPTER 03 // PRODUCTION SKILLS",
-    "skillsTitle": "制作能力",
-    "skillsMarginNote": "每项能力都对应具体的作品实践。",
-    "gamesChapter": "CHAPTER 04 // DESIGN NOTES",
-    "gamesTitle": "制作笔记",
-    "gamesMoreBtn": "查看全部笔记"
-  },
-  "en": {
-    "editionTag": "GAME DESIGN PORTFOLIO",
-    "name": "Sora",
-    "titleMain": "Game Design Portfolio",
-    "titleSubName": "Sora",
-    "roleSubtitle": "Combat Design · Level Design",
-    "tocHeading": "CONTENTS",
-    "tocSub": "Contents",
-    "tocNote": "Use the arrow keys or click to choose a chapter.",
-    "menuItems": [
-      {
-        "id": "quick-guide",
-        "code": "CH.00",
-        "cmd": "30s QUICK GUIDE",
-        "sub": "Read the 30-second overview",
-        "page": "P.02"
-      },
-      {
-        "id": "about",
-        "code": "CH.01",
-        "cmd": "DESIGNER PROFILE",
-        "sub": "Get to know my design process",
-        "page": "P.04"
-      },
-      {
-        "id": "works",
-        "code": "CH.02",
-        "cmd": "SELECTED WORKS",
-        "sub": "Explore work and design details",
-        "page": "P.12"
-      },
-      {
-        "id": "play-games",
-        "code": "CH.02B",
-        "cmd": "PLAYABLE GAMES",
-        "sub": "Try the published tools",
-        "page": "P.28"
-      },
-      {
-        "id": "skills",
-        "code": "CH.03",
-        "cmd": "SKILL & CAPABILITIES",
-        "sub": "See what I can contribute",
-        "page": "P.36"
-      },
-      {
-        "id": "resume",
-        "code": "CH.04",
-        "cmd": "PLAY & TIMELINE",
-        "sub": "Read design notes and related work",
-        "page": "P.48"
-      },
-      {
-        "id": "contact",
-        "code": "CH.05",
-        "cmd": "CORRESPONDENCE",
-        "sub": "GitHub and contact",
-        "page": "P.60"
-      }
-    ],
-    "nav": {
-      "menu": "Contents",
-      "about": "About",
-      "works": "Works",
-      "playGames": "Try Online",
-      "skills": "Skills",
-      "resume": "Design Notes",
-      "contact": "Contact"
-    },
-    "aboutChapter": "CHAPTER 01 // PROFILE",
-    "aboutTitle": "Making ideas playable",
-    "aboutLead": "I study game development in Japan and work on a Unity team project. I build playable prototypes to test combat decisions and level routes.",
-    "aboutMarginLabel": "PROFILE",
-    "profileFacts": [
-      {
-        "label": "Byline",
-        "value": "Sora"
-      },
-      {
-        "label": "Target role",
-        "value": "Game Designer"
-      },
-      {
-        "label": "Design focus",
-        "value": "Combat Design · Level Design"
-      },
-      {
-        "label": "Development tools",
-        "value": "Unity / C#"
-      }
-    ],
-    "aboutAnnotations": [
-      {
-        "num": "NOTE 01",
-        "title": "Designing combat decisions",
-        "desc": "Use sword attacks to create a spellcasting window, giving melee and magic complementary roles.",
-        "caption": "ARCANE CHRONICLE"
-      },
-      {
-        "num": "NOTE 02",
-        "title": "Playtesting level routes",
-        "desc": "Use greyboxes to test where a player can see and move from a given point.",
-        "caption": "LEVEL DESIGN"
-      },
-      {
-        "num": "NOTE 03",
-        "title": "Building tools for iteration",
-        "desc": "I built a browser tool for sight lines and jumps, and an editor for assembling spell effects.",
-        "caption": "LEVEL BUILDER / GSPARTICLESTUDIO"
-      }
-    ],
-    "worksChapter": "CHAPTER 02 // SELECTED WORKS",
-    "worksTitle": "Selected Works",
-    "worksLead": "Design goals and mechanics behind games and development tools.",
-    "openSpec": "View work details",
-    "playNowBtn": "Preview and try",
-    "moreWorksBtn": "View appendix",
-    "platePrefix": "PLATE",
-    "annotationHeader": "DESIGN NOTES",
-    "skillsChapter": "CHAPTER 03 // PRODUCTION SKILLS",
-    "skillsTitle": "Production Skills",
-    "skillsMarginNote": "Examples from my game and tool projects.",
-    "gamesChapter": "CHAPTER 04 // DESIGN NOTES",
-    "gamesTitle": "Design Notes",
-    "gamesMoreBtn": "Read all notes"
-  }
-};
-
-const CORE_SKILLS = [
-  {
-    "code": "BATTLE",
-    "name": {
-      "ja": "戦闘中の判断を作る",
-      "zh": "设计战斗中的决策",
-      "en": "Designing combat decisions"
-    },
-    "annotation": {
-      "ja": "剣で攻めて詠唱の時間を作る。近接攻撃と魔法の役割を一つの戦闘にまとめます。",
-      "zh": "用近战主动创造咏唱时间，让剑与魔法在战斗中各有作用。",
-      "en": "Use sword attacks to create a spellcasting window, giving melee and magic complementary roles."
-    },
-    "pct": "100%"
-  },
-  {
-    "code": "LEVEL",
-    "name": {
-      "ja": "動線をプレイして確かめる",
-      "zh": "通过实测检查关卡动线",
-      "en": "Playtesting level routes"
-    },
-    "annotation": {
-      "ja": "足場の配置を白箱で組み、どこが見えるか、どこまで移動できるかを確認します。",
-      "zh": "先搭建白盒，确认玩家站在这里能看到哪里、能移动到哪里。",
-      "en": "Use greyboxes to test where a player can see and move from a given point."
-    },
-    "pct": "100%"
-  },
-  {
-    "code": "TOOLS",
-    "name": {
-      "ja": "検証に使う道具を作る",
-      "zh": "制作设计验证工具",
-      "en": "Building tools for iteration"
-    },
-    "annotation": {
-      "ja": "レベルの視界やジャンプを調べるブラウザツールと、魔法エフェクトを組み立てるエディタを制作しました。",
-      "zh": "制作了检查视野与跳跃轨迹的浏览器工具，以及用于组合魔法特效的编辑器。",
-      "en": "I built a browser tool for sight lines and jumps, and an editor for assembling spell effects."
-    },
-    "pct": "100%"
-  }
-];
-
-const WORK_DEV_LOGS = [
-  {
-    "party": {
-      "ja": "チーム制作 / ゲーム企画",
-      "zh": "团队制作 / 游戏策划",
-      "en": "Team project / Game design"
-    },
-    "challenge": {
-      "ja": "戦闘中に、長いコマンドを使う判断と時間を作る。",
-      "zh": "让玩家在战斗中判断何时使用长指令，并主动争取输入时间。",
-      "en": "Give the player a reason and a window to enter a long spell command."
-    },
-    "solution": {
-      "ja": "剣で攻めて詠唱の時間を作る。近接攻撃と魔法の役割を一つの戦闘にまとめます。",
-      "zh": "用近战主动创造咏唱时间，让剑与魔法在战斗中各有作用。",
-      "en": "Use sword attacks to create a spellcasting window, giving melee and magic complementary roles."
-    },
-    "result": {
-      "ja": "短い隙には短い魔法を、ブレイク後には強力な魔法を狙えます。",
-      "zh": "小破绽可用短指令应对，Break 后可尝试强力魔法。",
-      "en": "Short openings suit short commands, while Break gives time for stronger spells."
-    }
-  },
-  {
-    "party": {
-      "ja": "ブラウザ向けレベル設計ツール",
-      "zh": "浏览器关卡设计工具",
-      "en": "Browser level design tool"
-    },
-    "challenge": {
-      "ja": "配置を考えながら、視界や移動可能な範囲を確認する。",
-      "zh": "在搭建布局的同时确认玩家视野和可到达范围。",
-      "en": "Check sight and reach while the layout is still taking shape."
-    },
-    "solution": {
-      "ja": "足場の配置を白箱で組み、どこが見えるか、どこまで移動できるかを確認します。",
-      "zh": "先搭建白盒，确认玩家站在这里能看到哪里、能移动到哪里。",
-      "en": "Use greyboxes to test where a player can see and move from a given point."
-    },
-    "result": {
-      "ja": "3ビューとブラウザ試遊で配置と動線を確認できます。",
-      "zh": "三个联动视口与浏览器试玩可用于验证布局和动线。",
-      "en": "Three linked views and browser playtesting support layout checks."
-    }
-  },
-  {
-    "party": {
-      "ja": "パーティクルエディタ",
-      "zh": "粒子特效编辑器",
-      "en": "Particle editor"
-    },
-    "challenge": {
-      "ja": "発動から消失までの演出を個別に調整する。",
-      "zh": "分别调整魔法从发动到消失的各段演出。",
-      "en": "Adjust the buildup, burst and fade as individual elements."
-    },
-    "solution": {
-      "ja": "演出を複数のレイヤーに分けて構成する。",
-      "zh": "将演出分成多个可单独调整的图层。",
-      "en": "Build the effect from individually editable layers."
-    },
-    "result": {
-      "ja": "重ねたレイヤーを専用ランタイムで再生できます。",
-      "zh": "组合后的特效可在专用运行时播放。",
-      "en": "Layered effects play back in a dedicated runtime."
-    }
-  }
-];
-
 /**
  * Annotated Editorial Work Plate with True Multi-Plane Scroll Parallax & Kinetic Reveal
  */
@@ -718,6 +222,7 @@ const EditorialWorkSpread: React.FC<EditorialWorkSpreadProps> = ({
   const noteColumnY = useTransform(smoothSpread, [0, 1], [34, -34]);
 
   const isEven = idx % 2 === 1;
+  const designNote = WORK_DESIGN_NOTES[project.id];
   const plateNumber = `0${idx + 1}`;
 
   return (
@@ -813,19 +318,19 @@ const EditorialWorkSpread: React.FC<EditorialWorkSpreadProps> = ({
           </div>
 
           {/* DEV LOG (課題 → 解決 → 結果) & PARTY Block (Inspired by haru2401game.github.io/portfolio/#featured-works) */}
-          {WORK_DEV_LOGS[idx] && (
+          {designNote && (
             <div className="mt-5 p-4 bg-[#EFEDE6]/85 dark:bg-[#1B1916]/90 border border-[#E2E0D8] dark:border-[#2E2924] space-y-2 text-xs">
               <div className="font-mono text-[11px] text-[#C84B31] dark:text-[#E57052] pb-1.5 border-b border-[#E2E0D8] dark:border-[#2E2924]">
-                {WORK_DEV_LOGS[idx].party[locale]}
+                {designNote.party[locale]}
               </div>
               <div className="text-[#555B61] dark:text-[#B0A89E] leading-relaxed">
-                {WORK_DEV_LOGS[idx].challenge[locale]}
+                {designNote.challenge[locale]}
               </div>
               <div className="text-[#181A1C] dark:text-[#F2EFE9] leading-relaxed">
-                {WORK_DEV_LOGS[idx].solution[locale]}
+                {designNote.solution[locale]}
               </div>
               <div className="font-mono text-[11px] text-[#C84B31] dark:text-[#E57052] pt-1">
-                ★ {WORK_DEV_LOGS[idx].result[locale]}
+                ★ {designNote.result[locale]}
               </div>
             </div>
           )}
@@ -1719,7 +1224,7 @@ export default function App() {
             transition={{ duration: 0.45, ease: EASE_OUT_EXPO }}
             className="relative z-10 pt-16 will-change-transform"
           >
-            <GameResumeSubPage
+            <DesignNotesPage
               locale={locale}
               initialSubTab={resumeSubTab}
               onBackToMain={() => {
@@ -2269,7 +1774,7 @@ export default function App() {
 
                 {/* Annotated Editorial Deconstruction Rows */}
                 <div className="divide-y divide-[#E2E0D8] dark:divide-[#2E2924] border-b border-[#E2E0D8] dark:border-[#2E2924]">
-                  {GAMER_PLAY_LOGS.slice(0, 4).map((g, idx) => (
+                  {DESIGN_NOTES.slice(0, 4).map((g, idx) => (
                     <motion.div
                       key={g.id}
                       initial={{ opacity: 0, y: 28 }}
@@ -2292,7 +1797,7 @@ export default function App() {
                         <span>·</span>
                         <span className="inline-flex items-center gap-1 tabular-nums">
                           <Clock className="w-3 h-3" />
-                          {g.hours}
+                          {g.badge}
                         </span>
                       </div>
 

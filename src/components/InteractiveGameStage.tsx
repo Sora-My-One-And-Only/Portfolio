@@ -10,7 +10,8 @@ import {
   Zap,
   Link2,
 } from 'lucide-react';
-import { Locale, ProjectSpec } from '../data/i18n';
+import type { Locale } from '../content/interface-copy';
+import type { ProjectSpec } from '../content/works';
 import { soundFX } from '../utils/sound';
 
 interface InteractiveGameStageProps {

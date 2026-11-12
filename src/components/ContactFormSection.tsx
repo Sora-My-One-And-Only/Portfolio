@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
-import { Locale, UI_TEXT } from '../data/i18n';
+import { UI_TEXT, type Locale } from '../content/interface-copy';
 import { soundFX } from '../utils/sound';
 
 interface ContactFormSectionProps {

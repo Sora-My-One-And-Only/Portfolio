@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Star,
   GitFork,
@@ -8,7 +8,7 @@ import {
   Copy,
   Check,
 } from 'lucide-react';
-import { FALLBACK_GITHUB_REPOS, FallbackRepo, Locale, UI_TEXT } from '../data/i18n';
+import { UI_TEXT, type Locale } from '../content/interface-copy';
 import { soundFX } from '../utils/sound';
 
 interface GitHubLiveModuleProps {
@@ -38,18 +38,6 @@ export const GitHubLiveModule: React.FC<GitHubLiveModuleProps> = ({
   const [liveRepos, setLiveRepos] = useState<SimpleRepo[]>([]);
   const [showDeployGuide, setShowDeployGuide] = useState<boolean>(false);
   const [copiedCmd, setCopiedCmd] = useState<boolean>(false);
-
-  const fallbackRepos: SimpleRepo[] = useMemo(() => {
-    return FALLBACK_GITHUB_REPOS.slice(0, 3).map((r: FallbackRepo) => ({
-      id: r.id,
-      name: r.name,
-      html_url: `https://github.com/${githubUsername}/${r.name}`,
-      description: r.description[locale],
-      language: r.language,
-      stargazers_count: r.stargazers_count,
-      forks_count: r.forks_count,
-    }));
-  }, [locale, githubUsername]);
 
   const fetchRepos = async (user: string) => {
     const clean = user.trim().replace(/^@/, '').replace(/\.github\.io$/i, '');
@@ -99,7 +87,7 @@ export const GitHubLiveModule: React.FC<GitHubLiveModuleProps> = ({
     }
   }, []);
 
-  const displayList = liveRepos.length > 0 ? liveRepos : fallbackRepos;
+  const displayList = liveRepos;
   const targetRepoName = `${githubUsername || 'your-github-id'}.github.io`;
   const gitPushCommands = `git init -b main
 git add -A

@@ -1,4 +1,4 @@
-export type Locale = 'ja' | 'zh' | 'en';
+import type { Locale } from './interface-copy';
 
 export interface ProjectSpec {
   id: string;
@@ -16,72 +16,39 @@ export interface ProjectSpec {
     label: Record<Locale, string>;
     value: string;
   }[];
-  frameTable: {
-    moveName: Record<Locale, string>;
-    startup: string;
-    active: string;
-    recovery: string;
-    onBlock: string;
-    damage: string;
+  spellCommands: {
+    name: Record<Locale, string>;
+    input: string;
+    element: string;
   }[];
   repoName: string;
   playUrl?: string;
 }
 
-export interface EraNode {
-  id: string;
-  yearRange: string;
-  eraBadge: string;
-  consoleInspiration: Record<Locale, string>;
-  title: Record<Locale, string>;
-  philosophy: Record<Locale, string>;
-  studentMilestone: Record<Locale, string>;
-  analyzedGames: string[];
-  coreTakeaway: Record<Locale, string>;
-}
-
-export interface FallbackRepo {
-  id: number;
-  name: string;
-  html_url: string;
-  description: Record<Locale, string>;
-  language: string;
-  stargazers_count: number;
-  forks_count: number;
-  updated_at: string;
-  topics: string[];
-  latestCommit: {
-    sha: string;
-    message: Record<Locale, string>;
-    date: string;
-  };
-}
-
-export const PORTFOLIO_IMAGES = {
+const WORK_ILLUSTRATIONS = {
   combatSystem: new URL(
-    '../assets/images/portfolio_combat_frame_system_1793888637807.jpg',
+    '../assets/illustrations/combat-design.jpg',
     import.meta.url
   ).href,
   levelTopography: new URL(
-    '../assets/images/portfolio_level_topography_1793888661621.jpg',
+    '../assets/illustrations/level-design.jpg',
     import.meta.url
   ).href,
   bossAiBehavior: new URL(
-    '../assets/images/portfolio_boss_ai_behavior_1793888626526.jpg',
-    import.meta.url
-  ).href,
-  retroArchive: new URL(
-    '../assets/images/portfolio_retro_console_archive_1793888665880.jpg',
+    '../assets/illustrations/boss-behavior.jpg',
     import.meta.url
   ).href,
 };
+
+export const LEVEL_BUILDER_URL = 'https://sora-my-one-and-only.github.io/Level-Builder/';
+export const LEVEL_BUILDER_REPOSITORY = 'https://github.com/Sora-My-One-And-Only/Level-Builder';
 
 export const PROJECTS_DATA: ProjectSpec[] = [
   {
     "id": "arcane-chronicle",
     "code": "ARCANE CHRONICLE",
     "span": "wide",
-    "image": PORTFOLIO_IMAGES.combatSystem,
+    "image": WORK_ILLUSTRATIONS.combatSystem,
     "roleTag": {
       "ja": "ゲーム企画・チーム制作",
       "zh": "游戏策划 · 团队制作",
@@ -147,42 +114,33 @@ export const PROJECTS_DATA: ProjectSpec[] = [
         "value": "3"
       }
     ],
-    "frameTable": [
+    "spellCommands": [
       {
-        "moveName": {
+        "name": {
           "ja": "火球",
           "zh": "火球",
           "en": "Fireball"
         },
-        "startup": "↑ → + □",
-        "active": "Fire",
-        "recovery": "—",
-        "onBlock": "—",
-        "damage": "—"
+        "input": "↑ → + □",
+        "element": "Fire"
       },
       {
-        "moveName": {
+        "name": {
           "ja": "強化火球",
           "zh": "强化火球",
           "en": "Enhanced fireball"
         },
-        "startup": "↑ → ↑ → + □",
-        "active": "Fire",
-        "recovery": "—",
-        "onBlock": "—",
-        "damage": "—"
+        "input": "↑ → ↑ → + □",
+        "element": "Fire"
       },
       {
-        "moveName": {
+        "name": {
           "ja": "貫通火球",
           "zh": "贯穿火球",
           "en": "Piercing fireball"
         },
-        "startup": "↑ → → + □",
-        "active": "Fire",
-        "recovery": "—",
-        "onBlock": "—",
-        "damage": "—"
+        "input": "↑ → → + □",
+        "element": "Fire"
       }
     ],
     "repoName": ""
@@ -191,7 +149,7 @@ export const PROJECTS_DATA: ProjectSpec[] = [
     "id": "level-builder",
     "code": "LEVEL BUILDER",
     "span": "normal",
-    "image": PORTFOLIO_IMAGES.levelTopography,
+    "image": WORK_ILLUSTRATIONS.levelTopography,
     "roleTag": {
       "ja": "レベル設計ツール",
       "zh": "关卡设计工具",
@@ -257,15 +215,15 @@ export const PROJECTS_DATA: ProjectSpec[] = [
         "value": "Online"
       }
     ],
-    "frameTable": [],
+    "spellCommands": [],
     "repoName": "Level-Builder",
-    "playUrl": "https://sora-my-one-and-only.github.io/Level-Builder/"
+    "playUrl": LEVEL_BUILDER_URL
   },
   {
     "id": "gs-particle-studio",
     "code": "GS PARTICLE STUDIO",
     "span": "normal",
-    "image": PORTFOLIO_IMAGES.bossAiBehavior,
+    "image": WORK_ILLUSTRATIONS.bossAiBehavior,
     "roleTag": {
       "ja": "エフェクト制作ツール",
       "zh": "特效制作工具",
@@ -331,62 +289,83 @@ export const PROJECTS_DATA: ProjectSpec[] = [
         "value": "Private"
       }
     ],
-    "frameTable": [],
+    "spellCommands": [],
     "repoName": ""
   }
 ];
 
-export const ERA_CHRONICLES: EraNode[] = [];
+type WorkDesignNote = {
+  party: Record<Locale, string>;
+  challenge: Record<Locale, string>;
+  solution: Record<Locale, string>;
+  result: Record<Locale, string>;
+};
 
-export const FALLBACK_GITHUB_REPOS: FallbackRepo[] = [];
-
-export const UI_TEXT = {
-  "ja": {
-    "github": {
-      "fetchBtn": "GitHub同期"
+export const WORK_DESIGN_NOTES: Record<string, WorkDesignNote> = {
+  "arcane-chronicle": {
+    "party": {
+      "ja": "チーム制作 / ゲーム企画",
+      "zh": "团队制作 / 游戏策划",
+      "en": "Team project / Game design"
     },
-    "contact": {
-      "nameLabel": "お名前",
-      "namePlaceholder": "氏名・所属",
-      "emailLabel": "メールアドレス",
-      "emailPlaceholder": "email@example.com",
-      "messageLabel": "内容",
-      "messagePlaceholder": "メッセージ",
-      "submitBtn": "入力内容を確認",
-      "successTitle": "入力内容を確認しました",
-      "successDesc": "フォームのプレビューです。メッセージは送信されていません。"
+    "challenge": {
+      "ja": "戦闘中に、長いコマンドを使う判断と時間を作る。",
+      "zh": "让玩家在战斗中判断何时使用长指令，并主动争取输入时间。",
+      "en": "Give the player a reason and a window to enter a long spell command."
+    },
+    "solution": {
+      "ja": "剣で攻めて詠唱の時間を作る。近接攻撃と魔法の役割を一つの戦闘にまとめます。",
+      "zh": "用近战主动创造咏唱时间，让剑与魔法在战斗中各有作用。",
+      "en": "Use sword attacks to create a spellcasting window, giving melee and magic complementary roles."
+    },
+    "result": {
+      "ja": "短い隙には短い魔法を、ブレイク後には強力な魔法を狙えます。",
+      "zh": "小破绽可用短指令应对，Break 后可尝试强力魔法。",
+      "en": "Short openings suit short commands, while Break gives time for stronger spells."
     }
   },
-  "zh": {
-    "github": {
-      "fetchBtn": "同步仓库"
+  "level-builder": {
+    "party": {
+      "ja": "ブラウザ向けレベル設計ツール",
+      "zh": "浏览器关卡设计工具",
+      "en": "Browser level design tool"
     },
-    "contact": {
-      "nameLabel": "姓名",
-      "namePlaceholder": "姓名或所属团队",
-      "emailLabel": "邮箱",
-      "emailPlaceholder": "email@example.com",
-      "messageLabel": "留言",
-      "messagePlaceholder": "留言内容",
-      "submitBtn": "预览留言",
-      "successTitle": "留言已预览",
-      "successDesc": "这是表单预览。留言未发送。"
+    "challenge": {
+      "ja": "配置を考えながら、視界や移動可能な範囲を確認する。",
+      "zh": "在搭建布局的同时确认玩家视野和可到达范围。",
+      "en": "Check sight and reach while the layout is still taking shape."
+    },
+    "solution": {
+      "ja": "足場の配置をグレーボックスで組み、どこが見えるか、どこまで移動できるかを確認します。",
+      "zh": "先搭建白盒，确认玩家站在这里能看到哪里、能移动到哪里。",
+      "en": "Use greyboxes to test where a player can see and move from a given point."
+    },
+    "result": {
+      "ja": "3ビューとブラウザ試遊で配置と動線を確認できます。",
+      "zh": "三个联动视口与浏览器试玩可用于验证布局和动线。",
+      "en": "Three linked views and browser playtesting support layout checks."
     }
   },
-  "en": {
-    "github": {
-      "fetchBtn": "Sync Repos"
+  "gs-particle-studio": {
+    "party": {
+      "ja": "パーティクルエディタ",
+      "zh": "粒子特效编辑器",
+      "en": "Particle editor"
     },
-    "contact": {
-      "nameLabel": "Name",
-      "namePlaceholder": "Name or team",
-      "emailLabel": "Email",
-      "emailPlaceholder": "email@example.com",
-      "messageLabel": "Message",
-      "messagePlaceholder": "Your message",
-      "submitBtn": "Preview Message",
-      "successTitle": "Message Preview",
-      "successDesc": "This is a form preview. No message was sent."
+    "challenge": {
+      "ja": "発動から消失までの演出を個別に調整する。",
+      "zh": "分别调整魔法从发动到消失的各段演出。",
+      "en": "Adjust the buildup, burst and fade as individual elements."
+    },
+    "solution": {
+      "ja": "演出を複数のレイヤーに分けて構成する。",
+      "zh": "将演出分成多个可单独调整的图层。",
+      "en": "Build the effect from individually editable layers."
+    },
+    "result": {
+      "ja": "重ねたレイヤーを専用ランタイムで再生できます。",
+      "zh": "组合后的特效可在专用运行时播放。",
+      "en": "Layered effects play back in a dedicated runtime."
     }
   }
 };
