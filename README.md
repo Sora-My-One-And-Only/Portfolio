@@ -14,7 +14,7 @@
 
 ## サイトの見方
 
-表紙と目次はゲームの設定資料集をイメージしています。作品一覧から詳細を開くと、企画意図と主な仕組みを読めます。日本語を初期表示とし、中国語と英語に切り替えられます。
+表紙と目次はゲームの設定資料集をイメージしています。作品一覧から企画意図と主な仕組みを読めます。オンライン体験からはLevel Builderを開けます。日本語を初期表示とし、中国語と英語に切り替えられます。
 
 ## ファイル構成
 
@@ -22,8 +22,7 @@
 | --- | --- |
 | 作品名、概要、担当、設計事例、オンライン体験リンク | [src/content/works.ts](src/content/works.ts) |
 | 表紙、目次、自己紹介、スキルの文言 | [src/content/site-copy.ts](src/content/site-copy.ts) |
-| 30秒ガイド、体験リンク、制作の記録、クレジット | [src/content/section-copy.ts](src/content/section-copy.ts) |
-| GitHubや連絡フォームの文言 | [src/content/interface-copy.ts](src/content/interface-copy.ts) |
+| 30秒ガイド、体験リンク、制作スキル、巻末の挨拶 | [src/content/section-copy.ts](src/content/section-copy.ts) |
 | 制作ノートと別冊のツール作品 | [src/content/design-notes.ts](src/content/design-notes.ts) |
 | 画面の構成と部品 | [src/App.tsx](src/App.tsx)、[src/components/](src/components/) |
 | 配色とレイアウト | [src/index.css](src/index.css) |

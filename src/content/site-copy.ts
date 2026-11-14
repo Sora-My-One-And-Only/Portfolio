@@ -47,16 +47,9 @@ export const EDITORIAL_COPY = {
       {
         "id": "resume",
         "code": "CH.04",
-        "cmd": "PLAY & TIMELINE",
+        "cmd": "DESIGN NOTES",
         "sub": "制作ノートと関連作品",
         "page": "P.48"
-      },
-      {
-        "id": "contact",
-        "code": "CH.05",
-        "cmd": "CORRESPONDENCE",
-        "sub": "GitHub・お問い合わせ",
-        "page": "P.60"
       }
     ],
     "nav": {
@@ -65,8 +58,7 @@ export const EDITORIAL_COPY = {
       "works": "作品",
       "playGames": "体験",
       "skills": "スキル",
-      "resume": "制作ノート",
-      "contact": "連絡先"
+      "resume": "制作ノート"
     },
     "aboutChapter": "CHAPTER 01 // PROFILE",
     "aboutTitle": "遊べる形にして、設計を確かめる。",
@@ -173,16 +165,9 @@ export const EDITORIAL_COPY = {
       {
         "id": "resume",
         "code": "CH.04",
-        "cmd": "PLAY & TIMELINE",
+        "cmd": "DESIGN NOTES",
         "sub": "阅读制作笔记与相关作品",
         "page": "P.48"
-      },
-      {
-        "id": "contact",
-        "code": "CH.05",
-        "cmd": "CORRESPONDENCE",
-        "sub": "GitHub 和联系方式",
-        "page": "P.60"
       }
     ],
     "nav": {
@@ -191,8 +176,7 @@ export const EDITORIAL_COPY = {
       "works": "作品",
       "playGames": "在线体验",
       "skills": "能力",
-      "resume": "制作笔记",
-      "contact": "联系"
+      "resume": "制作笔记"
     },
     "aboutChapter": "CHAPTER 01 // PROFILE",
     "aboutTitle": "把想法做成能玩的设计",
@@ -299,16 +283,9 @@ export const EDITORIAL_COPY = {
       {
         "id": "resume",
         "code": "CH.04",
-        "cmd": "PLAY & TIMELINE",
+        "cmd": "DESIGN NOTES",
         "sub": "Read design notes and related work",
         "page": "P.48"
-      },
-      {
-        "id": "contact",
-        "code": "CH.05",
-        "cmd": "CORRESPONDENCE",
-        "sub": "GitHub and contact",
-        "page": "P.60"
       }
     ],
     "nav": {
@@ -317,8 +294,7 @@ export const EDITORIAL_COPY = {
       "works": "Works",
       "playGames": "Try Online",
       "skills": "Skills",
-      "resume": "Design Notes",
-      "contact": "Contact"
+      "resume": "Design Notes"
     },
     "aboutChapter": "CHAPTER 01 // PROFILE",
     "aboutTitle": "Making ideas playable",

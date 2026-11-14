@@ -36,19 +36,18 @@ import {
   soundFX,
   SoundEngineSnapshot,
 } from './utils/sound';
-import { GitHubLiveModule } from './components/GitHubLiveModule';
-import { ContactFormSection } from './components/ContactFormSection';
 import { WorkDetailSubPage } from './components/WorkDetailSubPage';
 import { DesignNotesPage } from './components/DesignNotesPage';
 import {
-  QuickRecruiterGuideSection,
+  QuickGuideSection,
   PlayGamesPortalSection,
   WhatICanDoSection,
-  TimelineAndBlogSection,
   EndingCreditsSection,
 } from './components/PortfolioSections';
 
 type ActivePageView = 'main' | 'spec-detail' | 'resume-detail';
+
+const GITHUB_USERNAME = 'Sora-My-One-And-Only';
 
 // Signature 3A / Editorial Expo-Quintic Easing Curve: snappy launch + long, silky deceleration tail
 const EASE_OUT_EXPO: [number, number, number, number] = [0.19, 1, 0.22, 1];
@@ -385,7 +384,6 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState<ProjectSpec>(PROJECTS_DATA[0]);
   const [subPageStageMode, setSubPageStageMode] = useState<'video' | 'playable'>('video');
   const [resumeSubTab, setResumeSubTab] = useState<'playHistory' | 'otherWorks'>('playHistory');
-  const [githubUsername, setGithubUsername] = useState<string>('Sora-My-One-And-Only');
 
   // Page 1 Showreel active slide index (0..3)
   const [reelIdx, setReelIdx] = useState<number>(0);
@@ -623,7 +621,6 @@ export default function App() {
     // Update active top nav chapter highlight smoothly during scroll
     if (activeView === 'main') {
       const sectionIds = [
-        'contact',
         'resume',
         'skills',
         'play-games',
@@ -878,7 +875,6 @@ export default function App() {
                 { id: 'play-games', label: c.nav.playGames, num: '2B' },
                 { id: 'skills', label: c.nav.skills, num: '03' },
                 { id: 'resume', label: c.nav.resume, num: '04' },
-                { id: 'contact', label: c.nav.contact, num: '05' },
               ].map((item) => {
                 const isCurrent = activeView === 'main' && activeNavSection === item.id;
                 return (
@@ -1205,7 +1201,7 @@ export default function App() {
             <WorkDetailSubPage
               project={selectedProject}
               locale={locale}
-              githubUsername={githubUsername}
+              githubUsername={GITHUB_USERNAME}
               initialStageMode={subPageStageMode}
               onBackToMain={() => {
                 setActiveView('main');
@@ -1475,13 +1471,11 @@ export default function App() {
             </section>
 
             {/* =========================================================
-                CHAPTER 00B. PURPOSE-DRIVEN MODE SELECT & 30s RECRUITER GUIDE
+                CHAPTER 00B. QUICK GUIDE
                 (Inspired by haru2401game.github.io/portfolio/#quick-guide)
                ========================================================= */}
-            <QuickRecruiterGuideSection
+            <QuickGuideSection
               locale={locale}
-              githubUsername={githubUsername}
-              onScrollToSection={scrollToSection}
               onOpenSpec={openSpecPage}
             />
 
@@ -1641,15 +1635,10 @@ export default function App() {
             </section>
 
             {/* =========================================================
-                CHAPTER 02B. PLAYABLE GAMES & BROWSER GAME PORTAL (#play-games)
+                CHAPTER 02B. TRY ONLINE (#play-games)
                 (Inspired by haru2401game.github.io/portfolio/#play-games)
                ========================================================= */}
-            <PlayGamesPortalSection
-              locale={locale}
-              githubUsername={githubUsername}
-              onScrollToSection={scrollToSection}
-              onOpenSpec={openSpecPage}
-            />
+            <PlayGamesPortalSection locale={locale} />
 
             {/* =========================================================
                 CHAPTER 03. 核心策划与工程指标 (ANNOTATED SPECIFICATION TABLE)
@@ -1824,49 +1813,7 @@ export default function App() {
             </section>
 
             {/* =========================================================
-                CHAPTER 04B. STAGE-SELECT PRODUCTION TIMELINE & 128+ DESIGN NOTES
-                (Inspired by haru2401game.github.io/portfolio/#timeline & #blog)
-               ========================================================= */}
-            <TimelineAndBlogSection
-              locale={locale}
-              githubUsername={githubUsername}
-            />
-
-            {/* =========================================================
-                CHAPTER 05. GITHUB ARCHIVE & CORRESPONDENCE
-               ========================================================= */}
-            <motion.section
-              id="github"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.85, ease: EASE_OUT_EXPO }}
-              className="py-24 lg:py-32 border-t border-[#E2E0D8] dark:border-[#2E2924]"
-            >
-              <div className="max-w-6xl mx-auto px-6 sm:px-12">
-                <GitHubLiveModule
-                  locale={locale}
-                  githubUsername={githubUsername}
-                  onUsernameChange={setGithubUsername}
-                />
-              </div>
-            </motion.section>
-
-            <motion.section
-              id="contact"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.85, ease: EASE_OUT_EXPO }}
-              className="py-24 lg:py-32 border-t border-[#E2E0D8] dark:border-[#2E2924]"
-            >
-              <div className="max-w-6xl mx-auto px-6 sm:px-12">
-                <ContactFormSection locale={locale} />
-              </div>
-            </motion.section>
-
-            {/* =========================================================
-                ENDING CREDITS & ALL STAGES CLEAR (#ending)
+                CLOSING NOTE (#ending)
                 (Inspired by haru2401game.github.io/portfolio/#ending)
                ========================================================= */}
             <EndingCreditsSection
@@ -1931,12 +1878,12 @@ export default function App() {
             COLOPHON // © {new Date().getFullYear()} {c.name} · OFFICIAL GAME DESIGN WORKS
           </div>
           <a
-            href={`https://github.com/${githubUsername}`}
+            href={`https://github.com/${GITHUB_USERNAME}`}
             target="_blank"
             rel="noreferrer"
             className="font-mono hover:text-[#C84B31] dark:hover:text-[#E57052] transition-colors"
           >
-            https://{githubUsername}.github.io
+            GitHub · {GITHUB_USERNAME}
           </a>
         </div>
       </footer>
