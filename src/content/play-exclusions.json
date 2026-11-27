@@ -1,0 +1,19 @@
+{
+  "_説明": "プレイ履歴の「一覧」から外すゲームです（合計のタイトル数・時間・実績には入ります）。タイトルは大文字小文字・記号（™ ® など）の違いを無視して照合し、末尾に * を付けるとその文字で始まるタイトルをまとめて外します。Steam でソフトウェア扱いのもの（Blender など）は自動で一覧から外れます。excludeNoAchievements が true のとき、実績・トロフィー機能のないゲームも一覧から外します。minListHours 未満のゲームも一覧には載せません。",
+  "minListHours": 20,
+  "excludeNoAchievements": true,
+  "idle": [
+    "Milky Way Idle",
+    "Bongo Cat",
+    "Sakura Clicker",
+    "Banana",
+    "Chill with You Lo-Fi Story"
+  ],
+  "achievementFarming": [
+    "Zup!*",
+    "Oik*"
+  ],
+  "notGames": [
+    "Tom Clancy's Rainbow Six Siege - Test Server"
+  ]
+}

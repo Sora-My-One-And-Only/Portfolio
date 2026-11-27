@@ -8,7 +8,11 @@
     "build": "vite build",
     "preview": "vite preview",
     "start": "vite preview",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "sync:play": "node scripts/sync-play-history.mjs",
+    "fetch:xbox": "node scripts/fetch-xbox-once.mjs",
+    "gen:palettes": "node scripts/gen-palettes.mjs",
+    "analyze:covers": "node scripts/analyze-cover-colors.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
@@ -24,6 +28,8 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "esbuild": "^0.28.0",
+    "psn-api": "^2.18.1",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2"
   }

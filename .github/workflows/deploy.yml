@@ -4,6 +4,9 @@ on:
   push:
     branches: ["main", "master"]
   workflow_dispatch:
+  # 毎日 3:00（日本時間）にプレイ履歴を取り直して再公開する
+  schedule:
+    - cron: "0 18 * * *"
 
 permissions:
   contents: read
@@ -29,6 +32,15 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      # Secrets が未設定・期限切れでも、コミット済みのデータでビルドを続ける
+      - name: Sync play history (Steam / PlayStation)
+        run: npm run sync:play
+        continue-on-error: true
+        env:
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+          STEAM_ID: ${{ secrets.STEAM_ID }}
+          PSN_NPSSO: ${{ secrets.PSN_NPSSO }}
 
       - name: Build static site for .github.io
         run: npm run build

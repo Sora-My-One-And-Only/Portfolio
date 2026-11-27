@@ -6,6 +6,8 @@ export interface ProjectSpec {
   span: 'wide' | 'normal';
   image: string;
   roleTag: Record<Locale, string>;
+  /** 担当：このプロジェクトで自分が担ったこと */
+  role: Record<Locale, string>;
   engineTag: string;
   year: string;
   title: Record<Locale, string>;
@@ -53,6 +55,11 @@ export const PROJECTS_DATA: ProjectSpec[] = [
       "ja": "ゲーム企画・チーム制作",
       "zh": "游戏策划 · 团队制作",
       "en": "Game design · Team project"
+    },
+    "role": {
+      "ja": "チーム制作でゲーム企画を担当。魔法コマンドと火竜戦の仕様整理に携わりました。",
+      "zh": "团队制作中担任游戏策划，负责魔法指令与火龙战的规格整理。",
+      "en": "Game designer on a team project, responsible for the spell command and fire dragon encounter specifications."
     },
     "engineTag": "Unity / C#",
     "year": "2026",
@@ -155,6 +162,11 @@ export const PROJECTS_DATA: ProjectSpec[] = [
       "zh": "关卡设计工具",
       "en": "Level design tool"
     },
+    "role": {
+      "ja": "個人制作。企画・設計・実装をすべて担当しました。",
+      "zh": "个人制作，负责企划、设计与实现全部内容。",
+      "en": "Solo project — planning, design and implementation."
+    },
     "engineTag": "TypeScript / Three.js",
     "year": "2026",
     "title": {
@@ -229,6 +241,11 @@ export const PROJECTS_DATA: ProjectSpec[] = [
       "zh": "特效制作工具",
       "en": "Effects authoring tool"
     },
+    "role": {
+      "ja": "個人制作。エディタとランタイムの企画・実装を担当しました。",
+      "zh": "个人制作，负责编辑器与运行时的企划和实现。",
+      "en": "Solo project — planning and building both the editor and the runtime."
+    },
     "engineTag": "GLSL",
     "year": "2026",
     "title": {
@@ -295,7 +312,6 @@ export const PROJECTS_DATA: ProjectSpec[] = [
 ];
 
 type WorkDesignNote = {
-  party: Record<Locale, string>;
   challenge: Record<Locale, string>;
   solution: Record<Locale, string>;
   result: Record<Locale, string>;
@@ -303,11 +319,6 @@ type WorkDesignNote = {
 
 export const WORK_DESIGN_NOTES: Record<string, WorkDesignNote> = {
   "arcane-chronicle": {
-    "party": {
-      "ja": "チーム制作 / ゲーム企画",
-      "zh": "团队制作 / 游戏策划",
-      "en": "Team project / Game design"
-    },
     "challenge": {
       "ja": "戦闘中に、長いコマンドを使う判断と時間を作る。",
       "zh": "让玩家在战斗中判断何时使用长指令，并主动争取输入时间。",
@@ -325,11 +336,6 @@ export const WORK_DESIGN_NOTES: Record<string, WorkDesignNote> = {
     }
   },
   "level-builder": {
-    "party": {
-      "ja": "ブラウザ向けレベル設計ツール",
-      "zh": "浏览器关卡设计工具",
-      "en": "Browser level design tool"
-    },
     "challenge": {
       "ja": "配置を考えながら、視界や移動可能な範囲を確認する。",
       "zh": "在搭建布局的同时确认玩家视野和可到达范围。",
@@ -347,11 +353,6 @@ export const WORK_DESIGN_NOTES: Record<string, WorkDesignNote> = {
     }
   },
   "gs-particle-studio": {
-    "party": {
-      "ja": "パーティクルエディタ",
-      "zh": "粒子特效编辑器",
-      "en": "Particle editor"
-    },
     "challenge": {
       "ja": "発動から消失までの演出を個別に調整する。",
       "zh": "分别调整魔法从发动到消失的各段演出。",
