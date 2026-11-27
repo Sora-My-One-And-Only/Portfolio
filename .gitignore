@@ -5,4 +5,9 @@ coverage/
 .DS_Store
 *.log
 .env*
+!.env.example
 .aistudio/
+
+# 著作権に配慮して公開しない素材（ローカルにだけ残す）
+public/portraits/
+public/brand/sora-mark.svg

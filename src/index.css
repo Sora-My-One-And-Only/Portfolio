@@ -1,4 +1,75 @@
 @import "tailwindcss";
+
+/*
+ * 配色の変数を「色」として登録する。登録した変数は値そのものが補間できるので、
+ * 昼夜の切り替えや配色テーマの変更で、文字・面・罫・グラデーション・疑似要素・SVG・設定ウィンドウ・表紙のキャンバスまで、
+ * すべての色が同じ時間をかけて移り変わる（一瞬で切り替わる部分がなくなる）。
+ */
+@property --c-bg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #808080;
+}
+@property --c-surface {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #808080;
+}
+@property --c-inset {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #808080;
+}
+@property --c-ink {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #808080;
+}
+@property --c-ink-2 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #808080;
+}
+@property --c-ink-3 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #808080;
+}
+@property --c-rule {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #808080;
+}
+@property --c-accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #808080;
+}
+@property --c-accent-2 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #808080;
+}
+@property --cover-bg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #808080;
+}
+@property --cover-ink {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #808080;
+}
+@property --cover-accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #808080;
+}
+@property --cover-alpha {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
@@ -6,44 +77,785 @@
     --font-display: 'Cormorant Garamond', 'Noto Serif JP', 'Noto Serif SC', Georgia, serif;
     --font-sans: 'Plus Jakarta Sans', 'Noto Sans JP', 'Noto Sans SC', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+    /* 工作室のロゴ用（幾何学的なサンセリフ。名前と同じ Sora という書体） */
+    --font-logo: 'Sora', 'Noto Sans JP', sans-serif;
 
-    /* Light Mode: Official Game Artbook / Archival Print Edition (昼間印刷版) */
-    --bg-canvas: #f7f6f2;
-    --bg-header: rgba(247, 246, 242, 0.92);
-    --bg-surface: #ffffff;
-    --bg-surface-hover: #fcfbf9;
-    --bg-inset: #efede6;
-    --text-primary: #181a1c;
-    --text-secondary: #555b61;
-    --text-muted: #888e94;
-    --border-subtle: #e2e0d8;
-    --border-strong: #181a1c;
-    --accent-editorial: #c84b31;
-    --accent-gold: #9a7b4f;
-    --accent-main: #c84b31;
-    --accent-main-bg: #181a1c;
-    --accent-main-text: #f7f6f2;
+    /* 配色は役割ごとの変数（--c-*）で持ち、昼（L1〜L3）と夜（D1〜D3）で別々の配色を選べるようにする */
+    --bg-canvas: var(--c-bg);
+    --bg-header: color-mix(in srgb, var(--c-bg) 92%, transparent);
+    --bg-surface: var(--c-surface);
+    --bg-surface-hover: color-mix(in srgb, var(--c-surface) 70%, var(--c-bg));
+    --bg-inset: var(--c-inset);
+    --text-primary: var(--c-ink);
+    --text-secondary: var(--c-ink-2);
+    --text-muted: var(--c-ink-3);
+    --border-subtle: var(--c-rule);
+    --border-strong: var(--c-ink);
+    --accent-editorial: var(--c-accent);
+    --accent-gold: var(--c-accent-2);
+    --accent-main: var(--c-accent);
+    --accent-main-bg: var(--c-ink);
+    --accent-main-text: var(--c-bg);
+  }
+}
+
+  /*
+   * 配色テーマ（scripts/gen-palettes.mjs が生成。手で直さず、スクリプトを直して npm run gen:palettes）
+   * 役割ごとの明度は全テーマ共通、変えるのは中間色の色相・彩度と差し色だけ。文字と差し色は背景に対して 4.5:1 以上
+   */
+  /* ===== 昼 ===== */
+  /* m09 バウハウス */
+  :root,
+  html:not(.dark)[data-light="m09"] {
+    --c-bg: #F3F2F0;
+    --c-surface: #FAFAF9;
+    --c-inset: #E8E8E5;
+    --c-ink: #1F1E1B;
+    --c-ink-2: #51504C;
+    --c-ink-3: #6E6D6A;
+    --c-rule: #D6D6D3;
+    --c-accent: #CC291F;
+    --c-accent-2: #1F1E1B;
+    --cover-bg: #EDEDEA;
+    --cover-ink: #1F1E1B;
+    --cover-accent: #CC291F;
+    --cover-alpha: 0.8;
   }
 
-  .dark {
-    /* Dark Mode: Warm Sumi-Ink & Gold-Leaf Archival Monograph Edition (黒檀・墨黒装丁版) */
-    --bg-canvas: #131210;
-    --bg-header: rgba(19, 18, 16, 0.90);
-    --bg-surface: #1b1916;
-    --bg-surface-hover: #24201c;
-    --bg-inset: #0d0c0a;
-    --text-primary: #f2efe9;
-    --text-secondary: #b0a89e;
-    --text-muted: #7d756b;
-    --border-subtle: #2e2924;
-    --border-strong: #dfd9ce;
-    --accent-editorial: #e57052;
-    --accent-gold: #d4af7a;
-    --accent-main: #e57052;
-    --accent-main-bg: #f2efe9;
-    --accent-main-text: #131210;
+  /* g01 グランブルーファンタジー */
+  html:not(.dark)[data-light="g01"] {
+    --c-bg: #EDF3FB;
+    --c-surface: #F7FAFF;
+    --c-inset: #E2E9F2;
+    --c-ink: #181F28;
+    --c-ink-2: #49515B;
+    --c-ink-3: #666E79;
+    --c-rule: #CFD7E1;
+    --c-accent: #3A6FA3;
+    --c-accent-2: #616746;
+    --cover-bg: #E7EDF6;
+    --cover-ink: #181F28;
+    --cover-accent: #3A6FA3;
+    --cover-alpha: 0.8;
   }
 
+  /* g02 ヘブンバーンズレッド */
+  html:not(.dark)[data-light="g02"] {
+    --c-bg: #F1F2F7;
+    --c-surface: #F9FAFD;
+    --c-inset: #E6E7EE;
+    --c-ink: #1C1E25;
+    --c-ink-2: #4E4F57;
+    --c-ink-3: #6B6D74;
+    --c-rule: #D4D5DC;
+    --c-accent: #6965A6;
+    --c-accent-2: #6C5D74;
+    --cover-bg: #EBECF2;
+    --cover-ink: #1C1E25;
+    --cover-accent: #6965A6;
+    --cover-alpha: 0.8;
+  }
+
+  /* g03 Horizon */
+  html:not(.dark)[data-light="g03"] {
+    --c-bg: #EAF4FB;
+    --c-surface: #F5FBFF;
+    --c-inset: #DEEAF2;
+    --c-ink: #152027;
+    --c-ink-2: #46525A;
+    --c-ink-3: #636F78;
+    --c-rule: #CBD8E1;
+    --c-accent: #006FB9;
+    --c-accent-2: #3F6980;
+    --cover-bg: #E3EFF7;
+    --cover-ink: #152027;
+    --cover-accent: #006FB9;
+    --cover-alpha: 0.8;
+  }
+
+  /* g04 ゴースト・オブ・ヨウテイ */
+  html:not(.dark)[data-light="g04"] {
+    --c-bg: #F4F2EE;
+    --c-surface: #FBFAF7;
+    --c-inset: #EAE8E3;
+    --c-ink: #201E18;
+    --c-ink-2: #525049;
+    --c-ink-3: #6F6D67;
+    --c-rule: #D8D6D0;
+    --c-accent: #8A6419;
+    --c-accent-2: #65635C;
+    --cover-bg: #EEEDE8;
+    --cover-ink: #201E18;
+    --cover-accent: #8A6419;
+    --cover-alpha: 0.8;
+  }
+
+  /* g05 アストロボット */
+  html:not(.dark)[data-light="g05"] {
+    --c-bg: #EFF3F8;
+    --c-surface: #F8FAFD;
+    --c-inset: #E4E8EE;
+    --c-ink: #1A1E26;
+    --c-ink-2: #4B5058;
+    --c-ink-3: #696D75;
+    --c-rule: #D2D6DD;
+    --c-accent: #3364DB;
+    --c-accent-2: #566380;
+    --cover-bg: #E9EDF3;
+    --cover-ink: #1A1E26;
+    --cover-accent: #3364DB;
+    --cover-alpha: 0.8;
+  }
+
+  /* g06 ポータル */
+  html:not(.dark)[data-light="g06"] {
+    --c-bg: #EDF4F4;
+    --c-surface: #F7FBFB;
+    --c-inset: #E1EAEA;
+    --c-ink: #152021;
+    --c-ink-2: #475253;
+    --c-ink-3: #657070;
+    --c-rule: #CED8D9;
+    --c-accent: #00769C;
+    --c-accent-2: #964D09;
+    --cover-bg: #E6EFEF;
+    --cover-ink: #152021;
+    --cover-accent: #00769C;
+    --cover-alpha: 0.8;
+  }
+
+  /* g07 ゼルダの伝説 */
+  html:not(.dark)[data-light="g07"] {
+    --c-bg: #F5F3E8;
+    --c-surface: #FBFAF4;
+    --c-inset: #EAE8DB;
+    --c-ink: #201E13;
+    --c-ink-2: #525044;
+    --c-ink-3: #706E61;
+    --c-rule: #D9D6C7;
+    --c-accent: #00787D;
+    --c-accent-2: #526C43;
+    --cover-bg: #EFEDE0;
+    --cover-ink: #201E13;
+    --cover-accent: #00787D;
+    --cover-alpha: 0.8;
+  }
+
+  /* g08 ポケットモンスター */
+  html:not(.dark)[data-light="g08"] {
+    --c-bg: #F4F2EB;
+    --c-surface: #FBFAF6;
+    --c-inset: #EAE8DF;
+    --c-ink: #211E13;
+    --c-ink-2: #535045;
+    --c-ink-3: #706D63;
+    --c-rule: #D8D6CC;
+    --c-accent: #2A6CBA;
+    --c-accent-2: #766200;
+    --cover-bg: #EFEDE4;
+    --cover-ink: #211E13;
+    --cover-accent: #2A6CBA;
+    --cover-alpha: 0.8;
+  }
+
+  /* g09 星のカービィ */
+  html:not(.dark)[data-light="g09"] {
+    --c-bg: #F9EFF3;
+    --c-surface: #FEF8FB;
+    --c-inset: #F0E4E9;
+    --c-ink: #261A1F;
+    --c-ink-2: #594B51;
+    --c-ink-3: #76696F;
+    --c-rule: #DFD2D7;
+    --c-accent: #B54076;
+    --c-accent-2: #766200;
+    --cover-bg: #F5E9EE;
+    --cover-ink: #261A1F;
+    --cover-accent: #B54076;
+    --cover-alpha: 0.8;
+  }
+
+  /* g10 どうぶつの森 */
+  html:not(.dark)[data-light="g10"] {
+    --c-bg: #F8F2E4;
+    --c-surface: #FDFAF1;
+    --c-inset: #EEE8D6;
+    --c-ink: #221E13;
+    --c-ink-2: #544F44;
+    --c-ink-3: #726D60;
+    --c-rule: #DDD5C2;
+    --c-accent: #007A70;
+    --c-accent-2: #4F6D3E;
+    --cover-bg: #F3EDDC;
+    --cover-ink: #221E13;
+    --cover-accent: #007A70;
+    --cover-alpha: 0.8;
+  }
+
+  /* c01 アール・ヌーヴォー */
+  html:not(.dark)[data-light="c01"] {
+    --c-bg: #F9F1EC;
+    --c-surface: #FEF9F6;
+    --c-inset: #EFE6E0;
+    --c-ink: #261C15;
+    --c-ink-2: #594D46;
+    --c-ink-3: #766B64;
+    --c-rule: #DED3CC;
+    --c-accent: #995965;
+    --c-accent-2: #546B4F;
+    --cover-bg: #F4EBE5;
+    --cover-ink: #261C15;
+    --cover-accent: #995965;
+    --cover-alpha: 0.8;
+  }
+
+  /* c02 浮世絵 */
+  html:not(.dark)[data-light="c02"] {
+    --c-bg: #F9F1E5;
+    --c-surface: #FEF9F2;
+    --c-inset: #F0E7D8;
+    --c-ink: #231D13;
+    --c-ink-2: #564F44;
+    --c-ink-3: #736C60;
+    --c-rule: #DFD4C4;
+    --c-accent: #3A6FA3;
+    --c-accent-2: #8B504C;
+    --cover-bg: #F4ECDE;
+    --cover-ink: #231D13;
+    --cover-accent: #3A6FA3;
+    --cover-alpha: 0.8;
+  }
+
+  /* c03 印象派 */
+  html:not(.dark)[data-light="c03"] {
+    --c-bg: #F5F3EA;
+    --c-surface: #FBFAF5;
+    --c-inset: #EBE8DD;
+    --c-ink: #211E13;
+    --c-ink-2: #535044;
+    --c-ink-3: #716D61;
+    --c-rule: #D9D6CA;
+    --c-accent: #825E93;
+    --c-accent-2: #4D6D4E;
+    --cover-bg: #EFEDE3;
+    --cover-ink: #211E13;
+    --cover-accent: #825E93;
+    --cover-alpha: 0.8;
+  }
+
+  /* c04 水墨画 */
+  html:not(.dark)[data-light="c04"] {
+    --c-bg: #F0F3F5;
+    --c-surface: #F9FAFC;
+    --c-inset: #E5E8EB;
+    --c-ink: #1B1E22;
+    --c-ink-2: #4D5054;
+    --c-ink-3: #6A6E71;
+    --c-rule: #D3D6D9;
+    --c-accent: #B9463F;
+    --c-accent-2: #5F6469;
+    --cover-bg: #EAEDF0;
+    --cover-ink: #1B1E22;
+    --cover-accent: #B9463F;
+    --cover-alpha: 0.8;
+  }
+
+  /* m01 モランディ */
+  html:not(.dark)[data-light="m01"] {
+    --c-bg: #F6F2ED;
+    --c-surface: #FCFAF7;
+    --c-inset: #ECE7E2;
+    --c-ink: #221D17;
+    --c-ink-2: #544F48;
+    --c-ink-3: #726C66;
+    --c-rule: #DAD5CF;
+    --c-accent: #8C635B;
+    --c-accent-2: #566860;
+    --cover-bg: #F0ECE7;
+    --cover-ink: #221D17;
+    --cover-accent: #8C635B;
+    --cover-alpha: 0.8;
+  }
+
+  /* m02 マティスの切り絵 */
+  html:not(.dark)[data-light="m02"] {
+    --c-bg: #F4F2EE;
+    --c-surface: #FBFAF7;
+    --c-inset: #EAE8E3;
+    --c-ink: #211E18;
+    --c-ink-2: #524F49;
+    --c-ink-3: #706D67;
+    --c-rule: #D8D5D0;
+    --c-accent: #4369C5;
+    --c-accent-2: #9C4535;
+    --cover-bg: #EFECE8;
+    --cover-ink: #211E18;
+    --cover-accent: #4369C5;
+    --cover-alpha: 0.8;
+  }
+
+  /* m03 北欧ミニマル */
+  html:not(.dark)[data-light="m03"] {
+    --c-bg: #F4F2EF;
+    --c-surface: #FBFAF8;
+    --c-inset: #E9E8E3;
+    --c-ink: #201E19;
+    --c-ink-2: #52504A;
+    --c-ink-3: #6F6D68;
+    --c-rule: #D7D6D1;
+    --c-accent: #507357;
+    --c-accent-2: #7B5B4A;
+    --cover-bg: #EEEDE8;
+    --cover-ink: #201E19;
+    --cover-accent: #507357;
+    --cover-alpha: 0.8;
+  }
+
+  /* t01 珊瑚礁 */
+  html:not(.dark)[data-light="t01"] {
+    --c-bg: #EBF5F5;
+    --c-surface: #F6FBFC;
+    --c-inset: #DFEAEB;
+    --c-ink: #122122;
+    --c-ink-2: #455354;
+    --c-ink-3: #637071;
+    --c-rule: #CCD9D9;
+    --c-accent: #007974;
+    --c-accent-2: #9C4438;
+    --cover-bg: #E4EFF0;
+    --cover-ink: #122122;
+    --cover-accent: #007974;
+    --cover-alpha: 0.8;
+  }
+
+  /* t02 テラコッタ */
+  html:not(.dark)[data-light="t02"] {
+    --c-bg: #FEEFE7;
+    --c-surface: #FFF9F5;
+    --c-inset: #F6E4DA;
+    --c-ink: #261B16;
+    --c-ink-2: #594D46;
+    --c-ink-3: #776A63;
+    --c-rule: #E6D1C6;
+    --c-accent: #AC502E;
+    --c-accent-2: #6E6242;
+    --cover-bg: #FAE9DF;
+    --cover-ink: #261B16;
+    --cover-accent: #AC502E;
+    --cover-alpha: 0.8;
+  }
+
+  /* t03 抹茶と生成り */
+  html:not(.dark)[data-light="t03"] {
+    --c-bg: #F5F3EA;
+    --c-surface: #FBFAF5;
+    --c-inset: #EBE8DD;
+    --c-ink: #211E13;
+    --c-ink-2: #535044;
+    --c-ink-3: #716D61;
+    --c-rule: #D9D6CA;
+    --c-accent: #4F7638;
+    --c-accent-2: #795D46;
+    --cover-bg: #EFEDE3;
+    --cover-ink: #211E13;
+    --cover-accent: #4F7638;
+    --cover-alpha: 0.8;
+  }
+
+  /* t04 ラベンダー畑 */
+  html:not(.dark)[data-light="t04"] {
+    --c-bg: #F3F1FA;
+    --c-surface: #FBF9FE;
+    --c-inset: #E9E6F0;
+    --c-ink: #1F1C26;
+    --c-ink-2: #514D59;
+    --c-ink-3: #6F6B77;
+    --c-rule: #D7D4E0;
+    --c-accent: #7C5F9D;
+    --c-accent-2: #5F6841;
+    --cover-bg: #EEEBF5;
+    --cover-ink: #1F1C26;
+    --cover-accent: #7C5F9D;
+    --cover-alpha: 0.8;
+  }
+
+  /* ===== 夜 ===== */
+  /* g12 デス・ストランディング */
+  html.dark,
+  html.dark[data-dark="g12"] {
+    --c-bg: #0F1618;
+    --c-surface: #1A1F20;
+    --c-inset: #060F11;
+    --c-ink: #DBEDF2;
+    --c-ink-2: #ADBEC3;
+    --c-ink-3: #89989D;
+    --c-rule: #283437;
+    --c-accent: #DCB970;
+    --c-accent-2: #845929;
+    --cover-bg: #0B1316;
+    --cover-ink: #DBEDF2;
+    --cover-accent: #DCB970;
+    --cover-alpha: 0.75;
+  }
+
+  /* g11 エルデンリング */
+  html.dark[data-dark="g11"] {
+    --c-bg: #091814;
+    --c-surface: #18201E;
+    --c-inset: #02110D;
+    --c-ink: #DDEEE9;
+    --c-ink-2: #AEBFBA;
+    --c-ink-3: #899994;
+    --c-rule: #203731;
+    --c-accent: #B89151;
+    --c-accent-2: #87907C;
+    --cover-bg: #051511;
+    --cover-ink: #DDEEE9;
+    --cover-accent: #B89151;
+    --cover-alpha: 0.75;
+  }
+
+  /* g13 紅の砂漠 */
+  html.dark[data-dark="g13"] {
+    --c-bg: #1E1110;
+    --c-surface: #241C1B;
+    --c-inset: #170907;
+    --c-ink: #F7E5E2;
+    --c-ink-2: #C7B6B4;
+    --c-ink-3: #A1918F;
+    --c-rule: #402C29;
+    --c-accent: #C08882;
+    --c-accent-2: #978982;
+    --cover-bg: #1C0D0B;
+    --cover-ink: #F7E5E2;
+    --cover-accent: #C08882;
+    --cover-alpha: 0.75;
+  }
+
+  /* g14 ファイナルファンタジー */
+  html.dark[data-dark="g14"] {
+    --c-bg: #0D1812;
+    --c-surface: #19201C;
+    --c-inset: #04100A;
+    --c-ink: #DFEEE5;
+    --c-ink-2: #B0BFB6;
+    --c-ink-3: #8B9991;
+    --c-rule: #25362D;
+    --c-accent: #4FAD83;
+    --c-accent-2: #769486;
+    --cover-bg: #08150E;
+    --cover-ink: #DFEEE5;
+    --cover-accent: #4FAD83;
+    --cover-alpha: 0.75;
+  }
+
+  /* g16 The Last of Us */
+  html.dark[data-dark="g16"] {
+    --c-bg: #141517;
+    --c-surface: #1D1E1F;
+    --c-inset: #0C0D0F;
+    --c-ink: #E7EAEF;
+    --c-ink-2: #B8BBBF;
+    --c-ink-3: #939599;
+    --c-rule: #303234;
+    --c-accent: #C98471;
+    --c-accent-2: #968981;
+    --cover-bg: #111214;
+    --cover-ink: #E7EAEF;
+    --cover-accent: #C98471;
+    --cover-alpha: 0.75;
+  }
+
+  /* g17 ゴッド・オブ・ウォー */
+  html.dark[data-dark="g17"] {
+    --c-bg: #141519;
+    --c-surface: #1E1E20;
+    --c-inset: #0C0D11;
+    --c-ink: #E7E9F4;
+    --c-ink-2: #B8BAC4;
+    --c-ink-3: #93949D;
+    --c-rule: #303137;
+    --c-accent: #719BCF;
+    --c-accent-2: #7F8E9E;
+    --cover-bg: #111116;
+    --cover-ink: #E7E9F4;
+    --cover-accent: #719BCF;
+    --cover-alpha: 0.75;
+  }
+
+  /* g18 Outer Wilds */
+  html.dark[data-dark="g18"] {
+    --c-bg: #0E161A;
+    --c-surface: #1A1F21;
+    --c-inset: #050F13;
+    --c-ink: #DCEDF4;
+    --c-ink-2: #AEBDC5;
+    --c-ink-3: #89989F;
+    --c-rule: #26343A;
+    --c-accent: #E1791B;
+    --c-accent-2: #8F8E72;
+    --cover-bg: #091318;
+    --cover-ink: #DCEDF4;
+    --cover-accent: #E1791B;
+    --cover-alpha: 0.75;
+  }
+
+  /* g19 ANIMAL WELL */
+  html.dark[data-dark="g19"] {
+    --c-bg: #111324;
+    --c-surface: #1B1D28;
+    --c-inset: #090B1F;
+    --c-ink: #E6E9F7;
+    --c-ink-2: #B7BAC8;
+    --c-ink-3: #9294A2;
+    --c-rule: #2B2F4A;
+    --c-accent: #32B08D;
+    --c-accent-2: #8982C6;
+    --cover-bg: #0D0F23;
+    --cover-ink: #E6E9F7;
+    --cover-accent: #32B08D;
+    --cover-alpha: 0.75;
+  }
+
+  /* g20 バイオハザード */
+  html.dark[data-dark="g20"] {
+    --c-bg: #161417;
+    --c-surface: #1F1D20;
+    --c-inset: #0F0C10;
+    --c-ink: #EEE6F1;
+    --c-ink-2: #BEB8C1;
+    --c-ink-3: #99939A;
+    --c-rule: #343035;
+    --c-accent: #C9818C;
+    --c-accent-2: #878C96;
+    --cover-bg: #131014;
+    --cover-ink: #EEE6F1;
+    --cover-accent: #C9818C;
+    --cover-alpha: 0.75;
+  }
+
+  /* g21 グランツーリスモ */
+  html.dark[data-dark="g21"] {
+    --c-bg: #000000;
+    --c-surface: #1E1E1E;
+    --c-inset: #0B0B0B;
+    --c-ink: #FFFFFF;
+    --c-ink-2: #CACACA;
+    --c-ink-3: #9E9E9E;
+    --c-rule: #3D3D3D;
+    --c-accent: #FF0000;
+    --c-accent-2: #FFFFFF;
+    --cover-bg: #000000;
+    --cover-ink: #FFFFFF;
+    --cover-accent: #FF0000;
+    --cover-alpha: 0.75;
+  }
+
+  /* c05 レンブラント */
+  html.dark[data-dark="c05"] {
+    --c-bg: #1A130F;
+    --c-surface: #211D1A;
+    --c-inset: #130C06;
+    --c-ink: #F4E7DD;
+    --c-ink-2: #C5B8AE;
+    --c-ink-3: #9F9389;
+    --c-rule: #392F28;
+    --c-accent: #D48053;
+    --c-accent-2: #BD7673;
+    --cover-bg: #17100A;
+    --cover-ink: #F4E7DD;
+    --cover-accent: #D48053;
+    --cover-alpha: 0.75;
+  }
+
+  /* c06 漆と朱 */
+  html.dark[data-dark="c06"] {
+    --c-bg: #181413;
+    --c-surface: #201D1D;
+    --c-inset: #100C0B;
+    --c-ink: #F1E7E5;
+    --c-ink-2: #C1B8B6;
+    --c-ink-3: #9B9392;
+    --c-rule: #36302F;
+    --c-accent: #EE6951;
+    --c-accent-2: #BD7670;
+    --cover-bg: #151010;
+    --cover-ink: #F1E7E5;
+    --cover-accent: #EE6951;
+    --cover-alpha: 0.75;
+  }
+
+  /* c07 ステンドグラス */
+  html.dark[data-dark="c07"] {
+    --c-bg: #13151A;
+    --c-surface: #1D1E22;
+    --c-inset: #0B0D14;
+    --c-ink: #E4E9F7;
+    --c-ink-2: #B5BAC8;
+    --c-ink-3: #9095A1;
+    --c-rule: #2E313A;
+    --c-accent: #6496F4;
+    --c-accent-2: #CA6C70;
+    --cover-bg: #0F1118;
+    --cover-ink: #E4E9F7;
+    --cover-accent: #6496F4;
+    --cover-alpha: 0.75;
+  }
+
+  /* c08 ホイッスラーのノクターン */
+  html.dark[data-dark="c08"] {
+    --c-bg: #07181D;
+    --c-surface: #162023;
+    --c-inset: #001016;
+    --c-ink: #DCEDF3;
+    --c-ink-2: #ADBEC3;
+    --c-ink-3: #88989E;
+    --c-rule: #1C363E;
+    --c-accent: #64A79E;
+    --c-accent-2: #7B9380;
+    --cover-bg: #02141A;
+    --cover-ink: #DCEDF3;
+    --cover-accent: #64A79E;
+    --cover-alpha: 0.75;
+  }
+
+  /* m05 ロスコ */
+  html.dark[data-dark="m05"] {
+    --c-bg: #210F11;
+    --c-surface: #261B1C;
+    --c-inset: #1A0609;
+    --c-ink: #F7E4E6;
+    --c-ink-2: #C7B6B7;
+    --c-ink-3: #A19092;
+    --c-rule: #44292C;
+    --c-accent: #E4744B;
+    --c-accent-2: #C07280;
+    --cover-bg: #1E0B0D;
+    --cover-ink: #F7E4E6;
+    --cover-accent: #E4744B;
+    --cover-alpha: 0.75;
+  }
+
+  /* m06 ハンマースホイ */
+  html.dark[data-dark="m06"] {
+    --c-bg: #151512;
+    --c-surface: #1E1E1C;
+    --c-inset: #0D0E0A;
+    --c-ink: #E9EBE0;
+    --c-ink-2: #BABCB3;
+    --c-ink-3: #95968E;
+    --c-rule: #31322D;
+    --c-accent: #B58F7A;
+    --c-accent-2: #809283;
+    --cover-bg: #11120E;
+    --cover-ink: #E9EBE0;
+    --cover-accent: #B58F7A;
+    --cover-alpha: 0.75;
+  }
+
+  /* m07 ホッパーの夜 */
+  html.dark[data-dark="m07"] {
+    --c-bg: #0B1813;
+    --c-surface: #19201D;
+    --c-inset: #03110C;
+    --c-ink: #DDEEE7;
+    --c-ink-2: #AFBFB8;
+    --c-ink-3: #8A9993;
+    --c-rule: #23362F;
+    --c-accent: #AC984B;
+    --c-accent-2: #AC816E;
+    --cover-bg: #071510;
+    --cover-ink: #DDEEE7;
+    --cover-accent: #AC984B;
+    --cover-alpha: 0.75;
+  }
+
+  /* m08 クライン・ブルー */
+  html.dark[data-dark="m08"] {
+    --c-bg: #13151A;
+    --c-surface: #1D1E21;
+    --c-inset: #0B0D13;
+    --c-ink: #E3EAF7;
+    --c-ink-2: #B5BBC7;
+    --c-ink-3: #90959F;
+    --c-rule: #2E3239;
+    --c-accent: #6592FF;
+    --c-accent-2: #838C9F;
+    --cover-bg: #0F1217;
+    --cover-ink: #E3EAF7;
+    --cover-accent: #6592FF;
+    --cover-alpha: 0.75;
+  }
+
+  /* t05 薄明 */
+  html.dark[data-dark="t05"] {
+    --c-bg: #141419;
+    --c-surface: #1D1E21;
+    --c-inset: #0C0D12;
+    --c-ink: #E6E8F7;
+    --c-ink-2: #B8BAC6;
+    --c-ink-3: #93949F;
+    --c-rule: #303139;
+    --c-accent: #9085FB;
+    --c-accent-2: #A27CAB;
+    --cover-bg: #101117;
+    --cover-ink: #E6E8F7;
+    --cover-accent: #9085FB;
+    --cover-alpha: 0.75;
+  }
+
+  /* t06 極光 */
+  html.dark[data-dark="t06"] {
+    --c-bg: #151222;
+    --c-surface: #1E1D26;
+    --c-inset: #0D0A1B;
+    --c-ink: #E9E8F6;
+    --c-ink-2: #BAB9C7;
+    --c-ink-3: #9593A1;
+    --c-rule: #312E46;
+    --c-accent: #A97CF0;
+    --c-accent-2: #489F7D;
+    --cover-bg: #110F20;
+    --cover-ink: #E9E8F6;
+    --cover-accent: #A97CF0;
+    --cover-alpha: 0.75;
+  }
+
+  /* t07 雨上がりの石畳 */
+  html.dark[data-dark="t07"] {
+    --c-bg: #10151C;
+    --c-surface: #1B1E22;
+    --c-inset: #080E15;
+    --c-ink: #E1EBF7;
+    --c-ink-2: #B2BBC8;
+    --c-ink-3: #8D96A2;
+    --c-rule: #2A323C;
+    --c-accent: #25B27D;
+    --c-accent-2: #748EB1;
+    --cover-bg: #0C1219;
+    --cover-ink: #E1EBF7;
+    --cover-accent: #25B27D;
+    --cover-alpha: 0.75;
+  }
+
+  /* t08 ベリー */
+  html.dark[data-dark="t08"] {
+    --c-bg: #1A1216;
+    --c-surface: #221C1F;
+    --c-inset: #130A0E;
+    --c-ink: #F5E4EB;
+    --c-ink-2: #C5B6BC;
+    --c-ink-3: #9F9097;
+    --c-rule: #3A2D33;
+    --c-accent: #DE6D9D;
+    --c-accent-2: #A27CAB;
+    --cover-bg: #180E13;
+    --cover-ink: #F5E4EB;
+    --cover-accent: #DE6D9D;
+    --cover-alpha: 0.75;
+  }
+
+@layer base {
   html {
     font-family: var(--font-sans);
     background-color: var(--bg-canvas);
@@ -57,26 +869,24 @@
     font-synthesis: none;
   }
 
+  h1.font-logo, .font-logo {
+    font-family: var(--font-logo);
+    font-synthesis: none;
+  }
+
   code, pre, .font-mono {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
   }
 }
 
-/* ============================================================================
-   Synchronized Top-to-Bottom Spatial & Typographic Theme Transition Engine
-   Every container, surface, border, and text node interpolates its colors
-   with a viewport-Y staggered delay (`--theme-delay: 0ms -> 420ms`) and
-   a 720ms cubic-bezier(0.33, 1, 0.67, 1) curve in lockstep with the canvas wave.
-   ============================================================================ */
-html.theme-transitioning,
-html.theme-transitioning *,
-html.theme-transitioning *::before,
-html.theme-transitioning *::after {
-  transition-property: background-color, border-color, color, fill, stroke, box-shadow !important;
-  transition-duration: 720ms !important;
-  transition-timing-function: cubic-bezier(0.33, 1, 0.67, 1) !important;
-  transition-delay: var(--theme-delay, 0ms) !important;
+/* 昼夜・配色テーマの切り替え：登録した配色の変数を、html で一度だけ補間する */
+html {
+  --theme-duration: 800ms;
+  --theme-easing: cubic-bezier(0.45, 0, 0.25, 1);
+  transition-property: --c-bg, --c-surface, --c-inset, --c-ink, --c-ink-2, --c-ink-3, --c-rule, --c-accent, --c-accent-2, --cover-bg, --cover-ink, --cover-accent, --cover-alpha;
+  transition-duration: var(--theme-duration);
+  transition-timing-function: var(--theme-easing);
 }
 
 .tabular-nums {
@@ -92,10 +902,117 @@ html.theme-transitioning *::after {
   background-color: var(--bg-canvas);
 }
 
+.bg-console-canvas::after,
+#logo-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url("./assets/textures/artbook-paper.webp") repeat 0 0 / 384px 384px;
+  mix-blend-mode: multiply;
+  opacity: 0.27;
+}
+
+#logo-stage {
+  isolation: isolate;
+}
+
+#logo-stage::after {
+  z-index: 1;
+}
+
+.dark .bg-console-canvas::after,
+.dark #logo-stage::after {
+  filter: invert(1);
+  mix-blend-mode: screen;
+  opacity: 0.16;
+}
+
+.character-margins {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.3;
+  filter: saturate(0.7);
+  transition: opacity 800ms ease, filter 800ms ease;
+}
+
+.dark .character-margins {
+  opacity: 0.2;
+  filter: saturate(0.6) brightness(0.9);
+}
+
+.character-margin {
+  width: clamp(64px, 16vw, 280px);
+  display: grid;
+  grid-auto-rows: minmax(0, 1fr);
+  /* 本文側へ向かって薄くする。顔が本文側を向くので、消えるのは端の 3 割だけ */
+  mask-image: linear-gradient(to right, black 62%, transparent 100%);
+}
+
+.character-margin:last-child {
+  padding-top: min(4vh, 48px);
+  mask-image: linear-gradient(to left, black 62%, transparent 100%);
+}
+
+/* 本文と逆を向いている立ち絵は左右を反転して、両側とも本文のほうを向かせる */
+.character-vignette.is-flipped img {
+  transform: scaleX(-1);
+}
+
+.character-vignette {
+  display: flex;
+  align-items: center;
+  min-height: 0;
+}
+
+.character-margin:last-child .character-vignette {
+  justify-content: flex-end;
+}
+
+.character-vignette img {
+  width: auto;
+  height: auto;
+  max-width: 108%;
+  max-height: 120%;
+  mask-image: radial-gradient(ellipse closest-side at 50% 44%, black 40%, rgb(0 0 0 / 85%) 66%, transparent 100%);
+}
+
+/* 縦一列に詰まらないよう、1 人おきに本文側へずらす（ジグザグ） */
+.character-vignette:nth-child(odd) img {
+  translate: -8% 0;
+}
+
+.character-vignette:nth-child(even) img {
+  translate: 18% 0;
+}
+
+.character-margin:last-child .character-vignette:nth-child(odd) img {
+  translate: 8% 0;
+}
+
+.character-margin:last-child .character-vignette:nth-child(even) img {
+  translate: -18% 0;
+}
+
+.character-vignette:nth-child(3n + 2) img {
+  max-width: 96%;
+  mask-image: radial-gradient(ellipse closest-side at 52% 46%, black 36%, rgb(0 0 0 / 82%) 62%, transparent);
+}
+
+@media (max-width: 767px) {
+  .character-margins { opacity: 0.1; }
+}
+
 .dark .bg-console-canvas {
   background-image:
-    radial-gradient(ellipse 85% 45% at 50% 0%, rgba(212, 175, 122, 0.055), transparent 70%),
-    radial-gradient(ellipse 65% 40% at 85% 25%, rgba(229, 112, 82, 0.035), transparent 65%);
+    radial-gradient(ellipse 85% 45% at 50% 0%, color-mix(in srgb, var(--c-accent-2) 6%, transparent), transparent 70%),
+    radial-gradient(ellipse 65% 40% at 85% 25%, color-mix(in srgb, var(--c-accent) 5%, transparent), transparent 65%);
 }
 
 /* Editorial Callout & Leader Lines (图文混排注释引线) */
@@ -183,12 +1100,195 @@ html.theme-transitioning *::after {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(200, 75, 49, 0.35) 15%,
-    #e57052 40%,
-    #d4af7a 60%,
-    rgba(200, 75, 49, 0.35) 85%,
+    color-mix(in srgb, var(--c-accent) 35%, transparent) 15%,
+    var(--c-accent) 40%,
+    var(--c-accent-2) 60%,
+    color-mix(in srgb, var(--c-accent) 35%, transparent) 85%,
     transparent 100%
   );
+}
+
+/* トロフィーの特効 */
+/* きらめき：ふわっと現れて回り、消える */
+@keyframes trophy-twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.2) rotate(0deg); }
+  35% { opacity: 1; transform: scale(1) rotate(45deg); }
+  70% { opacity: 0; transform: scale(0.3) rotate(90deg); }
+}
+.trophy-twinkle,
+.trophy-glint {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.trophy-twinkle { animation: trophy-twinkle 2.6s ease-in-out infinite; }
+.trophy-twinkle-late { animation-delay: 1.3s; }
+
+/* ブロンズ：ときどき一瞬だけ光る */
+@keyframes trophy-glint {
+  0%, 72%, 100% { opacity: 0; transform: scale(0.2) rotate(0deg); }
+  82% { opacity: 1; transform: scale(1) rotate(45deg); }
+  92% { opacity: 0; transform: scale(0.4) rotate(90deg); }
+}
+.trophy-glint { animation: trophy-glint 4.5s ease-in-out infinite; }
+
+/* ゴールド：蓋から光線が伸びる */
+@keyframes trophy-rays {
+  0% { opacity: 0; transform: translateY(1.4px) scale(0.6); }
+  40% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-0.8px) scale(1.15); }
+}
+.trophy-rays {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: trophy-rays 1.8s ease-out infinite;
+}
+
+/* プラチナ：六角形の波紋・回る破線の枠・周回する点 */
+@keyframes trophy-ripple {
+  0% { opacity: 0.9; transform: scale(0.75); }
+  100% { opacity: 0; transform: scale(1.3); }
+}
+@keyframes trophy-spin {
+  to { transform: rotate(360deg); }
+}
+.trophy-ripple,
+.trophy-spin,
+.trophy-orbit {
+  transform-box: view-box;
+  transform-origin: 12px 11px;
+}
+.trophy-ripple { animation: trophy-ripple 2.4s ease-out infinite; }
+.trophy-spin { animation: trophy-spin 14s linear infinite; }
+.trophy-orbit { animation: trophy-spin 5s linear infinite; }
+
+/* 包み枠（外枠・台紙・内枠）と光の演出。Steam の実績アイコンで使う */
+
+/*
+ * 縁を流れる光の角度。すべての枠がこの 1 つの値で回るので、速さも向き（時計回り）もそろう。
+ * inherits: true にして、枠の子要素（縁・辉光）も同じ角度を使う。
+ */
+@property --gf-angle {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+@keyframes gf-spin {
+  to { --gf-angle: 360deg; }
+}
+
+.gf {
+  --gf-base: #c9c6bc;
+  position: relative;
+  isolation: isolate;
+  padding: 1px;
+}
+.dark .gf { --gf-base: #3a342e; }
+.gf-ring {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--gf-base);
+}
+.gf-mat {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  padding: 2px;
+  background: var(--c-surface);
+}
+
+/*
+ * 銅の枠：枠そのものを金属の質感（斜めのハイライト）にし、
+ * その上を白い光が彗星のように 1 本流れる（明るい頭と、後ろに消えていく尾）。
+ * 流れる速さ・向き（時計回り）は虹色・金・銀の枠と同じ。
+ */
+.gf-flow {
+  animation: gf-spin 3s linear infinite;
+}
+.gf-streaks-1 { --period: 360deg; }
+.gf-metal-bronze {
+  --metal: linear-gradient(135deg, #774319 0%, #d9a070 30%, #9a5a2c 55%, #ebbd92 78%, #774319 100%);
+}
+.gf-flow .gf-ring {
+  background:
+    repeating-conic-gradient(
+      from var(--gf-angle),
+      transparent 0deg calc(var(--period, 360deg) * 0.4),
+      rgb(255 255 255 / 0) calc(var(--period, 360deg) * 0.4),
+      rgb(255 250 232 / 0.55) calc(var(--period, 360deg) * 0.86),
+      #fff calc(var(--period, 360deg) * 0.97),
+      transparent var(--period, 360deg)
+    ),
+    var(--metal, var(--gf-base));
+}
+
+/*
+ * Apple Intelligence の縁の光のような枠（Steam の上位 3 つの実績）。
+ * 枠全体がグラデーションで時計回りにめぐり、同じグラデーションをぼかして外側に置いて呼吸させる。
+ * 光晕の広さは 虹色（1 番）> 金（2 番）> 銀（3 番）。
+ */
+.gf-ai .gf-ring {
+  background: var(--ai-grad);
+}
+.gf-ai::before {
+  content: '';
+  position: absolute;
+  inset: var(--bloom-inset, 0);
+  z-index: -1;
+  border-radius: 2px;
+  background: var(--ai-grad);
+  animation: gf-bloom 3.6s ease-in-out infinite;
+}
+@keyframes gf-bloom {
+  0%, 100% { opacity: var(--bloom-o-min); filter: blur(var(--bloom-min)); }
+  40% { opacity: var(--bloom-o-max); filter: blur(var(--bloom-max)); }
+  70% { opacity: calc((var(--bloom-o-min) + var(--bloom-o-max)) / 2); filter: blur(calc((var(--bloom-min) + var(--bloom-max)) / 2)); }
+}
+.gf-ai .gf-mat {
+  box-shadow: inset 0 0 var(--inner-blur, 5px) var(--inner-glow);
+}
+
+/* 1 番：虹色・光晕はいちばん大きい */
+.gf-ai-rainbow {
+  --ai-grad: conic-gradient(
+    from var(--gf-angle),
+    #bc82f3, #f5b9ea, #8d9fff, #aa6eee, #ff6778, #ffba71, #c686ff, #bc82f3
+  );
+  --bloom-inset: -1px;
+  --bloom-min: 3px;
+  --bloom-max: 5px;
+  --bloom-o-min: 0.5;
+  --bloom-o-max: 0.9;
+  --inner-glow: rgb(188 130 243 / 0.45);
+  --inner-blur: 6px;
+}
+/* 2 番：金・光晕は中くらい */
+.gf-ai-gold {
+  --ai-grad: conic-gradient(
+    from var(--gf-angle),
+    #fff4c8, #ffd25e, #e59a12, #fff0b0, #c4820c, #ffcf4f, #fff4c8
+  );
+  --bloom-inset: 0px;
+  --bloom-min: 2px;
+  --bloom-max: 3.5px;
+  --bloom-o-min: 0.4;
+  --bloom-o-max: 0.75;
+  --inner-glow: rgb(242 177 42 / 0.4);
+  --inner-blur: 5px;
+}
+/* 3 番：銀・光晕はいちばん小さい */
+.gf-ai-silver {
+  --ai-grad: conic-gradient(
+    from var(--gf-angle),
+    #ffffff, #c9d0d9, #7e8894, #eef2f6, #9aa4b0, #dde2e8, #ffffff
+  );
+  --bloom-inset: 0px;
+  --bloom-min: 1.2px;
+  --bloom-max: 2.2px;
+  --bloom-o-min: 0.35;
+  --bloom-o-max: 0.6;
+  --inner-glow: rgb(160 172 186 / 0.35);
+  --inner-blur: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -197,5 +1297,68 @@ html.theme-transitioning *::after {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================
+ * 区切り線：表紙の下端と同じグラデーション。中央がいちばん太く、両端へ向かって細く・淡くなって消えていく
+ * ========================================================= */
+.rule-top,
+.rule-bottom {
+  position: relative;
+}
+.rule-top::before,
+.rule-bottom::after,
+.scanline-laser-beam {
+  /* 太さ：中央で最大（2px）、両端でゼロになる細長いひし形 */
+  clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%);
+  /* 濃さ：両端に向かってぼかすように消える */
+  -webkit-mask: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 42%, #000 58%, rgba(0, 0, 0, 0.35) 86%, transparent 100%);
+  mask: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.35) 14%, #000 42%, #000 58%, rgba(0, 0, 0, 0.35) 86%, transparent 100%);
+}
+.rule-top::before,
+.rule-bottom::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--c-accent) 35%, transparent) 15%,
+    var(--c-accent) 40%,
+    var(--c-accent-2) 60%,
+    color-mix(in srgb, var(--c-accent) 35%, transparent) 85%,
+    transparent 100%
+  );
+}
+.rule-top::before {
+  top: -1px;
+}
+.rule-bottom::after {
+  bottom: -1px;
+}
+
+/* 区切り線は、画面に入るときに中央から左右へ伸びる（スクロールに連動） */
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .rule-top::before,
+    .rule-bottom::after {
+      animation: rule-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 30%;
+    }
   }
 }

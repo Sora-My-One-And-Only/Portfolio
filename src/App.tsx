@@ -4,7 +4,6 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { flushSync } from 'react-dom';
 import {
   motion,
   AnimatePresence,
@@ -17,35 +16,29 @@ import {
 import {
   Sun,
   Moon,
-  Volume2,
-  VolumeX,
-  Music,
   ArrowUp,
   ArrowUpRight,
   ChevronDown,
-  Clock,
-  ArrowRight,
   Play,
   FileText,
 } from 'lucide-react';
 import type { Locale } from './content/interface-copy';
 import { PROJECTS_DATA, WORK_DESIGN_NOTES, type ProjectSpec } from './content/works';
-import { CORE_SKILLS, EDITORIAL_COPY } from './content/site-copy';
-import { DESIGN_NOTES } from './content/design-notes';
+import { EDITORIAL_COPY } from './content/site-copy';
+import type { ProfileTopic } from './content/profile';
 import {
   soundFX,
   SoundEngineSnapshot,
 } from './utils/sound';
 import { WorkDetailSubPage } from './components/WorkDetailSubPage';
-import { DesignNotesPage } from './components/DesignNotesPage';
-import {
-  QuickGuideSection,
-  PlayGamesPortalSection,
-  WhatICanDoSection,
-  EndingCreditsSection,
-} from './components/PortfolioSections';
+import { ProfileCards, ProfileDetailPage } from './components/ProfileSection';
+import { GameAnalysisSection, GameAnalysisPage } from './components/GameAnalysis';
+import { EndingCreditsSection } from './components/PortfolioSections';
+import { StudioMark } from './components/StudioMark';
+import { CoverBackdrop } from './components/CoverBackdrop';
+import { SettingsMenu } from './components/SettingsMenu';
 
-type ActivePageView = 'main' | 'spec-detail' | 'resume-detail';
+type ActivePageView = 'main' | 'spec-detail' | 'profile-detail' | 'analysis-detail';
 
 const GITHUB_USERNAME = 'Sora-My-One-And-Only';
 
@@ -188,9 +181,10 @@ interface EditorialWorkSpreadProps {
   locale: Locale;
   platePrefix: string;
   annotationHeader: string;
+  roleLabel: string;
   openSpecLabel: string;
   playNowLabel: string;
-  onOpenSpec: (proj: ProjectSpec, mode: 'video' | 'playable') => void;
+  onOpenSpec: (proj: ProjectSpec, play?: boolean) => void;
 }
 
 const EditorialWorkSpread: React.FC<EditorialWorkSpreadProps> = ({
@@ -199,6 +193,7 @@ const EditorialWorkSpread: React.FC<EditorialWorkSpreadProps> = ({
   locale,
   platePrefix,
   annotationHeader,
+  roleLabel,
   openSpecLabel,
   playNowLabel,
   onOpenSpec,
@@ -240,7 +235,7 @@ const EditorialWorkSpread: React.FC<EditorialWorkSpreadProps> = ({
         }`}
       >
         {/* Top Plate Index Caption */}
-        <div className="flex items-center justify-between text-[11px] font-mono tracking-[0.18em] text-[#888E94] mb-2.5">
+        <div className="flex items-center justify-between text-[11px] font-mono tracking-[0.18em] text-[var(--c-ink-3)] mb-2.5">
           <span>
             FIG. {plateNumber} — {project.code}
           </span>
@@ -249,8 +244,8 @@ const EditorialWorkSpread: React.FC<EditorialWorkSpreadProps> = ({
 
         {/* Large Artbook Visual Plate with Inner Parallax */}
         <div
-          onClick={() => onOpenSpec(project, 'video')}
-          className="relative aspect-[16/10] w-full bg-[#181A1C] overflow-hidden border border-[#E2E0D8] dark:border-[#2E2924] cursor-pointer"
+          onClick={() => onOpenSpec(project)}
+          className="relative aspect-[16/10] w-full bg-[var(--c-ink)] overflow-hidden border border-[var(--c-rule)] dark:border-[var(--c-rule)] cursor-pointer"
         >
           <motion.img
             src={project.image}
@@ -261,16 +256,16 @@ const EditorialWorkSpread: React.FC<EditorialWorkSpreadProps> = ({
           />
           {/* Subtle Plate Number Stamp */}
           <div className="absolute bottom-3 right-3 px-2.5 py-1 bg-[#181A1C]/80 backdrop-blur-sm text-[10px] font-mono tracking-[0.2em] text-[#F7F6F2]">
-            {platePrefix} #{plateNumber} · 60FPS SPEC
+            {platePrefix} #{plateNumber}
           </div>
         </div>
 
         {/* Under-Plate Technical Callout Caption (图片下方图文注释) */}
-        <div className="mt-3 pt-2.5 min-h-[2.25rem] border-t border-[#E2E0D8] dark:border-[#2E2924] flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#555B61] dark:text-[#B0A89E]">
+        <div className="mt-3 pt-2.5 min-h-[2.25rem] border-t border-[var(--c-rule)] dark:border-[var(--c-rule)] flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[var(--c-ink-2)] dark:text-[var(--c-ink-2)]">
           <span>
             ───● {project.keyMechanics[locale][0]}
           </span>
-          <span className="text-[#C84B31] dark:text-[#E57052] shrink-0">
+          <span className="text-[var(--c-accent)] dark:text-[var(--c-accent)] shrink-0">
             [{project.roleTag[locale]}]
           </span>
         </div>
@@ -284,51 +279,56 @@ const EditorialWorkSpread: React.FC<EditorialWorkSpreadProps> = ({
         }`}
       >
         <div>
-          <div className="text-xs font-mono tracking-[0.22em] text-[#C84B31] dark:text-[#E57052] mb-3">
+          <div className="text-xs font-mono tracking-[0.22em] text-[var(--c-accent)] dark:text-[var(--c-accent)] mb-3">
             {annotationHeader} #{plateNumber}
           </div>
 
           <h3
-            onClick={() => onOpenSpec(project, 'video')}
-            className="font-editorial text-2xl sm:text-3xl font-semibold tracking-tight leading-[1.24] min-h-[2.48em] group-hover:text-[#C84B31] dark:group-hover:text-[#E57052] transition-colors cursor-pointer"
+            onClick={() => onOpenSpec(project)}
+            className="font-editorial text-2xl sm:text-3xl font-semibold tracking-tight leading-[1.24] group-hover:text-[var(--c-accent)] dark:group-hover:text-[var(--c-accent)] transition-colors cursor-pointer"
           >
             {project.title[locale]}
           </h3>
 
-          <p className="mt-4 text-sm sm:text-base text-[#555B61] dark:text-[#B0A89E] leading-relaxed min-h-[5.2rem]">
+          <p className="mt-4 text-sm sm:text-base text-[var(--c-ink-2)] dark:text-[var(--c-ink-2)] leading-relaxed">
             {project.summary[locale]}
           </p>
 
+          {/* 担当 */}
+          <div className="mt-4 pl-3 border-l-2 border-l-[var(--c-accent)] dark:border-l-[var(--c-accent)]">
+            <div className="text-[11px] font-mono tracking-[0.2em] text-[var(--c-accent)] dark:text-[var(--c-accent)]">
+              {roleLabel}
+            </div>
+            <p className="mt-0.5 text-sm leading-relaxed">{project.role[locale]}</p>
+          </div>
+
           {/* Marginalia Spec Callout List (设定集参数注释条) */}
-          <div className="mt-6 pt-5 border-t border-[#E2E0D8] dark:border-[#2E2924] space-y-2">
+          <div className="mt-6 pt-5 border-t border-[var(--c-rule)] dark:border-[var(--c-rule)] space-y-2">
             {project.metrics.slice(0, 3).map((m, mIdx) => (
               <div
                 key={mIdx}
                 className="min-h-[1.5rem] flex items-center justify-between gap-4 text-xs font-mono"
               >
-                <span className="text-[#888E94]">
+                <span className="text-[var(--c-ink-3)]">
                   0{mIdx + 1}. {m.label[locale]}
                 </span>
-                <span className="font-medium text-[#181A1C] dark:text-[#F2EFE9] tabular-nums shrink-0">
+                <span className="font-medium text-[var(--c-ink)] dark:text-[var(--c-ink)] tabular-nums shrink-0">
                   {m.value}
                 </span>
               </div>
             ))}
           </div>
 
-          {/* DEV LOG (課題 → 解決 → 結果) & PARTY Block (Inspired by haru2401game.github.io/portfolio/#featured-works) */}
+          {/* DEV LOG (課題 → 解決 → 結果) */}
           {designNote && (
-            <div className="mt-5 p-4 bg-[#EFEDE6]/85 dark:bg-[#1B1916]/90 border border-[#E2E0D8] dark:border-[#2E2924] space-y-2 text-xs">
-              <div className="font-mono text-[11px] text-[#C84B31] dark:text-[#E57052] pb-1.5 border-b border-[#E2E0D8] dark:border-[#2E2924]">
-                {designNote.party[locale]}
-              </div>
-              <div className="text-[#555B61] dark:text-[#B0A89E] leading-relaxed">
+            <div className="mt-5 p-4 bg-[var(--c-inset)]/85 dark:bg-[var(--c-surface)]/90 border border-[var(--c-rule)] dark:border-[var(--c-rule)] space-y-2 text-xs">
+              <div className="text-[var(--c-ink-2)] dark:text-[var(--c-ink-2)] leading-relaxed">
                 {designNote.challenge[locale]}
               </div>
-              <div className="text-[#181A1C] dark:text-[#F2EFE9] leading-relaxed">
+              <div className="text-[var(--c-ink)] dark:text-[var(--c-ink)] leading-relaxed">
                 {designNote.solution[locale]}
               </div>
-              <div className="font-mono text-[11px] text-[#C84B31] dark:text-[#E57052] pt-1">
+              <div className="font-mono text-[11px] text-[var(--c-accent)] dark:text-[var(--c-accent)] pt-1">
                 ★ {designNote.result[locale]}
               </div>
             </div>
@@ -336,10 +336,10 @@ const EditorialWorkSpread: React.FC<EditorialWorkSpreadProps> = ({
         </div>
 
         {/* Editorial Action Links (Fixed Button Dimensions Across Locales) */}
-        <div className="mt-7 pt-6 border-t border-[#181A1C] dark:border-[#F2EFE9] flex flex-wrap items-center gap-3">
+        <div className="mt-7 pt-6 rule-top flex flex-wrap items-center gap-3">
           <button
             type="button"
-            onClick={() => onOpenSpec(project, 'video')}
+            onClick={() => onOpenSpec(project)}
             className="inline-flex items-center justify-center gap-2 h-10 min-w-[188px] px-4 text-xs font-mono tracking-wider btn-3d-primary cursor-pointer whitespace-nowrap"
           >
             <FileText className="w-3.5 h-3.5 shrink-0" />
@@ -347,14 +347,16 @@ const EditorialWorkSpread: React.FC<EditorialWorkSpreadProps> = ({
             <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
           </button>
 
-          <button
-            type="button"
-            onClick={() => onOpenSpec(project, 'playable')}
-            className="inline-flex items-center justify-center gap-2 h-10 min-w-[156px] px-4 text-xs font-mono tracking-wider btn-3d-secondary cursor-pointer whitespace-nowrap"
-          >
-            <Play className="w-3.5 h-3.5 text-[#C84B31] dark:text-[#E57052] shrink-0" />
-            <span>{playNowLabel}</span>
-          </button>
+          {project.playUrl && (
+            <button
+              type="button"
+              onClick={() => onOpenSpec(project, true)}
+              className="inline-flex items-center justify-center gap-2 h-10 min-w-[156px] px-4 text-xs font-mono tracking-wider btn-3d-secondary cursor-pointer whitespace-nowrap"
+            >
+              <Play className="w-3.5 h-3.5 text-[var(--c-accent)] dark:text-[var(--c-accent)] shrink-0" />
+              <span>{playNowLabel}</span>
+            </button>
+          )}
         </div>
       </motion.div>
     </motion.article>
@@ -364,9 +366,6 @@ const EditorialWorkSpread: React.FC<EditorialWorkSpreadProps> = ({
 export default function App() {
   const [locale, setLocale] = useState<Locale>('ja');
   const [darkMode, setDarkMode] = useState<boolean>(false);
-  const canvasWaveRef = useRef<HTMLDivElement | null>(null);
-  const themeAnimRafRef = useRef<number | null>(null);
-  const themeSweepTimerRef = useRef<number | null>(null);
   const [soundState, setSoundState] = useState<SoundEngineSnapshot>(() =>
     soundFX.getSnapshot()
   );
@@ -382,14 +381,10 @@ export default function App() {
 
   const [activeView, setActiveView] = useState<ActivePageView>('main');
   const [selectedProject, setSelectedProject] = useState<ProjectSpec>(PROJECTS_DATA[0]);
-  const [subPageStageMode, setSubPageStageMode] = useState<'video' | 'playable'>('video');
-  const [resumeSubTab, setResumeSubTab] = useState<'playHistory' | 'otherWorks'>('playHistory');
+  const [startPlaying, setStartPlaying] = useState<boolean>(false);
+  const [profileTopic, setProfileTopic] = useState<ProfileTopic>('intro');
+  const [analysisFocusId, setAnalysisFocusId] = useState<string | undefined>(undefined);
 
-  // Page 1 Showreel active slide index (0..3)
-  const [reelIdx, setReelIdx] = useState<number>(0);
-
-  // Page 2 Table of Contents active cursor index (0..4)
-  const [activeMenuIdx, setActiveMenuIdx] = useState<number>(0);
 
   useEffect(() => {
     return soundFX.subscribe((snap) => {
@@ -398,26 +393,12 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (activeView !== 'main') return;
-    const interval = setInterval(() => {
-      setReelIdx((prev) => (prev + 1) % PROJECTS_DATA.length);
-    }, 3400);
-    return () => clearInterval(interval);
-  }, [activeView]);
-
-  useEffect(() => {
     return () => {
       if (bgmToastTimerRef.current !== null) {
         window.clearTimeout(bgmToastTimerRef.current);
       }
       if (sfxToastTimerRef.current !== null) {
         window.clearTimeout(sfxToastTimerRef.current);
-      }
-      if (themeSweepTimerRef.current !== null) {
-        window.clearTimeout(themeSweepTimerRef.current);
-      }
-      if (themeAnimRafRef.current !== null) {
-        cancelAnimationFrame(themeAnimRafRef.current);
       }
     };
   }, []);
@@ -457,113 +438,10 @@ export default function App() {
   const handleToggleTheme = () => {
     const nextDark = !darkMode;
     soundFX.playThemeSwitch(nextDark);
-
-    if (themeSweepTimerRef.current !== null) {
-      window.clearTimeout(themeSweepTimerRef.current);
-      themeSweepTimerRef.current = null;
-    }
-    if (themeAnimRafRef.current !== null) {
-      cancelAnimationFrame(themeAnimRafRef.current);
-      themeAnimRafRef.current = null;
-    }
-
-    const root = document.documentElement;
-    const viewportH = Math.max(1, window.innerHeight);
-    const STAGGER_MS = 380;
-    const DURATION_MS = 720;
-    const TOTAL_MS = STAGGER_MS + DURATION_MS;
-
-    // 1. Assign top-to-bottom viewport-relative transition delay (--theme-delay) to every visible space, border & text node
-    const elements = document.querySelectorAll<HTMLElement>(
-      '#root header, #root nav, #root section, #root article, #root aside, #root footer, #root div, #root h1, #root h2, #root h3, #root p, #root span, #root a, #root button, #root label, #root input, #root textarea, #root svg'
-    );
-    const touchedElements: HTMLElement[] = [];
-
-    elements.forEach((el) => {
-      const rect = el.getBoundingClientRect();
-      if (rect.bottom >= -120 && rect.top <= viewportH + 120) {
-        const anchorY =
-          rect.height > viewportH * 0.45
-            ? Math.max(0, rect.top)
-            : rect.top + rect.height * 0.25;
-        const normY = Math.max(0, Math.min(1, anchorY / viewportH));
-        const delayMs = Math.round(normY * STAGGER_MS);
-        el.style.setProperty('--theme-delay', `${delayMs}ms`);
-        touchedElements.push(el);
-      }
-    });
-
-    // 2. Enable global smooth color/surface transition class and flush styles BEFORE toggling .dark
-    root.classList.add('theme-transitioning');
-    void root.offsetHeight;
-
-    // 3. Toggle .dark class & React state so all text, borders, and surfaces begin their top-to-bottom CSS transition
-    if (nextDark) {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    flushSync(() => {
-      setDarkMode(nextDark);
-    });
-
-    // 4. Drive the Fixed Spatial Canvas (`canvasWaveRef`) with the exact same top-to-bottom mathematical wave
-    const fromRGB: [number, number, number] = nextDark ? [247, 246, 242] : [19, 18, 16];
-    const toRGB: [number, number, number] = nextDark ? [19, 18, 16] : [247, 246, 242];
-    const startTime = performance.now();
-    const STOP_COUNT = 10;
-
-    const stepCanvasWave = (now: number) => {
-      const elapsed = now - startTime;
-      const canvasEl = canvasWaveRef.current;
-
-      if (canvasEl && elapsed < TOTAL_MS) {
-        const stops: string[] = [];
-        for (let i = 0; i <= STOP_COUNT; i++) {
-          const normY = i / STOP_COUNT;
-          const localRaw = Math.max(0, Math.min(1, (elapsed - normY * STAGGER_MS) / DURATION_MS));
-          const inv = 1 - localRaw;
-          const eased = 1 - inv * inv * inv;
-
-          const r = Math.round(fromRGB[0] + (toRGB[0] - fromRGB[0]) * eased);
-          const g = Math.round(fromRGB[1] + (toRGB[1] - fromRGB[1]) * eased);
-          const b = Math.round(fromRGB[2] + (toRGB[2] - fromRGB[2]) * eased);
-          stops.push(`rgb(${r}, ${g}, ${b}) ${(normY * 100).toFixed(1)}%`);
-        }
-
-        const topRaw = Math.max(0, Math.min(1, elapsed / DURATION_MS));
-        const topEased = 1 - Math.pow(1 - topRaw, 3);
-        const darkRatio = nextDark ? topEased : 1 - topEased;
-        const a1 = (0.055 * darkRatio).toFixed(4);
-        const a2 = (0.035 * darkRatio).toFixed(4);
-
-        canvasEl.style.backgroundImage =
-          `radial-gradient(ellipse 85% 45% at 50% 0%, rgba(212, 175, 122, ${a1}), transparent 70%), ` +
-          `radial-gradient(ellipse 65% 40% at 85% 25%, rgba(229, 112, 82, ${a2}), transparent 65%), ` +
-          `linear-gradient(to bottom, ${stops.join(', ')})`;
-
-        themeAnimRafRef.current = requestAnimationFrame(stepCanvasWave);
-      } else {
-        if (canvasEl) {
-          canvasEl.style.backgroundImage = '';
-        }
-        themeAnimRafRef.current = null;
-      }
-    };
-
-    themeAnimRafRef.current = requestAnimationFrame(stepCanvasWave);
-
-    // 5. Clean up transition class and inline delays after the wave completes
-    themeSweepTimerRef.current = window.setTimeout(() => {
-      root.classList.remove('theme-transitioning');
-      if (canvasWaveRef.current) {
-        canvasWaveRef.current.style.backgroundImage = '';
-      }
-      touchedElements.forEach((el) => {
-        el.style.removeProperty('--theme-delay');
-      });
-      themeSweepTimerRef.current = null;
-    }, TOTAL_MS + 60);
+    // 色の移り変わりは index.css に任せる（@property で登録した配色の変数を html で補間するので、
+    // ページのすべての要素・疑似要素・グラデーション・設定ウィンドウ・表紙のキャンバスが同じ速さで変わる）
+    document.documentElement.classList.toggle('dark', nextDark);
+    setDarkMode(nextDark);
   };
 
   // Physics-interpolated scroll MotionValues for ultra-smooth 60FPS Page 1 -> Page 2 transition
@@ -581,7 +459,7 @@ export default function App() {
   const [scrollPct, setScrollPct] = useState<number>(0);
   const [showTopChrome, setShowTopChrome] = useState<boolean>(false);
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
-  const [activeNavSection, setActiveNavSection] = useState<string>('main-menu');
+  const [activeNavSection, setActiveNavSection] = useState<string>('');
   const prevEnteredMenuRef = useRef<boolean>(false);
   const prevPastSecondScreenRef = useRef<boolean>(false);
   const pendingScrollIdRef = useRef<string | null>(null);
@@ -605,13 +483,8 @@ export default function App() {
       setShowTopChrome(enteredMenu);
     }
 
-    // Show floating 'Back to Top' button once the user scrolls past the second screen (#main-menu)
-    const mainMenuEl = document.getElementById('main-menu');
-    const secondScreenThreshold = mainMenuEl
-      ? mainMenuEl.offsetTop + mainMenuEl.offsetHeight * 0.85
-      : vh * 1.85;
-    const pastSecondScreen =
-      activeView === 'main' ? latestY > secondScreenThreshold : latestY > vh * 0.9;
+    // Show floating 'Back to Top' button once the user scrolls past the cover
+    const pastSecondScreen = latestY > vh * 0.9;
 
     if (pastSecondScreen !== prevPastSecondScreenRef.current) {
       prevPastSecondScreenRef.current = pastSecondScreen;
@@ -620,14 +493,7 @@ export default function App() {
 
     // Update active top nav chapter highlight smoothly during scroll
     if (activeView === 'main') {
-      const sectionIds = [
-        'resume',
-        'skills',
-        'play-games',
-        'works',
-        'about',
-        'main-menu',
-      ];
+      const sectionIds = ['analysis', 'works', 'about'];
       const probeY = latestY + vh * 0.32;
       for (const secId of sectionIds) {
         const el = document.getElementById(secId);
@@ -676,7 +542,7 @@ export default function App() {
     if (el) {
       const rect = el.getBoundingClientRect();
       // Account for sticky top header chrome height (56px) on chapter sections
-      const headerOffset = id === 'main-menu' ? 0 : 56;
+      const headerOffset = 56;
       const targetTop = Math.max(0, rect.top + window.scrollY - headerOffset);
       animateScrollTo(targetTop);
     }
@@ -686,30 +552,31 @@ export default function App() {
   useEffect(() => {
     if (activeView !== 'main' || !pendingScrollIdRef.current) return;
     const targetId = pendingScrollIdRef.current;
-    let attempts = 0;
-    let rafId: number;
+    const deadline = performance.now() + 3000;
+    let timerId: number;
 
+    // ページが切り替わった直後なので、アニメーションせずに目的の章へ移動する
     const tryScrollWhenMounted = () => {
-      attempts += 1;
       if (targetId === 'top') {
         pendingScrollIdRef.current = null;
-        animateScrollTo(0);
+        window.scrollTo(0, 0);
         return;
       }
       const el = document.getElementById(targetId);
       if (el) {
         pendingScrollIdRef.current = null;
-        executeSectionScroll(targetId);
-      } else if (attempts < 45) {
-        rafId = requestAnimationFrame(tryScrollWhenMounted);
+        cancelActiveSmoothScroll();
+        window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.scrollY - 56));
+      } else if (performance.now() < deadline) {
+        timerId = window.setTimeout(tryScrollWhenMounted, 30);
       } else {
         pendingScrollIdRef.current = null;
       }
     };
 
-    rafId = requestAnimationFrame(tryScrollWhenMounted);
-    return () => cancelAnimationFrame(rafId);
-  }, [activeView, executeSectionScroll]);
+    timerId = window.setTimeout(tryScrollWhenMounted, 0);
+    return () => window.clearTimeout(timerId);
+  }, [activeView]);
 
   const scrollToSection = useCallback(
     (id: string) => {
@@ -726,44 +593,29 @@ export default function App() {
     [activeView, executeSectionScroll]
   );
 
-  // Allow keyboard Up/Down arrow navigation when viewing the Table of Contents (Page 2)
-  useEffect(() => {
-    if (activeView !== 'main') return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (window.scrollY > window.innerHeight * 1.65) return;
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
-        return;
-      }
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        soundFX.playBlip(600);
-        setActiveMenuIdx((prev) => (prev + 1) % c.menuItems.length);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        soundFX.playBlip(640);
-        setActiveMenuIdx((prev) => (prev - 1 + c.menuItems.length) % c.menuItems.length);
-      } else if (e.key === 'Enter') {
-        const target = c.menuItems[activeMenuIdx];
-        if (target) {
-          scrollToSection(target.id);
-        }
-      }
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [activeView, activeMenuIdx, c.menuItems, scrollToSection]);
-
-  const openSpecPage = (proj: ProjectSpec, mode: 'video' | 'playable' = 'video') => {
+  const openSpecPage = (proj: ProjectSpec, play = false) => {
     soundFX.playPageTurn();
     setSelectedProject(proj);
-    setSubPageStageMode(mode);
+    setStartPlaying(play);
     setActiveView('spec-detail');
   };
 
-  const openResumePage = (tab: 'playHistory' | 'otherWorks') => {
+  const openProfilePage = (topic: ProfileTopic) => {
     soundFX.playPageTurn();
-    setResumeSubTab(tab);
-    setActiveView('resume-detail');
+    setProfileTopic(topic);
+    setActiveView('profile-detail');
+  };
+
+  const openAnalysisPage = (analysisId?: string) => {
+    soundFX.playPageTurn();
+    setAnalysisFocusId(analysisId);
+    setActiveView('analysis-detail');
+  };
+
+  // 専用ページから戻ったら、開いた章の位置に戻す
+  const backToMainAt = (sectionId: string) => {
+    pendingScrollIdRef.current = sectionId;
+    setActiveView('main');
   };
 
   const handleGaugeSeek = (blockIndex: number) => {
@@ -778,9 +630,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen theme-surface font-normal relative">
-      {/* Fixed Viewport Spatial Canvas Underlay — Flows Top-to-Bottom in Lockstep with Staggered DOM Elements */}
+      {/* 画面全体の地の色（配色の変数に合わせて、ほかの要素と同じ速さで色が移る） */}
       <div
-        ref={canvasWaveRef}
         aria-hidden="true"
         className="fixed inset-0 pointer-events-none z-0 bg-console-canvas"
       />
@@ -809,9 +660,9 @@ export default function App() {
           aria-valuemin={0}
           aria-valuemax={100}
           aria-label="Archive Reading Progress"
-          className="h-2.5 bg-[#EFEDE6]/95 dark:bg-[#0D0C0A]/95 border-b border-[#E2E0D8] dark:border-[#2E2924] px-4 flex items-center gap-3 select-none"
+          className="h-2.5 bg-[var(--c-inset)]/95 dark:bg-[var(--c-inset)]/95 border-b border-[var(--c-rule)] dark:border-[var(--c-rule)] px-4 flex items-center gap-3 select-none"
         >
-          <span className="hidden sm:inline-block text-[9px] font-mono tracking-[0.2em] text-[#888E94] shrink-0">
+          <span className="hidden sm:inline-block text-[9px] font-mono tracking-[0.2em] text-[var(--c-ink-3)] shrink-0">
             {scrollPct >= 99 ? 'END OF VOLUME' : 'ARCHIVE FOLIO'}
           </span>
 
@@ -826,21 +677,21 @@ export default function App() {
                   title={`Page ${Math.round((idx / (TOTAL_BLOCKS - 1)) * 100)}%`}
                   className={`flex-1 h-full transition-colors duration-75 cursor-pointer ${
                     isFilled
-                      ? 'bg-[#C84B31] dark:bg-[#E57052]'
-                      : 'bg-[#D8D5CC] dark:bg-[#2E2924] hover:bg-[#C84B31]/50'
+                      ? 'bg-[var(--c-accent)] dark:bg-[var(--c-accent)]'
+                      : 'bg-[#D8D5CC] dark:bg-[var(--c-rule)] hover:bg-[var(--c-accent)]/50'
                   }`}
                 />
               );
             })}
           </div>
 
-          <span className="text-[9px] font-mono tabular-nums tracking-wider text-[#555B61] dark:text-[#B0A89E] shrink-0">
+          <span className="text-[9px] font-mono tabular-nums tracking-wider text-[var(--c-ink-2)] dark:text-[var(--c-ink-2)] shrink-0">
             P.{String(scrollPct).padStart(3, '0')}
           </span>
         </div>
 
         {/* Editorial Running Header — Full-Width 3-Zone Layout: [Left Logo | Center Navigation | Right Controls] */}
-        <header className="border-b border-[#E2E0D8] dark:border-[#2E2924] bg-[#F7F6F2]/94 dark:bg-[#131210]/94 backdrop-blur-md">
+        <header className="border-b border-[var(--c-rule)] dark:border-[var(--c-rule)] bg-[var(--c-bg)]/94 dark:bg-[var(--c-bg)]/94 backdrop-blur-md">
           <div className="w-full px-6 sm:px-10 lg:px-14 xl:px-20 h-16 grid grid-cols-[1fr_auto_1fr] items-center gap-4">
             {/* LEFT ZONE: Main Title & Editorial Brand Logo */}
             <div className="justify-self-start flex items-center">
@@ -855,26 +706,23 @@ export default function App() {
                     animateScrollTo(0);
                   }
                 }}
-                className="inline-flex items-baseline gap-3 text-left cursor-pointer group whitespace-nowrap"
+                className="inline-flex items-center gap-3 text-left cursor-pointer group whitespace-nowrap"
               >
-                <span className="font-editorial text-lg sm:text-xl font-semibold tracking-[0.2em] text-[#181A1C] dark:text-[#F2EFE9]">
-                  [BRAND LOGO]
-                </span>
-                <span className="hidden sm:inline-block text-[11px] font-mono tracking-[0.22em] text-[#888E94] group-hover:text-[#C84B31] dark:group-hover:text-[#E57052] transition-colors">
-                  SORA PORTFOLIO
+                <StudioMark
+                  className="w-12 h-12 shrink-0 text-[var(--c-ink)] dark:text-[var(--c-ink)] transition-transform duration-300 group-hover:rotate-[-6deg]"
+                />
+                <span className="font-logo text-xl sm:text-[22px] font-semibold tracking-[0.04em] leading-none text-[var(--c-ink)] dark:text-[var(--c-ink)]">
+                  Sora
                 </span>
               </button>
             </div>
 
             {/* CENTER ZONE: Expanded Chapter Jump Links (No Truncation, Stable Slot Widths Across JA/ZH/EN) */}
-            <nav className="hidden lg:flex items-center justify-center gap-3 xl:gap-6 justify-self-center text-xs font-mono tracking-wider text-[#555B61] dark:text-[#B0A89E]">
+            <nav className="hidden lg:flex items-center justify-center gap-3 xl:gap-6 justify-self-center text-xs font-mono tracking-wider text-[var(--c-ink-2)] dark:text-[var(--c-ink-2)]">
               {[
-                { id: 'main-menu', label: c.nav.menu, num: '00' },
                 { id: 'about', label: c.nav.about, num: '01' },
                 { id: 'works', label: c.nav.works, num: '02' },
-                { id: 'play-games', label: c.nav.playGames, num: '2B' },
-                { id: 'skills', label: c.nav.skills, num: '03' },
-                { id: 'resume', label: c.nav.resume, num: '04' },
+                { id: 'analysis', label: c.nav.analysis, num: '03' },
               ].map((item) => {
                 const isCurrent = activeView === 'main' && activeNavSection === item.id;
                 return (
@@ -884,12 +732,12 @@ export default function App() {
                     onClick={() => scrollToSection(item.id)}
                     className={`group relative h-10 min-w-[82px] xl:min-w-[94px] px-1.5 inline-flex items-center justify-center gap-1.5 transition-colors whitespace-nowrap cursor-pointer ${
                       isCurrent
-                        ? 'text-[#181A1C] dark:text-[#F2EFE9] font-medium'
-                        : 'hover:text-[#181A1C] dark:hover:text-[#F2EFE9]'
+                        ? 'text-[var(--c-ink)] dark:text-[var(--c-ink)] font-medium'
+                        : 'hover:text-[var(--c-ink)] dark:hover:text-[var(--c-ink)]'
                     }`}
                   >
                     <span
-                      className={`text-[10px] text-[#C84B31] dark:text-[#E57052] transition-opacity shrink-0 ${
+                      className={`text-[10px] text-[var(--c-accent)] dark:text-[var(--c-accent)] transition-opacity shrink-0 ${
                         isCurrent ? 'opacity-100' : 'opacity-75 group-hover:opacity-100'
                       }`}
                     >
@@ -906,7 +754,7 @@ export default function App() {
                           damping: 30,
                           mass: 0.6,
                         }}
-                        className="absolute left-2 right-2 bottom-1 h-[1.5px] bg-[#C84B31] dark:bg-[#E57052]"
+                        className="absolute left-2 right-2 bottom-1 h-[1.5px] bg-[var(--c-accent)] dark:bg-[var(--c-accent)]"
                       />
                     )}
                   </button>
@@ -914,10 +762,10 @@ export default function App() {
               })}
             </nav>
 
-            {/* RIGHT ZONE: Language Switcher + Standalone BGM Toggle + Standalone SFX Toggle + Theme Switcher */}
+            {/* 右側：言語・昼夜の切り替えと「設定」（サウンドと配色テーマ） */}
             <div className="justify-self-end flex items-center gap-2 sm:gap-2.5 shrink-0">
               {/* Fixed-Cell Language Switcher */}
-              <div className="grid grid-cols-3 h-8 border border-[#E2E0D8] dark:border-[#2E2924] bg-white/60 dark:bg-[#1B1916]">
+              <div className="grid grid-cols-3 h-8 border border-[var(--c-rule)] dark:border-[var(--c-rule)] bg-white/60 dark:bg-[var(--c-surface)]">
                 {(['ja', 'zh', 'en'] as Locale[]).map((loc) => (
                   <button
                     key={loc}
@@ -928,238 +776,13 @@ export default function App() {
                     }}
                     className={`w-7 sm:w-8 h-full flex items-center justify-center text-[11px] font-mono uppercase transition-colors cursor-pointer ${
                       locale === loc
-                        ? 'bg-[#181A1C] dark:bg-[#F2EFE9] text-[#F7F6F2] dark:text-[#131210] font-medium'
-                        : 'text-[#555B61] dark:text-[#B0A89E] hover:text-[#181A1C] dark:hover:text-[#F2EFE9]'
+                        ? 'bg-[var(--c-ink)] dark:bg-[var(--c-ink)] text-[var(--c-bg)] dark:text-[var(--c-bg)] font-medium'
+                        : 'text-[var(--c-ink-2)] dark:text-[var(--c-ink-2)] hover:text-[var(--c-ink)] dark:hover:text-[var(--c-ink)]'
                     }`}
                   >
                     {loc}
                   </button>
                 ))}
-              </div>
-
-              {/* 1. Standalone Pre-Generated JRPG BGM Toggle Button */}
-              <div className="relative flex items-center">
-                <button
-                  type="button"
-                  onClick={toggleBgm}
-                  aria-label={
-                    soundState.bgmEnabled ? 'Pause JRPG BGM' : 'Play JRPG BGM'
-                  }
-                  aria-pressed={soundState.bgmEnabled}
-                  title={
-                    soundState.bgmEnabled
-                      ? 'JRPG Sanctuary BGM: ON'
-                      : 'JRPG Sanctuary BGM: OFF'
-                  }
-                  className={`relative h-8 min-w-[68px] sm:min-w-[74px] px-2.5 border flex items-center justify-center gap-1.5 text-[10px] font-mono tracking-wider cursor-pointer transition-colors whitespace-nowrap ${
-                    showBgmToast
-                      ? 'border-[#C84B31] dark:border-[#E57052]'
-                      : 'border-[#E2E0D8] dark:border-[#2E2924] hover:border-[#181A1C] dark:hover:border-[#F2EFE9]'
-                  } ${
-                    soundState.bgmEnabled
-                      ? 'text-[#181A1C] dark:text-[#F2EFE9]'
-                      : 'text-[#888E94]'
-                  }`}
-                >
-                  {/* Brief Expanding Pulse Ring on BGM Toggle */}
-                  <AnimatePresence>
-                    {bgmPulseKey > 0 && (
-                      <motion.span
-                        key={`bgm-pulse-${bgmPulseKey}`}
-                        initial={{ opacity: 0.85, scale: 0.92 }}
-                        animate={{ opacity: 0, scale: 1.45 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.48, ease: EASE_OUT_EXPO }}
-                        aria-hidden="true"
-                        className={`pointer-events-none absolute inset-0 border ${
-                          soundState.bgmEnabled
-                            ? 'border-[#C84B31] dark:border-[#E57052]'
-                            : 'border-[#888E94]'
-                        }`}
-                      />
-                    )}
-                  </AnimatePresence>
-
-                  <Music
-                    className={`w-3.5 h-3.5 shrink-0 ${
-                      soundState.bgmEnabled
-                        ? 'text-[#C84B31] dark:text-[#E57052]'
-                        : 'text-[#888E94]'
-                    }`}
-                  />
-                  <span>BGM</span>
-                </button>
-
-                {/* BGM Toggle Toast Indicator */}
-                <AnimatePresence>
-                  {showBgmToast && (
-                    <motion.div
-                      key={`bgm-toast-${bgmPulseKey}`}
-                      role="status"
-                      aria-live="polite"
-                      initial={{ opacity: 0, y: -6, scale: 0.94 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -4, scale: 0.95 }}
-                      transition={{
-                        type: 'spring',
-                        stiffness: 340,
-                        damping: 24,
-                        mass: 0.5,
-                      }}
-                      className="pointer-events-none absolute right-0 top-full mt-2 z-50 px-2.5 py-1.5 bg-[#181A1C] dark:bg-[#F2EFE9] text-[#F7F6F2] dark:text-[#131210] border border-[#C84B31] dark:border-[#E57052] shadow-md flex items-center gap-2 whitespace-nowrap"
-                    >
-                      {soundState.bgmEnabled ? (
-                        <span
-                          aria-hidden="true"
-                          className="inline-flex items-end gap-[2px] h-2.5"
-                        >
-                          <motion.span
-                            animate={{ scaleY: [0.4, 1, 0.5] }}
-                            transition={{ duration: 0.45, repeat: Infinity }}
-                            className="w-[2px] h-full bg-[#E57052] dark:bg-[#C84B31] origin-bottom"
-                          />
-                          <motion.span
-                            animate={{ scaleY: [1, 0.35, 1] }}
-                            transition={{ duration: 0.45, repeat: Infinity }}
-                            className="w-[2px] h-full bg-[#E57052] dark:bg-[#C84B31] origin-bottom"
-                          />
-                          <motion.span
-                            animate={{ scaleY: [0.55, 0.95, 0.4] }}
-                            transition={{ duration: 0.45, repeat: Infinity }}
-                            className="w-[2px] h-full bg-[#E57052] dark:bg-[#C84B31] origin-bottom"
-                          />
-                        </span>
-                      ) : (
-                        <span
-                          aria-hidden="true"
-                          className="w-2 h-[1.5px] bg-[#888E94]"
-                        />
-                      )}
-
-                      <span className="text-[10px] font-mono tracking-[0.14em]">
-                        {soundState.bgmEnabled
-                          ? locale === 'ja'
-                            ? 'BGM ON · JRPG 聖域の室内楽'
-                            : locale === 'zh'
-                            ? 'BGM ON · 日式RPG原声音乐播放中'
-                            : 'BGM ON · JRPG SANCTUARY OST'
-                          : locale === 'ja'
-                          ? 'BGM OFF · 背景音楽停止'
-                          : locale === 'zh'
-                          ? 'BGM OFF · 背景音乐已关闭'
-                          : 'BGM OFF · PAUSED'}
-                      </span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* 2. Standalone Paper & Page-Turn Foley SFX Button */}
-              <div className="relative flex items-center">
-                <button
-                  type="button"
-                  onClick={toggleSfx}
-                  aria-label={
-                    soundState.sfxEnabled
-                      ? 'Mute paper & page-turn sound effects'
-                      : 'Unmute paper & page-turn sound effects'
-                  }
-                  aria-pressed={soundState.sfxEnabled}
-                  title={
-                    soundState.sfxEnabled
-                      ? 'Paper & Page-Turn Foley SFX: ON'
-                      : 'Paper & Page-Turn Foley SFX: OFF'
-                  }
-                  className={`relative h-8 min-w-[68px] sm:min-w-[74px] px-2.5 border flex items-center justify-center gap-1.5 text-[10px] font-mono tracking-wider transition-colors cursor-pointer whitespace-nowrap ${
-                    showSfxToast
-                      ? 'border-[#C84B31] dark:border-[#E57052]'
-                      : 'border-[#E2E0D8] dark:border-[#2E2924] hover:border-[#181A1C] dark:hover:border-[#F2EFE9]'
-                  } ${
-                    soundState.sfxEnabled
-                      ? 'text-[#181A1C] dark:text-[#F2EFE9]'
-                      : 'text-[#888E94]'
-                  }`}
-                >
-                  {/* Brief Expanding Pulse Ring on SFX Toggle */}
-                  <AnimatePresence>
-                    {sfxPulseKey > 0 && (
-                      <motion.span
-                        key={`sfx-pulse-${sfxPulseKey}`}
-                        initial={{ opacity: 0.85, scale: 0.92 }}
-                        animate={{ opacity: 0, scale: 1.48 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.48, ease: EASE_OUT_EXPO }}
-                        aria-hidden="true"
-                        className={`pointer-events-none absolute inset-0 border ${
-                          soundState.sfxEnabled
-                            ? 'border-[#C84B31] dark:border-[#E57052]'
-                            : 'border-[#888E94]'
-                        }`}
-                      />
-                    )}
-                  </AnimatePresence>
-
-                  <AnimatePresence mode="wait" initial={false}>
-                    <motion.span
-                      key={soundState.sfxEnabled ? 'sfx-on-icon' : 'sfx-off-icon'}
-                      initial={{ scale: 0.65, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0.65, opacity: 0 }}
-                      transition={{ duration: 0.18, ease: EASE_OUT_EXPO }}
-                      className="block shrink-0"
-                    >
-                      {soundState.sfxEnabled ? (
-                        <Volume2 className="w-3.5 h-3.5 text-[#C84B31] dark:text-[#E57052]" />
-                      ) : (
-                        <VolumeX className="w-3.5 h-3.5" />
-                      )}
-                    </motion.span>
-                  </AnimatePresence>
-                  <span>SFX</span>
-                </button>
-
-                {/* Brief Editorial Text Toast Indicator Anchored Below SFX Button */}
-                <AnimatePresence>
-                  {showSfxToast && (
-                    <motion.div
-                      key={`sfx-toast-${sfxPulseKey}`}
-                      role="status"
-                      aria-live="polite"
-                      initial={{ opacity: 0, y: -6, scale: 0.94 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -4, scale: 0.95 }}
-                      transition={{
-                        type: 'spring',
-                        stiffness: 340,
-                        damping: 24,
-                        mass: 0.5,
-                      }}
-                      className="pointer-events-none absolute right-0 top-full mt-2 z-50 px-2.5 py-1.5 bg-[#181A1C] dark:bg-[#F2EFE9] text-[#F7F6F2] dark:text-[#131210] border border-[#C84B31] dark:border-[#E57052] shadow-md flex items-center gap-2 whitespace-nowrap"
-                    >
-                      <span
-                        aria-hidden="true"
-                        className={`w-2 h-2 rounded-full ${
-                          soundState.sfxEnabled
-                            ? 'bg-[#E57052] dark:bg-[#C84B31]'
-                            : 'bg-[#888E94]'
-                        }`}
-                      />
-                      <span className="text-[10px] font-mono tracking-[0.14em]">
-                        {soundState.sfxEnabled
-                          ? locale === 'ja'
-                            ? 'SFX ON · 紙質＆ページめくり音'
-                            : locale === 'zh'
-                            ? 'SFX ON · 设定集纸质翻页音效'
-                            : 'SFX ON · PAPER & PAGE FOLEY'
-                          : locale === 'ja'
-                          ? 'SFX OFF · 効果音ミュート'
-                          : locale === 'zh'
-                          ? 'SFX OFF · 翻页音效已静音'
-                          : 'SFX OFF · FOLEY MUTED'}
-                      </span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
 
               {/* 3. Smooth Top-to-Bottom Theme Switcher */}
@@ -1168,7 +791,7 @@ export default function App() {
                 onClick={handleToggleTheme}
                 aria-label="Toggle Light/Dark Theme"
                 title="Switch Day Print / Night Archive Edition"
-                className="w-8 h-8 flex items-center justify-center border border-[#E2E0D8] dark:border-[#2E2924] hover:border-[#181A1C] dark:hover:border-[#F2EFE9] text-[#181A1C] dark:text-[#F2EFE9] transition-colors cursor-pointer overflow-hidden shrink-0"
+                className="w-8 h-8 flex items-center justify-center border border-[var(--c-rule)] dark:border-[var(--c-rule)] hover:border-[var(--c-ink)] dark:hover:border-[var(--c-ink)] text-[var(--c-ink)] dark:text-[var(--c-ink)] transition-colors cursor-pointer overflow-hidden shrink-0"
               >
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
@@ -1178,10 +801,20 @@ export default function App() {
                     exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
                     transition={{ duration: 0.25, ease: EASE_OUT_EXPO }}
                   >
-                    {darkMode ? <Sun className="w-3.5 h-3.5 text-[#D4AF7A]" /> : <Moon className="w-3.5 h-3.5" />}
+                    {darkMode ? <Sun className="w-3.5 h-3.5 text-[var(--c-accent)]" /> : <Moon className="w-3.5 h-3.5" />}
                   </motion.div>
                 </AnimatePresence>
               </button>
+
+              <SettingsMenu
+                locale={locale}
+                darkMode={darkMode}
+                onToggleTheme={handleToggleTheme}
+                bgmEnabled={soundState.bgmEnabled}
+                sfxEnabled={soundState.sfxEnabled}
+                onToggleBgm={toggleBgm}
+                onToggleSfx={toggleSfx}
+              />
             </div>
           </div>
         </header>
@@ -1202,30 +835,43 @@ export default function App() {
               project={selectedProject}
               locale={locale}
               githubUsername={GITHUB_USERNAME}
-              initialStageMode={subPageStageMode}
-              onBackToMain={() => {
-                setActiveView('main');
-              }}
-              onSelectProject={(proj) => openSpecPage(proj, 'video')}
+              startPlaying={startPlaying}
+              onBackToMain={() => backToMainAt('works')}
+              onSelectProject={(proj) => openSpecPage(proj)}
             />
           </motion.div>
         )}
 
-        {activeView === 'resume-detail' && (
+        {activeView === 'profile-detail' && (
           <motion.div
-            key="resume-detail"
+            key="profile-detail"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.45, ease: EASE_OUT_EXPO }}
             className="relative z-10 pt-16 will-change-transform"
           >
-            <DesignNotesPage
+            <ProfileDetailPage
               locale={locale}
-              initialSubTab={resumeSubTab}
-              onBackToMain={() => {
-                setActiveView('main');
-              }}
+              initialTopic={profileTopic}
+              onBackToMain={() => backToMainAt('about')}
+            />
+          </motion.div>
+        )}
+
+        {activeView === 'analysis-detail' && (
+          <motion.div
+            key="analysis-detail"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.45, ease: EASE_OUT_EXPO }}
+            className="relative z-10 pt-16 will-change-transform"
+          >
+            <GameAnalysisPage
+              locale={locale}
+              focusId={analysisFocusId}
+              onBackToMain={() => backToMainAt('analysis')}
             />
           </motion.div>
         )}
@@ -1240,95 +886,88 @@ export default function App() {
             className="relative z-10"
           >
             {/* =========================================================
-                PAGE 01 (FIRST SCREEN): FULL-VIEWPORT NON-INTERACTIVE LOGO & SHOWREEL
-                (100vh full-bleed simultaneous crossfade showreel + studio logo, zero flash)
+                PAGE 01 (FIRST SCREEN): 表紙。オリジナルのアニメーション背景に、工作室のマークと名前
                ========================================================= */}
             <section
               id="logo-stage"
-              className="relative w-full h-screen bg-[#131210] flex flex-col items-center justify-center select-none overflow-hidden pointer-events-none"
+              className="relative w-full h-screen bg-[var(--cover-bg)] flex flex-col items-center justify-center select-none overflow-hidden pointer-events-none"
             >
-              {/* Full-Screen Simultaneous Crossfade Works Showreel Background (Never flashes white/blank) */}
+              {/* 背景：コードで描くオリジナルのアニメーション（等高線・六角形・光の粒） */}
               <motion.div
-                style={{
-                  y: coverBgY,
-                  scale: coverBgScale,
-                }}
+                style={{ y: coverBgY, scale: coverBgScale }}
                 className="absolute inset-0 w-full h-full will-change-transform"
               >
-                {PROJECTS_DATA.map((proj, idx) => {
-                  const isActive = idx === reelIdx;
-                  return (
-                    <motion.img
-                      key={proj.id}
-                      src={proj.image}
-                      alt=""
-                      referrerPolicy="no-referrer"
-                      initial={false}
-                      animate={{
-                        opacity: isActive ? 1 : 0,
-                        scale: isActive ? 1 : 1.06,
-                      }}
-                      transition={{
-                        opacity: { duration: 1.4, ease: 'easeInOut' },
-                        scale: { duration: 3.6, ease: 'easeOut' },
-                      }}
-                      className="absolute inset-0 w-full h-full object-cover will-change-transform"
-                    />
-                  );
-                })}
+                <CoverBackdrop />
               </motion.div>
 
-              {/* Balanced Editorial Vignette Scrim */}
-              <div className="
-                absolute inset-0
-                bg-gradient-to-b from-[#131210]/50 via-[#131210]/40 to-[#131210]/75
-              " />
+              {/* 中央をほんのり明るく、四隅を沈める */}
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,color-mix(in_srgb,var(--cover-bg)_85%,transparent)_0%,color-mix(in_srgb,var(--cover-bg)_45%,transparent)_35%,transparent_70%)]" />
 
-              {/* Centered Studio Emblem & Serif Display Logo Only (Minimal Text, Zero Interaction) */}
+              {/* 設定資料集の表紙のようなトンボ（四隅の細い L 字） */}
+              <div className="absolute inset-5 sm:inset-8 z-10 text-[var(--cover-ink)]/25">
+                <span className="absolute left-0 top-0 w-6 h-6 border-l border-t border-current" />
+                <span className="absolute right-0 top-0 w-6 h-6 border-r border-t border-current" />
+                <span className="absolute left-0 bottom-0 w-6 h-6 border-l border-b border-current" />
+                <span className="absolute right-0 bottom-0 w-6 h-6 border-r border-b border-current" />
+              </div>
+
+              {/* マークと名前だけを中央に */}
               <motion.div
                 style={{
                   y: coverLogoY,
                   scale: coverLogoScale,
                   opacity: coverLogoOpacity,
                 }}
-                className="relative z-20 flex flex-col items-center text-center text-white px-6 will-change-transform"
+                className="relative z-20 flex flex-col items-center text-center text-[var(--cover-ink)] px-6 will-change-transform"
               >
-                <div className="flex flex-col items-center">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 mb-6 text-white/90">
-                    <svg viewBox="0 0 120 120" className="w-full h-full">
-                      <polygon
-                        points="60,8 106,34 106,86 60,112 14,86 14,34"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      />
-                      <path
-                        d="M60 24 L67 60 L60 96 L53 60 Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  </div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1.1, ease: EASE_OUT_EXPO }}
+                >
+                  <StudioMark className="w-32 h-32 sm:w-44 sm:h-44 lg:w-52 lg:h-52 text-[var(--cover-ink)]" title="Sora Studio" />
+                </motion.div>
 
-                  <h1 className="font-editorial text-4xl sm:text-7xl font-semibold tracking-[0.22em] pl-[0.22em]">
-                    SORA PORTFOLIO
-                  </h1>
-                  <p className="mt-4 text-xs sm:text-sm font-mono tracking-[0.28em] text-white/80 pl-[0.28em]">
-                    {c.titleMain}
-                  </p>
-                </div>
+                {/* ロゴタイプ：大きな SORA と、字間を広げた STUDIO */}
+                <motion.h1
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1.1, delay: 0.25, ease: EASE_OUT_EXPO }}
+                  className="mt-8 sm:mt-10 font-logo flex flex-col items-center"
+                  aria-label="Sora Studio"
+                >
+                  <span className="block text-6xl sm:text-8xl lg:text-[7.5rem] font-semibold leading-none tracking-[0.12em] pl-[0.12em]">
+                    SORA
+                  </span>
+                  <span className="mt-4 sm:mt-5 flex items-center gap-4 sm:gap-5 text-xs sm:text-base font-light tracking-[0.75em] pl-[0.75em] text-[var(--cover-ink)]/75">
+                    <motion.i
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 1.2, delay: 0.5, ease: EASE_OUT_EXPO }}
+                      className="block h-px w-8 sm:w-14 bg-[var(--cover-ink)]/35 origin-right"
+                    />
+                    STUDIO
+                    <motion.i
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 1.2, delay: 0.5, ease: EASE_OUT_EXPO }}
+                      className="block h-px w-8 sm:w-14 bg-[var(--cover-accent)] origin-left"
+                    />
+                  </span>
+                </motion.h1>
               </motion.div>
 
-              {/* Subtle Passive Scroll Down Cue */}
+              {/* スクロールの合図 */}
               <motion.div
                 style={{ opacity: coverCueOpacity }}
                 animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute bottom-8 z-20 text-white/70"
+                className="absolute bottom-10 z-20 text-[var(--cover-ink)]/60"
               >
                 <ChevronDown className="w-5 h-5" />
               </motion.div>
 
-              {/* Bottom Scanline-Wipe Seam */}
+              {/* 下端のライン */}
               <motion.div
                 style={{ scaleX: coverLaserScaleX }}
                 className="absolute bottom-0 left-0 right-0 h-[2px] z-20 scanline-laser-beam will-change-transform"
@@ -1336,242 +975,57 @@ export default function App() {
             </section>
 
             {/* =========================================================
-                PAGE 02 (SECOND SCREEN ON SCROLL DOWN):
-                EDITORIAL ARTBOOK TABLE OF CONTENTS / MAIN MENU SPREAD (目次)
-               ========================================================= */}
-            <section
-              id="main-menu"
-              className="relative min-h-screen flex flex-col justify-between pt-28 pb-16 sm:pb-24 px-6 sm:px-12 max-w-6xl mx-auto select-none"
-            >
-              {/* Top Archive Folio Header Line (Expanded Across JA/ZH/EN) */}
-              <div className="min-h-[2.75rem] flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-[#E2E0D8] dark:border-[#2E2924] text-[11px] font-mono tracking-[0.2em] text-[#888E94]">
-                <span>{c.editionTag}</span>
-                <span className="shrink-0">FOLIO // 00 — {c.tocSub}</span>
-              </div>
-
-              {/* Asymmetric 12-Column Editorial Table of Contents Spread (Locked Row Geometry) */}
-              <div className="my-auto py-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-                {/* Left 5 Cols: Monumental Editorial Title & Author Attribution */}
-                <div className="lg:col-span-5 flex flex-col justify-between">
-                  <div>
-                    <div className="text-xs font-mono tracking-[0.24em] text-[#C84B31] dark:text-[#E57052] mb-3 editorial-callout-line">
-                      INDEX & MAIN MENU
-                    </div>
-                    <h2 className="font-editorial text-5xl sm:text-7xl font-semibold tracking-tight leading-[0.98]">
-                      {c.tocHeading}
-                    </h2>
-                    <p className="mt-4 font-editorial text-xl sm:text-2xl text-[#555B61] dark:text-[#B0A89E]">
-                      {c.titleSubName} — {c.titleMain}
-                    </p>
-                  </div>
-
-                  <div className="mt-10 pt-6 border-t border-[#E2E0D8] dark:border-[#2E2924] min-h-[4.5rem] flex flex-col justify-between gap-2">
-                    <div className="text-[11px] font-mono tracking-[0.18em] text-[#888E94]">
-                      {c.roleSubtitle}
-                    </div>
-                    <p className="text-xs font-mono text-[#888E94]">
-                      * {c.tocNote}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Right 7 Cols: Editorial Chapter Index Rows with Locked Row Height & Expanded Text */}
-                <div className="lg:col-span-7 border-t border-[#181A1C] dark:border-[#F2EFE9]">
-                  {c.menuItems.map((item, idx) => {
-                    const isSelected = activeMenuIdx === idx;
-
-                    return (
-                      <motion.button
-                        key={item.id}
-                        type="button"
-                        initial={false}
-                        animate={{
-                          x: isSelected ? 6 : 0,
-                        }}
-                        transition={{
-                          type: 'spring',
-                          stiffness: 240,
-                          damping: 22,
-                        }}
-                        onMouseEnter={() => {
-                          if (activeMenuIdx !== idx) {
-                            soundFX.playBlip(580 + idx * 30);
-                            setActiveMenuIdx(idx);
-                          }
-                        }}
-                        onClick={() => scrollToSection(item.id)}
-                        className={`w-full min-h-[76px] sm:min-h-[82px] py-3 px-4 border-b border-[#E2E0D8] dark:border-[#2E2924] grid grid-cols-12 items-center gap-3 text-left transition-colors duration-200 cursor-pointer ${
-                          isSelected
-                            ? 'bg-[#181A1C] dark:bg-[#F2EFE9] text-[#F7F6F2] dark:text-[#131210]'
-                            : 'hover:bg-white/70 dark:hover:bg-[#1B1916]'
-                        }`}
-                      >
-                        <div className="col-span-7 sm:col-span-6 flex items-baseline gap-3 min-w-0">
-                          <span
-                            className={`text-xs font-mono tracking-widest shrink-0 ${
-                              isSelected
-                                ? 'text-[#E57052] dark:text-[#C84B31]'
-                                : 'text-[#C84B31] dark:text-[#E57052]'
-                            }`}
-                          >
-                            {item.code}
-                          </span>
-                          <span className="font-editorial text-xl sm:text-2xl lg:text-[26px] font-semibold tracking-wide">
-                            {item.cmd}
-                          </span>
-                        </div>
-
-                        {/* Dotted Editorial Leader Line (Locked Column Span) */}
-                        <div
-                          className={`hidden sm:block sm:col-span-2 border-b border-dotted ${
-                            isSelected
-                              ? 'border-[#F7F6F2]/30 dark:border-[#131210]/30'
-                              : 'border-[#888E94]/40'
-                          }`}
-                        />
-
-                        <div className="col-span-5 sm:col-span-4 flex items-baseline justify-end gap-3 min-w-0">
-                          <span
-                            className={`text-xs sm:text-sm text-right ${
-                              isSelected
-                                ? 'text-[#F7F6F2]/90 dark:text-[#131210]/90'
-                                : 'text-[#555B61] dark:text-[#B0A89E]'
-                            }`}
-                          >
-                            {item.sub}
-                          </span>
-                          <span
-                            className={`text-xs font-mono tabular-nums w-9 text-right shrink-0 ${
-                              isSelected
-                                ? 'text-[#E57052] dark:text-[#C84B31]'
-                                : 'text-[#888E94]'
-                            }`}
-                          >
-                            {item.page}
-                          </span>
-                        </div>
-                      </motion.button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Bottom Folio Marginalia */}
-              <div className="h-8 flex items-center justify-between text-[11px] font-mono tracking-[0.18em] text-[#888E94]">
-                <span>KUROGANE ARCHIVE PRESS</span>
-                <button
-                  type="button"
-                  onClick={() => scrollToSection('about')}
-                  className="inline-flex items-center gap-2 hover:text-[#C84B31] transition-colors cursor-pointer"
-                >
-                  <span>TURN TO CHAPTER 01</span>
-                  <ChevronDown className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </section>
-
-            {/* =========================================================
-                CHAPTER 00B. QUICK GUIDE
-                (Inspired by haru2401game.github.io/portfolio/#quick-guide)
-               ========================================================= */}
-            <QuickGuideSection
-              locale={locale}
-              onOpenSpec={openSpecPage}
-            />
-
-            {/* =========================================================
-                CHAPTER 01. 人物设定与企划哲学 (EDITORIAL FEATURE SPREAD)
-                Oversized Serif Headline + Left Marginalia Dossier + Right Annotated Pillars
+                CHAPTER 01. PROFILE
+                上段：見出し（左）＋基本情報（右） / 下段：4枚のカード（クリックで専用ページへ）
                ========================================================= */}
             <section
               id="about"
-              className="py-28 lg:py-40 border-t border-[#E2E0D8] dark:border-[#2E2924]"
+              className="lg:min-h-screen flex items-center py-20 lg:py-24 border-t border-[var(--c-rule)] dark:border-[var(--c-rule)]"
             >
-              <div className="max-w-6xl mx-auto px-6 sm:px-12">
-                {/* Chapter Header & Oversized Display Title (Expanded Multi-Locale Height) */}
-                <motion.div
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: 0.85, ease: EASE_OUT_EXPO }}
-                  className="max-w-4xl mb-20"
-                >
-                  <div className="text-xs font-mono tracking-[0.24em] text-[#C84B31] dark:text-[#E57052] mb-4 editorial-callout-line">
-                    {c.aboutChapter}
-                  </div>
-                  <h2 className="font-editorial text-3xl sm:text-5xl lg:text-[50px] font-semibold tracking-tight leading-[1.18] min-h-[2.36em]">
-                    {c.aboutTitle}
-                  </h2>
-                  <p className="mt-6 text-base sm:text-lg text-[#555B61] dark:text-[#B0A89E] leading-relaxed max-w-3xl min-h-[5.25rem]">
-                    {c.aboutLead}
-                  </p>
-                </motion.div>
+              <div className="w-full max-w-6xl mx-auto px-6 sm:px-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-end">
+                  <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.25 }}
+                    transition={{ duration: 0.85, ease: EASE_OUT_EXPO }}
+                    className="lg:col-span-7"
+                  >
+                    <div className="text-xs font-mono tracking-[0.24em] text-[var(--c-accent)] dark:text-[var(--c-accent)] mb-4 editorial-callout-line">
+                      {c.aboutChapter}
+                    </div>
+                    <h2 className="font-editorial text-3xl sm:text-4xl lg:text-[36px] font-semibold tracking-tight leading-[1.25]">
+                      {c.aboutTitle}
+                    </h2>
+                    <p className="mt-5 text-sm sm:text-base text-[var(--c-ink-2)] dark:text-[var(--c-ink-2)] leading-relaxed">
+                      {c.aboutLead}
+                    </p>
+                  </motion.div>
 
-                {/* 12-Column Annotated Spread: 4-Col Marginalia Dossier + 8-Col Design Notes */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 pt-12 border-t border-[#181A1C] dark:border-[#F2EFE9]">
-                  {/* Left 4 Columns: Marginalia Author Dossier (人物設定・基本仕様) */}
-                  <motion.aside
+                  {/* 基本情報 */}
+                  <motion.dl
                     initial={{ opacity: 0, y: 32 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.8, ease: EASE_OUT_EXPO }}
-                    className="lg:col-span-4 space-y-6"
+                    transition={{ duration: 0.8, delay: 0.08, ease: EASE_OUT_EXPO }}
+                    className="lg:col-span-5 grid grid-cols-3 gap-x-5 border-t border-[var(--c-rule)] dark:border-[var(--c-rule)]"
                   >
-                    <div className="text-xs font-mono tracking-[0.2em] text-[#C84B31] dark:text-[#E57052]">
-                      ── {c.aboutMarginLabel}
-                    </div>
-
-                    <div className="border-t border-[#E2E0D8] dark:border-[#2E2924]">
-                      {c.profileFacts.map((fact, idx) => (
-                        <div
-                          key={idx}
-                          className="min-h-[74px] py-3 border-b border-[#E2E0D8] dark:border-[#2E2924] flex flex-col justify-center gap-1"
-                        >
-                          <span className="text-[11px] font-mono tracking-wider text-[#888E94]">
-                            0{idx + 1} / {fact.label}
-                          </span>
-                          <span className="text-sm sm:text-base font-medium">
-                            {fact.value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.aside>
-
-                  {/* Right 8 Columns: 3 Annotated Design Philosophy Notes */}
-                  <div className="lg:col-span-8 divide-y divide-[#E2E0D8] dark:divide-[#2E2924]">
-                    {c.aboutAnnotations.map((note, idx) => (
-                      <motion.div
-                        key={note.num}
-                        initial={{ opacity: 0, y: 36 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.25 }}
-                        transition={{
-                          duration: 0.8,
-                          delay: idx * 0.1,
-                          ease: EASE_OUT_EXPO,
-                        }}
-                        className="py-7 first:pt-0 last:pb-0 min-h-[168px] grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-8 items-start"
+                    {c.profileFacts.map((fact, idx) => (
+                      <div
+                        key={idx}
+                        className={`py-3.5 border-b border-[var(--c-rule)] dark:border-[var(--c-rule)] flex flex-col gap-1 ${idx === c.profileFacts.length - 1 ? 'col-span-3' : ''}`}
                       >
-                        <div className="sm:col-span-3">
-                          <span className="text-xs font-mono tracking-[0.2em] text-[#C84B31] dark:text-[#E57052]">
-                            [{note.num}]
-                          </span>
-                        </div>
-                        <div className="sm:col-span-9 min-w-0">
-                          <h3 className="font-editorial text-xl sm:text-2xl font-semibold tracking-tight leading-[1.25] min-h-[1.3em] mb-2.5">
-                            {note.title}
-                          </h3>
-                          <p className="text-sm sm:text-base text-[#555B61] dark:text-[#B0A89E] leading-relaxed min-h-[4.5rem]">
-                            {note.desc}
-                          </p>
-                          <div className="mt-3 text-[11px] font-mono tracking-[0.16em] text-[#888E94]">
-                            ↳ {note.caption}
-                          </div>
-                        </div>
-                      </motion.div>
+                        <dt className="text-[11px] font-mono tracking-wider text-[var(--c-ink-3)]">
+                          0{idx + 1} / {fact.label}
+                        </dt>
+                        <dd className="text-sm font-medium">{fact.value}</dd>
+                      </div>
                     ))}
-                  </div>
+                  </motion.dl>
+                </div>
+
+                <div className="mt-12 pt-10 rule-top">
+                  <ProfileCards locale={locale} onOpenTopic={openProfilePage} />
                 </div>
               </div>
             </section>
@@ -1582,7 +1036,7 @@ export default function App() {
                ========================================================= */}
             <section
               id="works"
-              className="py-28 lg:py-40 border-t border-[#E2E0D8] dark:border-[#2E2924]"
+              className="py-28 lg:py-40 border-t border-[var(--c-rule)] dark:border-[var(--c-rule)]"
             >
               <div className="max-w-6xl mx-auto px-6 sm:px-12">
                 {/* Chapter Header (Expanded Text & Stable Button Width) */}
@@ -1591,28 +1045,19 @@ export default function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.85, ease: EASE_OUT_EXPO }}
-                  className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-24 pb-10 border-b border-[#181A1C] dark:border-[#F2EFE9]"
+                  className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-24 pb-10 rule-bottom"
                 >
                   <div className="max-w-3xl min-w-0">
-                    <div className="text-xs font-mono tracking-[0.24em] text-[#C84B31] dark:text-[#E57052] mb-4 editorial-callout-line">
+                    <div className="text-xs font-mono tracking-[0.24em] text-[var(--c-accent)] dark:text-[var(--c-accent)] mb-4 editorial-callout-line">
                       {c.worksChapter}
                     </div>
                     <h2 className="font-editorial text-3xl sm:text-5xl lg:text-[54px] font-semibold tracking-tight leading-[1.12] min-h-[1.15em]">
                       {c.worksTitle}
                     </h2>
-                    <p className="mt-5 text-base sm:text-lg text-[#555B61] dark:text-[#B0A89E] leading-relaxed min-h-[3.5rem]">
+                    <p className="mt-5 text-base sm:text-lg text-[var(--c-ink-2)] dark:text-[var(--c-ink-2)] leading-relaxed min-h-[3.5rem]">
                       {c.worksLead}
                     </p>
                   </div>
-
-                  <button
-                    type="button"
-                    onClick={() => openResumePage('otherWorks')}
-                    className="inline-flex items-center justify-between gap-2.5 h-11 min-w-[248px] px-5 text-xs font-mono tracking-wider btn-3d-secondary self-start lg:self-auto cursor-pointer shrink-0 whitespace-nowrap"
-                  >
-                    <span>{c.moreWorksBtn}</span>
-                    <ArrowRight className="w-3.5 h-3.5 shrink-0" />
-                  </button>
                 </motion.div>
 
                 {/* Full-Spread Annotated Artbook Plates with Multi-Plane Parallax */}
@@ -1625,6 +1070,7 @@ export default function App() {
                       locale={locale}
                       platePrefix={c.platePrefix}
                       annotationHeader={c.annotationHeader}
+                      roleLabel={c.roleLabel}
                       openSpecLabel={c.openSpec}
                       playNowLabel={c.playNowBtn}
                       onOpenSpec={openSpecPage}
@@ -1635,186 +1081,12 @@ export default function App() {
             </section>
 
             {/* =========================================================
-                CHAPTER 02B. TRY ONLINE (#play-games)
-                (Inspired by haru2401game.github.io/portfolio/#play-games)
+                CHAPTER 03. ゲーム分析・研究 (#analysis)
                ========================================================= */}
-            <PlayGamesPortalSection locale={locale} />
+            <GameAnalysisSection locale={locale} onOpen={openAnalysisPage} />
 
             {/* =========================================================
-                CHAPTER 03. 核心策划与工程指标 (ANNOTATED SPECIFICATION TABLE)
-               ========================================================= */}
-            <section
-              id="skills"
-              className="py-28 lg:py-40 border-t border-[#E2E0D8] dark:border-[#2E2924]"
-            >
-              <div className="max-w-6xl mx-auto px-6 sm:px-12">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-                  {/* Left 4 Columns: Chapter Title & Marginalia Commentary */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 36 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.25 }}
-                    transition={{ duration: 0.85, ease: EASE_OUT_EXPO }}
-                    className="lg:col-span-4"
-                  >
-                    <div className="text-xs font-mono tracking-[0.24em] text-[#C84B31] dark:text-[#E57052] mb-4 editorial-callout-line">
-                      {c.skillsChapter}
-                    </div>
-                    <h2 className="font-editorial text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.15] min-h-[2.3em]">
-                      {c.skillsTitle}
-                    </h2>
-                    <p className="mt-5 text-sm text-[#555B61] dark:text-[#B0A89E] leading-relaxed min-h-[4.5rem]">
-                      {c.skillsMarginNote}
-                    </p>
-                  </motion.div>
-
-                  {/* Right 8 Columns: Annotated Parameter Index */}
-                  <div className="lg:col-span-8 border-t border-[#181A1C] dark:border-[#F2EFE9] divide-y divide-[#E2E0D8] dark:divide-[#2E2924]">
-                    {CORE_SKILLS.map((sk, idx) => (
-                      <motion.div
-                        key={sk.code}
-                        initial={{ opacity: 0, y: 32 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.25 }}
-                        transition={{
-                          duration: 0.8,
-                          delay: idx * 0.08,
-                          ease: EASE_OUT_EXPO,
-                        }}
-                        className="min-h-[124px] py-5 flex flex-col justify-between gap-2"
-                      >
-                        <div className="flex items-baseline justify-between gap-4">
-                          <div className="flex items-baseline gap-3 min-w-0">
-                            <span className="text-xs font-mono text-[#C84B31] dark:text-[#E57052] shrink-0">
-                              [{sk.code}]
-                            </span>
-                            <h3 className="font-editorial text-xl sm:text-2xl font-semibold tracking-tight">
-                              {sk.name[locale]}
-                            </h3>
-                          </div>
-                          <span className="text-lg font-mono tabular-nums font-medium text-[#C84B31] dark:text-[#E57052] shrink-0">
-                            {{ja:'制作実例',zh:'作品实例',en:'Project example'}[locale]}
-                          </span>
-                        </div>
-
-                        <p className="text-xs sm:text-sm font-mono text-[#555B61] dark:text-[#B0A89E]">
-                          ↳ {sk.annotation[locale]}
-                        </p>
-
-                        <div className="w-full h-[3px] bg-[#E2E0D8] dark:bg-[#2E2924] overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: sk.pct }}
-                            viewport={{ once: true }}
-                            transition={{
-                              duration: 1.15,
-                              delay: idx * 0.08,
-                              ease: EASE_OUT_EXPO,
-                            }}
-                            className="h-full bg-[#181A1C] dark:bg-[#F2EFE9]"
-                          />
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* =========================================================
-                CHAPTER 03B. WHAT I CAN DO IN GAME PRODUCTION (#what-i-can-do)
-                (Inspired by haru2401game.github.io/portfolio/#what-i-can-do)
-               ========================================================= */}
-            <WhatICanDoSection locale={locale} />
-
-            {/* =========================================================
-                CHAPTER 04. 游戏履历与拆解笔记 (EDITORIAL ARCHIVE INDEX)
-               ========================================================= */}
-            <section
-              id="resume"
-              className="py-28 lg:py-40 border-t border-[#E2E0D8] dark:border-[#2E2924]"
-            >
-              <div className="max-w-6xl mx-auto px-6 sm:px-12">
-                <motion.div
-                  initial={{ opacity: 0, y: 36 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: 0.85, ease: EASE_OUT_EXPO }}
-                  className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 pb-8 border-b border-[#181A1C] dark:border-[#F2EFE9]"
-                >
-                  <div className="min-w-0">
-                    <div className="text-xs font-mono tracking-[0.24em] text-[#C84B31] dark:text-[#E57052] mb-4 editorial-callout-line">
-                      {c.gamesChapter}
-                    </div>
-                    <h2 className="font-editorial text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.12] min-h-[1.15em]">
-                      {c.gamesTitle}
-                    </h2>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => openResumePage('playHistory')}
-                    className="inline-flex items-center justify-between gap-2.5 h-11 min-w-[248px] px-5 text-xs font-mono tracking-wider btn-3d-secondary self-start lg:self-auto cursor-pointer shrink-0 whitespace-nowrap"
-                  >
-                    <span>{c.gamesMoreBtn}</span>
-                    <ArrowRight className="w-3.5 h-3.5 shrink-0" />
-                  </button>
-                </motion.div>
-
-                {/* Annotated Editorial Deconstruction Rows */}
-                <div className="divide-y divide-[#E2E0D8] dark:divide-[#2E2924] border-b border-[#E2E0D8] dark:border-[#2E2924]">
-                  {DESIGN_NOTES.slice(0, 4).map((g, idx) => (
-                    <motion.div
-                      key={g.id}
-                      initial={{ opacity: 0, y: 28 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.2 }}
-                      transition={{
-                        duration: 0.75,
-                        delay: idx * 0.07,
-                        ease: EASE_OUT_EXPO,
-                      }}
-                      whileHover={{ x: 6 }}
-                      onMouseEnter={() => soundFX.playBlip(560)}
-                      onClick={() => openResumePage('playHistory')}
-                      className="group min-h-[112px] py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center hover:bg-white/60 dark:hover:bg-[#1B1916] px-4 -mx-4 transition-colors cursor-pointer"
-                    >
-                      <div className="lg:col-span-2 flex items-center gap-3 text-xs font-mono text-[#888E94]">
-                        <span className="text-[#C84B31] dark:text-[#E57052]">
-                          LOG 0{idx + 1}
-                        </span>
-                        <span>·</span>
-                        <span className="inline-flex items-center gap-1 tabular-nums">
-                          <Clock className="w-3 h-3" />
-                          {g.badge}
-                        </span>
-                      </div>
-
-                      <div className="lg:col-span-4 min-w-0">
-                        <h3 className="font-editorial text-2xl sm:text-3xl font-semibold tracking-tight group-hover:text-[#C84B31] dark:group-hover:text-[#E57052] transition-colors">
-                          {g.title}
-                        </h3>
-                        <div className="mt-1 text-xs font-mono text-[#888E94]">
-                          {g.tag[locale]}
-                        </div>
-                      </div>
-
-                      <div className="lg:col-span-5 text-sm text-[#555B61] dark:text-[#B0A89E] leading-relaxed min-h-[2.75rem]">
-                        ─── {g.note[locale]}
-                      </div>
-
-                      <div className="lg:col-span-1 flex justify-end">
-                        <ArrowRight className="w-4 h-4 text-[#888E94] group-hover:text-[#C84B31] group-hover:translate-x-1 transition-all" />
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* =========================================================
-                CLOSING NOTE (#ending)
-                (Inspired by haru2401game.github.io/portfolio/#ending)
+                CREDITS (#ending)
                ========================================================= */}
             <EndingCreditsSection
               locale={locale}
@@ -1824,7 +1096,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Floating Editorial 'Back to Top' Button — Appears after scrolling past Page 2 (#main-menu) */}
+      {/* Floating Editorial 'Back to Top' Button — Appears after scrolling past the cover */}
       <AnimatePresence>
         {showBackToTop && (
           <motion.button
@@ -1844,7 +1116,7 @@ export default function App() {
             onMouseEnter={() => soundFX.playBlip(660)}
             onClick={() => {
               soundFX.playSelect();
-              setActiveNavSection('main-menu');
+              setActiveNavSection('');
               animateSpringScrollTo(0);
             }}
             aria-label={
@@ -1861,9 +1133,9 @@ export default function App() {
                 ? '返回顶部 (Back to Top)'
                 : 'Back to Top'
             }
-            className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40 group flex items-center gap-2.5 px-4 py-3 bg-[#181A1C] dark:bg-[#F2EFE9] text-[#F7F6F2] dark:text-[#131210] border border-[#181A1C] dark:border-[#F2EFE9] hover:bg-[#C84B31] hover:border-[#C84B31] dark:hover:bg-[#E57052] dark:hover:border-[#E57052] dark:hover:text-white shadow-lg cursor-pointer select-none"
+            className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-40 group flex items-center gap-2.5 px-4 py-3 bg-[var(--c-ink)] dark:bg-[var(--c-ink)] text-[var(--c-bg)] dark:text-[var(--c-bg)] border border-[var(--c-ink)] dark:border-[var(--c-ink)] hover:bg-[var(--c-accent)] hover:border-[var(--c-accent)] dark:hover:bg-[var(--c-accent)] dark:hover:border-[var(--c-accent)] dark:hover:text-white shadow-lg cursor-pointer select-none"
           >
-            <ArrowUp className="w-4 h-4 text-[#E57052] dark:text-[#C84B31] group-hover:text-white transition-transform duration-200 group-hover:-translate-y-0.5" />
+            <ArrowUp className="w-4 h-4 text-[var(--c-accent)] dark:text-[var(--c-accent)] group-hover:text-white transition-transform duration-200 group-hover:-translate-y-0.5" />
             <span className="text-xs font-mono tracking-[0.18em] whitespace-nowrap">
               {locale === 'ja' ? 'TOP · 巻頭へ' : locale === 'zh' ? 'TOP · 返回卷首' : 'BACK TO TOP'}
             </span>
@@ -1872,7 +1144,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* Editorial Colophon Footer (奥付 / COLOPHON) */}
-      <footer className="relative z-10 py-12 border-t border-[#E2E0D8] dark:border-[#2E2924] text-xs text-[#888E94]">
+      <footer className="relative z-10 py-12 border-t border-[var(--c-rule)] dark:border-[var(--c-rule)] text-xs text-[var(--c-ink-3)]">
         <div className="max-w-6xl mx-auto px-6 sm:px-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="font-mono tracking-wider">
             COLOPHON // © {new Date().getFullYear()} {c.name} · OFFICIAL GAME DESIGN WORKS
@@ -1881,7 +1153,7 @@ export default function App() {
             href={`https://github.com/${GITHUB_USERNAME}`}
             target="_blank"
             rel="noreferrer"
-            className="font-mono hover:text-[#C84B31] dark:hover:text-[#E57052] transition-colors"
+            className="font-mono hover:text-[var(--c-accent)] dark:hover:text-[var(--c-accent)] transition-colors"
           >
             GitHub · {GITHUB_USERNAME}
           </a>
